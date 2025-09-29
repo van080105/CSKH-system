@@ -1,4 +1,7 @@
 # 🚀 CSKH-system  
+<!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
+[![All Contributors](https://img.shields.io/badge/all_contributors-1-orange.svg?style=flat-square)](#contributors-)
+<!-- ALL-CONTRIBUTORS-BADGE:END -->
 **Hệ thống Hỗ trợ Tư vấn & Chăm sóc Khách hàng cho Doanh nghiệp (Bán hàng)**  
 
 [![Status](https://img.shields.io/badge/status-developing-brightgreen)]()  
@@ -22,12 +25,60 @@ Hệ thống giúp tăng trải nghiệm khách hàng, rút ngắn thời gian p
 
 ---
 
-## 🏗️ Kiến trúc hệ thống
+## 🏗️ Tech Stack
 
-- **Frontend**: ReactJS / NextJS  
-- **Backend**: Node.js
+- **Frontend**: React + Vite + TailwindCSS
+- **Backend**: Node.js(Express) + REST-API
 - **Database**: SQL Server 
-- **AI**: RAG  
+- **Chatbot**: Retrieval-Augmented Generation (RAG)  
+- **DevOps**: GitHub Actions + CI/CD
+---
+
+## 🏗️ Kiến trúc hệ thống
+```mermaid
+graph TD;
+  Client[Frontend - React + Vite + TailwindCSS] --> API[Backend - Node.js(Express) + REST API]
+  API --> DB[(SQL Server)]
+  API --> AI[RAG Chatbot Engine]
+  DB --> CRM[(CRM Module)]
+```
+
+---
+## 🏆 Leaderboard Đóng Góp
+
+🔥 Cùng nhau đua TOP để hệ thống ngày càng xịn hơn!  
+*(Dữ liệu sẽ tự động cập nhật sau khi nhiều contributors tham gia)*  
+
+<!-- GITCONTRIBUTOR_START -->
+| Rank | Contributor | Commits | PRs | Issues |
+|------|-------------|---------|-----|--------|
+| 🥇   | [@ThienNguyen666](https://github.com/ThienNguyen666) | 12 | 3 | 1 |
+| 🥈   | [@van080105](https://github.com/van080105) | 8 | 2  | 1 |
+
+<!-- GITCONTRIBUTOR_END -->
+
+---
+
+## 👨‍💻 Contributors
+
+Cảm ơn những người đã đóng góp! 💚  
+*(Quản lý bằng [all-contributors](https://allcontributors.org))*  
+
+<!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
+<!-- prettier-ignore-start -->
+<!-- markdownlint-disable -->
+<table>
+  <tbody>
+    <tr>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/van080105"><img src="https://avatars.githubusercontent.com/u/206056520?v=4?s=100" width="100px;" alt="van080105"/><br /><sub><b>van080105</b></sub></a><br /><a href="https://github.com/van080105/CSKH-system/commits?author=van080105" title="Code">💻</a> <a href="https://github.com/van080105/CSKH-system/commits?author=van080105" title="Documentation">📖</a></td>
+    </tr>
+  </tbody>
+</table>
+
+<!-- markdownlint-restore -->
+<!-- prettier-ignore-end -->
+
+<!-- ALL-CONTRIBUTORS-LIST:END -->
 
 ---
 
@@ -71,8 +122,21 @@ Dự án được phân phối theo giấy phép MIT.
 Xem chi tiết tại file LICENSE
 
 ## Thông tin liên lạc
-- 🌍 Website: 
+- 🌍 Website: đang cập nhật...
 
-- 📧 Email: 
+- 📧 Email: đang cập nhật...
 
-- 💬 Hotline: 
+- 💬 Hotline: đang cập nhật...
+
+## Contributors ✨
+
+Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
+
+<!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
+<!-- prettier-ignore-start -->
+<!-- markdownlint-disable -->
+<!-- markdownlint-restore -->
+<!-- prettier-ignore-end -->
+<!-- ALL-CONTRIBUTORS-LIST:END -->
+
+This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind welcome!
