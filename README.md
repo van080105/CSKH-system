@@ -1,8 +1,8 @@
 # 🚀 CSKH-system  
+**Hệ thống Hỗ trợ Tư vấn & Chăm sóc Khách hàng cho Doanh nghiệp (Bán hàng)**  
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
 [![All Contributors](https://img.shields.io/badge/all_contributors-2-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
-**Hệ thống Hỗ trợ Tư vấn & Chăm sóc Khách hàng cho Doanh nghiệp (Bán hàng)**  
 
 [![Status](https://img.shields.io/badge/status-developing-brightgreen)]()  
 [![Made with ❤️](https://img.shields.io/badge/made%20with-❤️-ff69b4)]()  
@@ -25,7 +25,7 @@ Hệ thống giúp tăng trải nghiệm khách hàng, rút ngắn thời gian p
 
 ---
 
-## 🏗️ Tech Stack
+## 🚀 Tech Stack
 
 - **Frontend**: React + Vite + TailwindCSS
 - **Backend**: Node.js(Express) + REST-API
@@ -37,7 +37,7 @@ Hệ thống giúp tăng trải nghiệm khách hàng, rút ngắn thời gian p
 ## 🏗️ Kiến trúc hệ thống
 ```mermaid
 graph TD;
-  Client[Frontend - React + Vite + TailwindCSS] --> API[Backend - Node.js(Express) + REST API]
+  Client[Frontend - React + Vite + TailwindCSS] --> API[Backend - Node.js + REST API]
   API --> DB[(SQL Server)]
   API --> AI[RAG Chatbot Engine]
   DB --> CRM[(CRM Module)]
@@ -50,14 +50,10 @@ graph TD;
 *(Dữ liệu sẽ tự động cập nhật sau khi nhiều contributors tham gia)*  
 
 <!-- GITCONTRIBUTOR_START -->
-
-## Contributors
-
-|[<img src="https://avatars.githubusercontent.com/u/174235441?v=4" width="100px;"/><br/><sub><b>ThienNguyen666</b></sub>](https://github.com/ThienNguyen666)<br/>|
-| :---: |
-
-
-This project follows the git-contributor [spec](https://github.com/xudafeng/git-contributor), auto updated at `Mon Sep 29 2025 21:18:16 GMT+0700`.
+| Rank | Contributor | Commits | PRs | Issues |
+|------|-------------|---------|-----|--------|
+| 🥇   | [@ThienNguyen666](https://github.com/ThienNguyen666) | 12 | 3 | 1 |
+| 🥈   | [@van080105](https://github.com/van080105) | 8 | 2  | 1 |
 
 <!-- GITCONTRIBUTOR_END -->
 
@@ -132,16 +128,3 @@ Xem chi tiết tại file LICENSE
 - 📧 Email: đang cập nhật...
 
 - 💬 Hotline: đang cập nhật...
-
-## Contributors ✨
-
-Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
-
-<!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
-<!-- prettier-ignore-start -->
-<!-- markdownlint-disable -->
-<!-- markdownlint-restore -->
-<!-- prettier-ignore-end -->
-<!-- ALL-CONTRIBUTORS-LIST:END -->
-
-This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind welcome!
