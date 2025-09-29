@@ -51,28 +51,28 @@ cp .env.example .env
 
 # Chạy hệ thống
 npm run dev
+```
+---
+## 📊 Roadmap
+- Hệ thống Chatbot cơ bản
+- Live chat cho nhân viên CSKH
+- Tích hợp CRM nâng cao
+- AI gợi ý kịch bản tư vấn thông minh
+- Tích hợp thêm kênh (Zalo OA, Email Marketing, SMS)
+  
+---
 
-📊 Roadmap
-
- Hệ thống Chatbot cơ bản
-
- Live chat cho nhân viên CSKH
-
- Tích hợp CRM nâng cao
-
- AI gợi ý kịch bản tư vấn thông minh
-
- Tích hợp thêm kênh (Zalo OA, Email Marketing, SMS)
-
-🤝 Đóng góp
-
+## 🤝 Đóng góp
 Mọi ý tưởng, tính năng mới hoặc báo lỗi đều được chào đón!
-Vui lòng mở Issue hoặc tạo Pull Request.
+Vui lòng tạo Pull Request.
 
-📜 Giấy phép
-.
-🌍 Website: 
+## 📜 Giấy phép
+Dự án được phân phối theo giấy phép MIT.
+Xem chi tiết tại file LICENSE
 
-📧 Email: 
+## Thông tin liên lạc
+- 🌍 Website: 
 
-💬 Hotline: 
+- 📧 Email: 
+
+- 💬 Hotline: 
