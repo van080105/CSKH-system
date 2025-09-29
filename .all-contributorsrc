@@ -19,6 +19,16 @@
         "code",
         "doc"
       ]
+    },
+    {
+      "login": "ThienNguyen666",
+      "name": "Nguyễn Chí Thiện",
+      "avatar_url": "https://avatars.githubusercontent.com/u/174235441?v=4",
+      "profile": "https://github.com/ThienNguyen666",
+      "contributions": [
+        "code",
+        "doc"
+      ]
     }
   ],
   "contributorsPerLine": 7,
