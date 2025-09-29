@@ -5,6 +5,7 @@
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 [![Status](https://img.shields.io/badge/status-developing-brightgreen)]()  
 [![Made with ❤️](https://img.shields.io/badge/made%20with-❤️-ff69b4)]()  
+![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)
 
 ---
 
@@ -119,7 +120,7 @@ Vui lòng tạo Pull Request.
 
 ## 📜 Giấy phép
 Dự án được phân phối theo giấy phép MIT.
-Xem chi tiết tại file LICENSE
+Xem chi tiết tại file [LICENSE](./LICENSE)
 
 ## Thông tin liên lạc
 - 🌍 Website: đang cập nhật...
