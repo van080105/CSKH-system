@@ -1,0 +1,9 @@
+{
+  "devDependencies": {
+    "git-contributor": "^2.1.5"
+  },
+  "scripts": {
+    "contrib": "git-contributor"
+  }
+
+}

@@ -50,10 +50,14 @@ graph TD;
 *(Dữ liệu sẽ tự động cập nhật sau khi nhiều contributors tham gia)*  
 
 <!-- GITCONTRIBUTOR_START -->
-| Rank | Contributor | Commits | PRs | Issues |
-|------|-------------|---------|-----|--------|
-| 🥇   | [@ThienNguyen666](https://github.com/ThienNguyen666) | 12 | 3 | 1 |
-| 🥈   | [@van080105](https://github.com/van080105) | 8 | 2  | 1 |
+
+## Contributors
+
+|[<img src="https://avatars.githubusercontent.com/u/174235441?v=4" width="100px;"/><br/><sub><b>ThienNguyen666</b></sub>](https://github.com/ThienNguyen666)<br/>|
+| :---: |
+
+
+This project follows the git-contributor [spec](https://github.com/xudafeng/git-contributor), auto updated at `Mon Sep 29 2025 21:18:16 GMT+0700`.
 
 <!-- GITCONTRIBUTOR_END -->
 
