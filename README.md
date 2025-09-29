@@ -2,7 +2,6 @@
 **Hệ thống Hỗ trợ Tư vấn & Chăm sóc Khách hàng cho Doanh nghiệp (Bán hàng)**  
 
 [![Status](https://img.shields.io/badge/status-developing-brightgreen)]()  
-[![License](https://img.shields.io/badge/license-MIT-blue)]()  
 [![Made with ❤️](https://img.shields.io/badge/made%20with-❤️-ff69b4)]()  
 
 ---
