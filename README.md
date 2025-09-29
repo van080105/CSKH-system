@@ -40,7 +40,7 @@ Hệ thống giúp tăng trải nghiệm khách hàng, rút ngắn thời gian p
 ### Cài đặt nhanh
 ```bash
 # Clone dự án
-git clone https://github.com/<your-org>/CSKH-system.git
+git clone https://github.com/van080105/CSKH-system.git
 cd CSKH-system
 
 # Cài đặt dependencies
