@@ -4,6 +4,9 @@
   },
   "scripts": {
     "contrib": "git-contributor"
+  },
+  "git-contributor": {
+    "files": ["README.md"],
+    "showAutoTip": false
   }
-
 }
