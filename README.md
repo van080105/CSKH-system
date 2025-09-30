@@ -1,7 +1,7 @@
 # 🚀 CSKH-system  
 **Hệ thống Hỗ trợ Tư vấn & Chăm sóc Khách hàng cho Doanh nghiệp (Bán hàng)**  
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-2-orange.svg?style=flat-square)](#contributors-)
+[![All Contributors](https://img.shields.io/badge/all_contributors-3-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 [![Status](https://img.shields.io/badge/status-developing-brightgreen)]()  
 [![Made with ❤️](https://img.shields.io/badge/made%20with-❤️-ff69b4)]()  
@@ -72,6 +72,7 @@ Cảm ơn những người đã đóng góp! 💚
     <tr>
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/van080105"><img src="https://avatars.githubusercontent.com/u/206056520?v=4?s=100" width="100px;" alt="van080105"/><br /><sub><b>van080105</b></sub></a><br /><a href="https://github.com/van080105/CSKH-system/commits?author=van080105" title="Code">💻</a> <a href="https://github.com/van080105/CSKH-system/commits?author=van080105" title="Documentation">📖</a></td>
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/ThienNguyen666"><img src="https://avatars.githubusercontent.com/u/174235441?v=4?s=100" width="100px;" alt="Nguyễn Chí Thiện"/><br /><sub><b>Nguyễn Chí Thiện</b></sub></a><br /><a href="https://github.com/van080105/CSKH-system/commits?author=ThienNguyen666" title="Code">💻</a> <a href="https://github.com/van080105/CSKH-system/commits?author=ThienNguyen666" title="Documentation">📖</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/kimquyhuynh2005"><img src="https://avatars.githubusercontent.com/u/139194850?v=4?s=100" width="100px;" alt="kimquyhuynh2005"/><br /><sub><b>kimquyhuynh2005</b></sub></a><br /><a href="https://github.com/van080105/CSKH-system/commits?author=kimquyhuynh2005" title="Code">💻</a></td>
     </tr>
   </tbody>
 </table>
