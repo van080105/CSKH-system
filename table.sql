@@ -64,7 +64,7 @@ CREATE TABLE FeedbackForm (
 );
 -- Bảng Receiver
 CREATE TABLE Receiver (
-    ReceiverID INT PRIMARY KEY
+    ReceiverID VARCHAR(5) PRIMARY KEY
 );
 
 -- Bảng Message
@@ -95,7 +95,7 @@ CREATE TABLE CustomerCreate(
 -- Bảng Agent
 CREATE TABLE Agent (
     AgentID INT PRIMARY KEY,
-    ReceiverID INT,
+    ReceiverID VARCHAR(5),
     Status NVARCHAR(50),
     ResponsibleField NVARCHAR(100),
     FOREIGN KEY (AgentID) REFERENCES Account(ID),
@@ -123,7 +123,7 @@ CREATE TABLE Assign (
 -- Bảng Chatbot
 CREATE TABLE Chatbot (
     Vers NVARCHAR(50) PRIMARY KEY,
-    ReceiverID INT,
+    ReceiverID VARCHAR(5),
     FOREIGN KEY (ReceiverID) REFERENCES Receiver(ReceiverID)
 );
 
