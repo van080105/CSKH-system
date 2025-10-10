@@ -207,3 +207,4 @@ CREATE TABLE Classify (
 
 );
 
+--DROP DATABASE CSKH;
