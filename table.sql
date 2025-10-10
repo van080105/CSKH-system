@@ -1,4 +1,4 @@
-﻿CREATE DATABASE CSKH
+CREATE DATABASE CSKH
 GO
 USE CSKH
 GO
@@ -13,10 +13,10 @@ CREATE TABLE Notification (
 -- Bảng Account
 CREATE TABLE Account (
     ID INT PRIMARY KEY,
-    Password NVARCHAR(100) NOT NULL,
+    PasswordAcc NVARCHAR(100) NOT NULL,
     Email NVARCHAR(100) NOT NULL,
     Fullname NVARCHAR(100) NOT NULL,
-    Address NVARCHAR(200)
+    AddressAcc NVARCHAR(200)
 );
 
 -- Bảng ReceiveNotification
@@ -46,7 +46,7 @@ CREATE TABLE Form (
     FormID INT PRIMARY KEY,
     Title NVARCHAR(100) NOT NULL,
     Content NVARCHAR(255) NOT NULL,
-    Status NVARCHAR(50),
+    Stt NVARCHAR(50),
     Typ NVARCHAR(50),
     SentDate DATETIME
 );
@@ -96,7 +96,7 @@ CREATE TABLE CustomerCreate(
 CREATE TABLE Agent (
     AgentID INT PRIMARY KEY,
     ReceiverID VARCHAR(5),
-    Status NVARCHAR(50),
+    Stt NVARCHAR(50),
     ResponsibleField NVARCHAR(100),
     FOREIGN KEY (AgentID) REFERENCES Account(ID),
 	FOREIGN KEY (ReceiverID) REFERENCES Receiver(ReceiverID)
@@ -206,3 +206,4 @@ CREATE TABLE Classify (
 	FOREIGN KEY (TableID) REFERENCES ClassifyTable(TableID)
 
 );
+
