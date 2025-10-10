@@ -6,16 +6,16 @@ GO
 -- Bảng Notification
 CREATE TABLE Notification (
     NoID INT PRIMARY KEY,
-    Content NVARCHAR(255),
+    Content NVARCHAR(255) NOT NULL,
     SentDate DATETIME
 );
 
 -- Bảng Account
 CREATE TABLE Account (
     ID INT PRIMARY KEY,
-    Password NVARCHAR(100),
-    Email NVARCHAR(100),
-    Fullname NVARCHAR(100),
+    Password NVARCHAR(100) NOT NULL,
+    Email NVARCHAR(100) NOT NULL,
+    Fullname NVARCHAR(100) NOT NULL,
     Address NVARCHAR(200)
 );
 
@@ -44,8 +44,8 @@ CREATE TABLE Customer (
 -- Bảng Form
 CREATE TABLE Form (
     FormID INT PRIMARY KEY,
-    Title NVARCHAR(100),
-    Content NVARCHAR(255),
+    Title NVARCHAR(100) NOT NULL,
+    Content NVARCHAR(255) NOT NULL,
     Status NVARCHAR(50),
     Typ NVARCHAR(50),
     SentDate DATETIME
@@ -70,9 +70,9 @@ CREATE TABLE Receiver (
 -- Bảng Message
 CREATE TABLE Message1 (
     ID INT PRIMARY KEY,
-    Content NVARCHAR(255),
+    Content NVARCHAR(255) NOT NULL,
     SentDate DATETIME,
-    ReceiverID VARCHAR(5),
+    ReceiverID VARCHAR(5) NOT NULL,
     FOREIGN KEY (ReceiverID) REFERENCES Receiver(ReceiverID)
 );
 
@@ -138,7 +138,7 @@ CREATE TABLE FeedbackChatbot (
 -- Bảng Order
 CREATE TABLE Orders (
     OrderID INT PRIMARY KEY,
-    CustomerID INT,
+    CustomerID INT NOT NULL,
     OrderDate DATETIME,
     Status NVARCHAR(50),
     DeliveryAddress NVARCHAR(200),
@@ -148,8 +148,8 @@ CREATE TABLE Orders (
 -- Bảng OrderItem
 CREATE TABLE OrderItem (
     OrderItemID INT PRIMARY KEY,
-    OrderID INT,
-    Quantity INT,
+    OrderID INT NOT NULL,
+    Quantity INT NOT NULL,
     ProductName NVARCHAR(100),
     UnitPrice DECIMAL(10,2),
     FOREIGN KEY (OrderID) REFERENCES Orders(OrderID)
