@@ -54,7 +54,7 @@ CREATE TABLE Form (
 -- Bảng FeedbackForm
 CREATE TABLE FeedbackForm (
     FormID INT PRIMARY KEY,
-    CustomerID INT UNIQUE,
+    CustomerID INT,
     Rating INT,
     Content NVARCHAR(255),
     SentDate DATETIME,
@@ -72,7 +72,7 @@ CREATE TABLE Message1 (
     ID INT PRIMARY KEY,
     Content NVARCHAR(255),
     SentDate DATETIME,
-    ReceiverID INT,
+    ReceiverID VARCHAR(5),
     FOREIGN KEY (ReceiverID) REFERENCES Receiver(ReceiverID)
 );
 
