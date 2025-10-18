@@ -1,0 +1,87 @@
+@import "tailwindcss";
+
+@keyframes slide-up {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.animate-slide-up {
+  animation: slide-up 0.3s ease-out;
+}
+
+.faq-container {
+  width: 600px;
+  margin: auto;
+  font-family: Arial, sans-serif;
+}
+
+.faq-buttons {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.faq-buttons .add {
+  background-color: #007bff;
+  color: white;
+}
+
+.faq-buttons .edit {
+  background-color: #ffc107;
+  color: black;
+}
+
+.faq-buttons .cancel {
+  background-color: #6c757d;
+  color: white;
+}
+
+.faq-buttons button {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.faq-form input,
+.faq-form textarea {
+  width: 100%;
+  padding: 8px;
+  margin: 5px 0;
+  box-sizing: border-box;
+}
+
+.faq-list {
+  margin-top: 20px;
+}
+
+.faq-item {
+  border-bottom: 1px solid #ddd;
+  padding: 10px 0;
+}
+
+.faq-question {
+  display: flex;
+  justify-content: space-between;
+  cursor: pointer;
+}
+
+.faq-answer {
+  margin-top: 10px;
+  color: #333;
+}
+
+.faq-actions {
+  margin-top: 5px;
+}
+
+.faq-actions button {
+  margin-right: 10px;
+  padding: 4px 10px;
+  font-size: 14px;
+}
