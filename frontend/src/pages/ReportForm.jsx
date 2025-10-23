@@ -91,31 +91,31 @@ export function ReportForm({ onClose }) {
 
       <div
         ref={reportRef}
-        className={`relative z-10 bg-white rounded-lg shadow-xl max-w-6xl w-full max-h-[90vh] overflow-y-auto p-8 transition-all duration-300 transform ${visible ? "translate-y-0 opacity-100" : "translate-y-8 opacity-0"}`}
+        className={`relative z-10 bg-white dark:bg-gray-900 rounded-lg shadow-xl max-w-6xl w-full max-h-[90vh] overflow-y-auto p-8 transition-all duration-300 transform ${visible ? "translate-y-0 opacity-100" : "translate-y-8 opacity-0"}`}
       >
         <button
           onClick={handleClose}
-          className="absolute top-4 right-4 text-gray-400 hover:text-black text-2xl"
+          className="absolute top-4 right-4 text-gray-400 dark:text-gray-500 hover:text-black dark:hover:text-white text-2xl"
         >
           &times;
         </button>
 
         <div className="mb-8 text-center mt-4">
-          <h1 className="text-3xl font-bold text-gray-900 mb-2">
+          <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-2">
             MOCK<span className="text-blue-600">STACK</span>
           </h1>
-          <p className="text-gray-600">
+          <p className="text-gray-600 dark:text-gray-400">
             Số 1 Nguyễn Đình Chiểu, Phường Sài Gòn,<br />TP.HCM
           </p>
         </div>
 
-        <div className="mb-8 border-t-2 border-gray-300" />
+        <div className="mb-8 border-t-2 border-gray-300 dark:border-gray-700" />
 
         <div className="mb-8 flex gap-4">
           <select
             value={year}
             onChange={(e) => setYear(e.target.value)}
-            className="border border-gray-300 px-4 py-2 rounded"
+            className="border border-gray-300 dark:border-gray-600 dark:bg-gray-800 dark:text-white px-4 py-2 rounded"
           >
             <option>Năm</option>
             <option>2024</option>
@@ -124,61 +124,80 @@ export function ReportForm({ onClose }) {
           <select
             value={staff}
             onChange={(e) => setStaff(e.target.value)}
-            className="border border-gray-300 px-4 py-2 rounded"
+            className="border border-gray-300 dark:border-gray-600 dark:bg-gray-800 dark:text-white px-4 py-2 rounded"
           >
             <option>Nhân viên</option>
           </select>
           <select
             value={area}
             onChange={(e) => setArea(e.target.value)}
-            className="border border-gray-300 px-4 py-2 rounded"
+            className="border border-gray-300 dark:border-gray-600 dark:bg-gray-800 dark:text-white px-4 py-2 rounded"
           >
             <option>Khu vực</option>
           </select>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          <div className="border border-gray-200 p-6 rounded">
-            <h3 className="text-xl font-bold text-gray-900 mb-4">TICKETS</h3>
-            <p className="text-gray-600 mb-2">Tổng ticket</p>
-            <p className="text-3xl font-bold text-gray-900 mb-2">22,192 tickets</p>
+          {/* TICKETS */}
+          <div className="border border-gray-200 dark:border-gray-700 p-6 rounded dark:bg-gray-800">
+            <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-4">TICKETS</h3>
+            <p className="text-gray-600 dark:text-gray-400 mb-2">Tổng ticket</p>
+            <p className="text-3xl font-bold text-gray-900 dark:text-white mb-2">22,192 tickets</p>
             <p className="text-sm text-green-600 mb-4">↑ 37.8% so với 8/9/2025</p>
             <div ref={ticketsChartRef}>
               <ResponsiveContainer width="100%" height={200}>
                 <LineChart data={chartData}>
-                  <CartesianGrid strokeDasharray="3 3" />
-                  <XAxis dataKey="name" />
-                  <YAxis />
-                  <Tooltip />
+                  <CartesianGrid strokeDasharray="3 3" stroke="#555" />
+                  <XAxis dataKey="name" stroke="#ccc" fontSize={12} />
+                  <YAxis stroke="#ccc" fontSize={12} />
+                  <Tooltip
+                    contentStyle={{
+                      backgroundColor: "#1f2937", // dark bg
+                      color: "#fff",
+                      borderRadius: "6px",
+                      border: "none"
+                    }}
+                    labelStyle={{ color: "#9ca3af" }}
+                  />
                   <Line type="monotone" dataKey="ticketData2025" stroke="#3B82F6" />
                   <Line type="monotone" dataKey="ticketData2024" stroke="#FCA5A5" strokeDasharray="5 5" />
                 </LineChart>
               </ResponsiveContainer>
             </div>
-            <p className="text-xs text-gray-500 mt-4">1/1-31/11, 2025</p>
+            <p className="text-xs text-gray-500 dark:text-gray-400 mt-4">1/1-31/11, 2025</p>
           </div>
 
-          <div className="border border-gray-200 p-6 rounded">
-            <h3 className="text-xl font-bold text-gray-900 mb-4">MỨC ĐỘ HÀI LÒNG</h3>
-            <p className="text-gray-600 mb-2">Mức độ hài lòng của khách</p>
-            <p className="text-3xl font-bold text-gray-900 mb-2">89.31 %</p>
+          {/* SATISFACTION */}
+          <div className="border border-gray-200 dark:border-gray-700 p-6 rounded dark:bg-gray-800">
+            <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-4">MỨC ĐỘ HÀI LÒNG</h3>
+            <p className="text-gray-600 dark:text-gray-400 mb-2">Mức độ hài lòng của khách</p>
+            <p className="text-3xl font-bold text-gray-900 dark:text-white mb-2">89.31 %</p>
             <p className="text-sm text-green-600 mb-4">↑ 3.6% so với 8/9/2025</p>
             <div ref={satisfactionChartRef}>
               <ResponsiveContainer width="100%" height={200}>
                 <LineChart data={chartData}>
-                  <CartesianGrid strokeDasharray="3 3" />
-                  <XAxis dataKey="name" />
-                  <YAxis />
-                  <Tooltip />
+                  <CartesianGrid strokeDasharray="3 3" stroke="#555" />
+                  <XAxis dataKey="name" stroke="#ccc" fontSize={12} />
+                  <YAxis stroke="#ccc" fontSize={12} />
+                  <Tooltip
+                    contentStyle={{
+                      backgroundColor: "#1f2937",
+                      color: "#fff",
+                      borderRadius: "6px",
+                      border: "none"
+                    }}
+                    labelStyle={{ color: "#9ca3af" }}
+                  />
                   <Line type="monotone" dataKey="satisfactionData2025" stroke="#3B82F6" />
                   <Line type="monotone" dataKey="satisfactionData2024" stroke="#FCA5A5" strokeDasharray="5 5" />
                 </LineChart>
               </ResponsiveContainer>
             </div>
-            <p className="text-xs text-gray-500 mt-4">1/1-31/11, 2025</p>
+            <p className="text-xs text-gray-500 dark:text-gray-400 mt-4">1/1-31/11, 2025</p>
           </div>
         </div>
 
+        {/* BUTTONS */}
         <div className="mt-8 flex justify-end gap-4">
           <PDFDownloadLink
             document={
@@ -206,7 +225,6 @@ export function ReportForm({ onClose }) {
           >
             Tải báo cáo Excel
           </button>
-
         </div>
       </div>
     </div>

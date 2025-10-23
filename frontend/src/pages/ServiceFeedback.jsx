@@ -2,10 +2,12 @@
 
 import { useState } from "react"
 import { ChevronLeft, Paperclip, Smile, Link2, AtSign, Hash } from "lucide-react"
+import { MoodSlider } from "../components/MoodSlider"
+import { StarRating } from "../components/StarRating"
 
 export function ServiceFeedback() {
   const [satisfaction, setSatisfaction] = useState(3)
-  const [rating, setRating] = useState(4)
+  const [rating, setRating] = useState(3)
   const [feedback, setFeedback] = useState("")
   const [ticketId, setTicketId] = useState("")
 
@@ -116,16 +118,11 @@ export function ServiceFeedback() {
                 Quý khách cảm thấy hài lòng với phản hồi trên của chúng tôi đến mức nào ?{" "}
                 <span className="text-red-500">*</span>
               </label>
+
               <div className="flex items-center gap-4">
-                <input
-                  type="range"
-                  min="0"
-                  max="5"
-                  value={satisfaction}
-                  onChange={(e) => setSatisfaction(Number(e.target.value))}
-                  className="flex-1 h-2 bg-blue-500 rounded-lg appearance-none cursor-pointer"
-                />
+                <MoodSlider value={satisfaction} onChange={setSatisfaction} />      
               </div>
+
               <div className="mt-2 flex justify-between text-sm text-gray-600">
                 <span>0</span>
                 <span>1</span>
@@ -142,16 +139,7 @@ export function ServiceFeedback() {
                 Quý khách có sẵn lòng giới thiệu dịch vụ của chúng tôi đến người khác không?
               </label>
               <div className="flex gap-2">
-                {[1, 2, 3, 4, 5].map((star) => (
-                  <button
-                    key={star}
-                    type="button"
-                    onClick={() => setRating(star)}
-                    className={`text-3xl ${star <= rating ? "text-yellow-400" : "text-gray-300"}`}
-                  >
-                    ★
-                  </button>
-                ))}
+                <StarRating value={rating} onChange={setRating} />
               </div>
             </div>
 

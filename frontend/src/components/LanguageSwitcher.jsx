@@ -30,7 +30,7 @@ export function LanguageSwitcher() {
     <div className="relative" ref={langRef}>
       <button
         onClick={() => setOpen((prev) => !prev)}
-        className="flex items-center gap-2 px-2 py-1.5 hover:bg-gray-100 rounded-lg"
+        className="flex items-center gap-2 px-2 py-1.5 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg text-gray-700 dark:text-gray-200"
       >
         <img src={flagSrc} alt={currentLang} className="h-4 w-6 object-cover rounded" />
         <span className="text-sm">{currentLang}</span>
@@ -38,16 +38,16 @@ export function LanguageSwitcher() {
       </button>
 
       {open && (
-        <div className="absolute right-0 mt-2 bg-white shadow-md border rounded-lg w-36 z-50">
+        <div className="absolute right-0 mt-2 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 shadow-md rounded-lg w-36 z-50">
           <button
             onClick={() => changeLang("vi")}
-            className="w-full text-left px-4 py-2 hover:bg-gray-100 text-sm"
+            className="w-full text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-800 text-sm text-gray-700 dark:text-gray-200"
           >
             🇻🇳 Tiếng Việt
           </button>
           <button
             onClick={() => changeLang("en")}
-            className="w-full text-left px-4 py-2 hover:bg-gray-100 text-sm"
+            className="w-full text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-800 text-sm text-gray-700 dark:text-gray-200"
           >
             🇬🇧 English
           </button>

@@ -11,6 +11,7 @@ export function SignUp() {
     name: "",
     email: "",
     password: "",
+    role: "guest",
   })
 
   const handleChange = (e) => {
@@ -20,14 +21,40 @@ export function SignUp() {
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    console.log("Sign up:", formData)
-    navigate("/")
+
+    const newUserAdmin = {
+      ...formData,
+      role: "admin", 
+    }
+
+    const newUserCustomer = {
+      ...formData,
+      role: "customer",
+    }
+
+    const newUserAgent = {
+      ...formData,
+      role: "agent", 
+    }
+
+    // Lưu thông tin người dùng vào localStorage
+    localStorage.removeItem("user")
+    localStorage.setItem("user", JSON.stringify(newUserCustomer))
+    console.log("New account created:", newUserCustomer)
+
+    // Điều hướng đến trang chính hoặc dashboard
+    navigate("/signin")
   }
 
   return (
     <div className="flex h-screen">
       {/* Left gradient sidebar */}
-      <div className="hidden w-1/2 bg-gradient-to-b from-blue-900 via-purple-900 to-purple-800 lg:block" />
+      <div 
+        className="hidden w-1/2 lg:block" 
+        style={{ 
+          background: 'linear-gradient(to right, #59599B 0%, #24243E 59%, #0F0C29 100%)' 
+        }} 
+      />
 
       {/* Right content */}
       <div className="flex w-full flex-col justify-center px-8 lg:w-1/2">
@@ -95,7 +122,7 @@ export function SignUp() {
               >
                 {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
               </button>
-              <span className="absolute right-12 top-3 text-xs text-gray-400">Hiển</span>
+              <span className="absolute right-12 top-3 text-xs text-gray-400">Hiện mật khẩu</span>
             </div>
 
             {/* Submit button */}

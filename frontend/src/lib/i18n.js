@@ -1,7 +1,8 @@
 import i18n from "i18next"
 import { initReactI18next } from "react-i18next"
+import LanguageDetector from "i18next-browser-languagedetector"
 
-i18n.use(initReactI18next).init({
+i18n.use(LanguageDetector).use(initReactI18next).init({
   resources: {
     vi: {
       translation: {
@@ -69,9 +70,36 @@ i18n.use(initReactI18next).init({
         personalInformation : "Thông tin cá nhân",
         settings : "Cài đặt",
         logOut : "Đăng xuất",
+        logIn : "Đăng nhập",
         FAQ: "Câu hỏi hay gặp",
         addReport : "Thêm báo cáo",
         delete : "Xóa",
+        changePassword : "Đổi mật khẩu",
+        changePasswordSafety : "Đảm bảo tài khoản của bạn được an toàn",
+        oldPassword : "Mật khẩu cũ",
+        newPassword : "Mật khẩu mới",
+        confirmNewPassword : "Xác nhận mật khẩu mới",
+        confirmChangePassword : "Xác nhận đổi mật khẩu",
+        hidePassword : "Ẩn mật khẩu",
+        showPassword : "Hiện mật khẩu",
+        passwordMinLength : "Mật khẩu phải có ít nhất 8 ki tự",
+        passwordsDontMatch : "Mật khẩu phải khớp với mật khẩu mới ở trên",
+        newPasswordSameAsOld : "Mật khẩu mới phải khác với mật khẩu cũ",
+        passwordRequired : "Mật khẩu không được để trống",
+        signUp : "Đăng ký",
+        signIn : "Đăng nhập",
+        productIntro : "Giới thiệu sản phẩm",
+        devTeam : "Đội ngũ phát triển",
+        teamMembers : "Các thành viên trong đội",
+        theme : "Giao diện",
+        dark : "Tối",
+        light : "Sáng",
+        language : "Ngôn ngữ",
+        productInfo : "Chi tiết sản phẩm",
+        products : "Các sản phẩm",
+        system : "Hệ thống",
+        turnOnNotification : "Bật thông báo",
+        manageAccount : "Quản lý tài khoản",
         // Thêm các key khác...
       },
     },
@@ -140,10 +168,38 @@ i18n.use(initReactI18next).init({
         personalInformation: "Profile", 
         settings : "Settings",
         logOut : "Log out",
+        logIn : "Log in",
         FAQ: "FAQ",       
         addReport : "Add a report",
         totalUsers : "Total users",
         delete : "Delete",
+        changePassword : "Change password",
+        changePasswordSafety : "Ensure your account's safety",
+        oldPassword : "Old password",
+        newPassword : "New password",
+        confirmNewPassword : "Confirm new password",
+        confirmChangePassword : "Confirm to change password",
+        hidePassword : "Hide password",
+        showPassword : "Show password",
+        passwordMinLength : "Password must have at least 8 characters",
+        passwordsDontMatch : "Passwords must match with the new one above",
+        newPasswordSameAsOld : "New password must be different from the old one",
+        passwordRequired : "Password is required",
+        signUp : "Sign up",
+        signIn : "Sign in",
+        productIntro : "Products introduction",
+        devTeam : "Development team",
+        teamMembers : "Team members",
+        theme : "Theme",
+        dark : "Dark",
+        light : "Light",
+        system : "System",
+        language : "Language",
+        productInfo : "Product Information",
+        products : "Products",
+        turnOnNotification : "Turn on notification",
+        turnOffNotification : "Turn off notification",
+        manageAccount : "Manage account",
         // Add more keys...
       },
     },
@@ -152,6 +208,10 @@ i18n.use(initReactI18next).init({
   fallbackLng: "vi",
   interpolation: {
     escapeValue: false,
+  },
+  detection: {
+    order: ["localStorage", "navigator"],
+    caches: ["localStorage"],
   },
 })
 

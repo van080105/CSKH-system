@@ -1,16 +1,16 @@
 "use client"
 
-import { useState } from "react"
 import { ChevronLeft } from "lucide-react"
-
+import { MoodSlider } from "../components/MoodSlider"
+import { StarRating } from "../components/StarRating"
+import { useState } from "react"
 export function ChatbotFeedback() {
   const [satisfaction, setSatisfaction] = useState(3)
   const [rating, setRating] = useState(0)
-  const [feedback, setFeedback] = useState("")
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    console.log({ satisfaction, rating, feedback })
+    console.log({ satisfaction, rating })
   }
 
   return (
@@ -104,22 +104,7 @@ export function ChatbotFeedback() {
                 <span className="text-red-500">*</span>
               </label>
               <div className="flex items-center gap-4">
-                <input
-                  type="range"
-                  min="0"
-                  max="5"
-                  value={satisfaction}
-                  onChange={(e) => setSatisfaction(Number(e.target.value))}
-                  className="flex-1 h-2 bg-blue-500 rounded-lg appearance-none cursor-pointer"
-                />
-              </div>
-              <div className="mt-2 flex justify-between text-sm text-gray-600">
-                <span>0</span>
-                <span>1</span>
-                <span>2</span>
-                <span>3</span>
-                <span>4</span>
-                <span>5</span>
+                <MoodSlider value={satisfaction} onChange={setSatisfaction} />
               </div>
             </div>
 
@@ -130,16 +115,7 @@ export function ChatbotFeedback() {
                 <span className="text-red-500">*</span>
               </label>
               <div className="flex gap-2">
-                {[1, 2, 3, 4, 5].map((star) => (
-                  <button
-                    key={star}
-                    type="button"
-                    onClick={() => setRating(star)}
-                    className={`text-3xl ${star <= rating ? "text-yellow-400" : "text-gray-300"}`}
-                  >
-                    ★
-                  </button>
-                ))}
+                <StarRating value={rating} onChange={setRating} />
               </div>
             </div>
 

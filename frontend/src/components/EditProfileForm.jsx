@@ -1,34 +1,50 @@
 import { useState, useEffect } from "react";
 
 const EditProfileForm = ({ onClose }) => {
-  // Tạo state cho từng trường
+  // State form
   const [fullName, setFullName] = useState("Nguyễn Văn A");
   const [email, setEmail] = useState("nguyenvana@gmail.com");
   const [phone, setPhone] = useState("0909123456");
   const [address, setAddress] = useState("Khu 1, phường 2, TP.HCM");
   const [role, setRole] = useState("admin");
 
+  // Hiển thị animation
   const [isVisible, setIsVisible] = useState(false);
-  useEffect(() => setIsVisible(true), []);
+  const [shouldRender, setShouldRender] = useState(true); // để giữ modal trong DOM
+
+  useEffect(() => {
+    setIsVisible(true); // khi mount, animation mở sẽ chạy
+  }, []);
+
+  // Gọi hàm đóng mượt
+  const handleClose = () => {
+    setIsVisible(false); // chạy animation đóng
+    setTimeout(() => {
+      setShouldRender(false); // sau khi animation xong, unrender
+      onClose(); // gọi callback của cha (ẩn modal)
+    }, 300); // duration khớp với tailwind: duration-300
+  };
+
+  if (!shouldRender) return null; // không render nữa sau animation
 
   return (
     <div className="fixed inset-0 flex justify-center items-center z-50">
       {/* Overlay */}
       <div
         className="absolute inset-0 bg-black/30 backdrop-blur-sm transition-all duration-300 ease-in-out"
-        onClick={onClose}
+        onClick={handleClose}
       ></div>
 
       {/* Form chỉnh sửa */}
       <div
-        className={`bg-white p-8 rounded-lg w-full max-w-4xl shadow-lg relative z-10 transition-all duration-500 transform ${
+        className={`bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 p-8 rounded-lg w-full max-w-4xl shadow-lg relative z-10 transition-all duration-300 transform ${
           isVisible ? "translate-y-0 opacity-100" : "translate-y-10 opacity-0"
         }`}
       >
         {/* Nút đóng */}
         <button
-          onClick={onClose}
-          className="absolute top-4 right-4 text-gray-500 hover:text-black text-xl"
+          onClick={handleClose}
+          className="absolute top-4 right-4 text-gray-500 hover:text-black dark:text-gray-300 dark:hover:text-white text-xl"
         >
           &times;
         </button>
@@ -43,29 +59,29 @@ const EditProfileForm = ({ onClose }) => {
               type="text"
               value={fullName}
               onChange={(e) => setFullName(e.target.value)}
-              className="w-full border px-3 py-2 rounded"
+              className="w-full border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-white px-3 py-2 rounded"
             />
           </div>
 
-          {/* Địa chỉ email */}
+          {/* Email */}
           <div>
             <label className="block text-sm font-medium mb-1">Địa chỉ email</label>
             <input
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="w-full border px-3 py-2 rounded"
+              className="w-full border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-white px-3 py-2 rounded"
             />
           </div>
 
-          {/* ID - không chỉnh sửa */}
+          {/* ID */}
           <div>
             <label className="block text-sm font-medium mb-1">ID</label>
             <input
               type="text"
               value="523233"
               readOnly
-              className="w-full border px-3 py-2 rounded bg-gray-100"
+              className="w-full border border-gray-300 dark:border-gray-600 bg-gray-100 dark:bg-gray-700 text-gray-500 dark:text-gray-300 px-3 py-2 rounded"
             />
           </div>
 
@@ -75,7 +91,7 @@ const EditProfileForm = ({ onClose }) => {
             <select
               value={role}
               onChange={(e) => setRole(e.target.value)}
-              className="w-full border px-3 py-2 rounded"
+              className="w-full border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-white px-3 py-2 rounded"
             >
               <option value="user">Người dùng</option>
               <option value="admin">Quản lý người dùng</option>
@@ -89,7 +105,7 @@ const EditProfileForm = ({ onClose }) => {
               type="text"
               value={phone}
               onChange={(e) => setPhone(e.target.value)}
-              className="w-full border px-3 py-2 rounded"
+              className="w-full border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-white px-3 py-2 rounded"
             />
           </div>
 
@@ -100,7 +116,7 @@ const EditProfileForm = ({ onClose }) => {
               type="text"
               value={address}
               onChange={(e) => setAddress(e.target.value)}
-              className="w-full border px-3 py-2 rounded"
+              className="w-full border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-white px-3 py-2 rounded"
             />
           </div>
         </div>
@@ -116,7 +132,7 @@ const EditProfileForm = ({ onClose }) => {
                 address,
                 role,
               });
-              onClose(); // hoặc gọi API ở đây
+              handleClose(); // xử lý đóng mượt
             }}
             className="px-6 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 font-medium"
           >
