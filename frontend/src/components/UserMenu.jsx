@@ -1,11 +1,52 @@
 import { useState, useRef, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { ChevronDown } from "lucide-react";
+import profileIcon from "../assets/profile.svg?url";
+import keyIcon from "../assets/key.svg?url";
+import auditIcon from "../assets/audit.svg?url";
+import logoutIcon from "../assets/logout.svg?url";
 
 const UserMenu = () => {
   const [open, setOpen] = useState(false);
   const menuRef = useRef(null);
   const navigate = useNavigate();
+
+  // Get user role from localStorage
+  const getUserRole = () => {
+    try {
+      const user = JSON.parse(localStorage.getItem("user"));
+      return user?.role || "guest";
+    } catch {
+      return "guest";
+    }
+  };
+
+  const userRole = getUserRole();
+  const getUserInfo = () => {
+    try {
+      const user = JSON.parse(localStorage.getItem("user"));
+      return {
+        name: user?.name || "User",
+        role: user?.role || "guest"
+      };
+    } catch {
+      return { name: "User", role: "guest" };
+    }
+  };
+
+  const userInfo = getUserInfo();
+  const roleLabels = {
+    admin: "Admin",
+    agent: "Agent",
+    customer: "Customer",
+    guest: "Guest"
+  };
+
+  // Get role-specific paths
+  const getRolePath = (basePath) => {
+    if (userRole === "guest") return basePath;
+    return `/${userRole}${basePath}`;
+  };
 
   // Đóng menu khi click ra ngoài
   useEffect(() => {
@@ -34,12 +75,15 @@ const UserMenu = () => {
       >
         <img
           src="/diverse-woman-avatar.png"
-          alt="Moni Roy"
+          alt={userInfo.name}
           className="h-8 w-8 rounded-full object-cover"
+          onError={(e) => {
+            e.target.src = "/placeholder-user.jpg";
+          }}
         />
         <div className="text-left hidden md:block">
-          <div className="text-sm font-medium text-gray-900 dark:text-gray-100">Moni Roy</div>
-          <div className="text-xs text-gray-500 dark:text-gray-400">Admin</div>
+          <div className="text-sm font-medium text-gray-900 dark:text-gray-100">{userInfo.name}</div>
+          <div className="text-xs text-gray-500 dark:text-gray-400">{roleLabels[userInfo.role] || "User"}</div>
         </div>
         <ChevronDown className="h-4 w-4 text-gray-700 dark:text-gray-300" />
       </button>
@@ -48,27 +92,28 @@ const UserMenu = () => {
       {open && (
         <div className="absolute right-0 mt-2 w-56 bg-white dark:bg-gray-800 shadow-lg rounded-lg py-2 z-50 divide-y divide-neutral-200 dark:divide-gray-700 border border-gray-200 dark:border-gray-700">
           <MenuItem
-            icon="/assets/profile.svg"
+            icon={profileIcon}
             label="Quản lý thông tin"
-            onClick={() => handleMenuClick("/profile")}
+            onClick={() => handleMenuClick(getRolePath("/profile"))}
           />
           <MenuItem
-            icon="/assets/key.svg"
+            icon={keyIcon}
             label="Đổi mật khẩu"
-            onClick={() => handleMenuClick("/forgot-password")}
+            onClick={() => handleMenuClick(getRolePath("/settings/change-password"))}
           />
           <MenuItem
-            icon="/assets/audit.svg"
+            icon={auditIcon}
             label="Nhật ký hoạt động"
             onClick={() => alert("Chức năng đang phát triển")}
           />
           <MenuItem
-            icon="/assets/logout.svg"
+            icon={logoutIcon}
             label="Đăng xuất"
             danger
             onClick={() => {
               // Xử lý logout ở đây
               console.log("Logging out...");
+              localStorage.removeItem("user");
               navigate("/signin");
             }}
           />
@@ -78,31 +123,42 @@ const UserMenu = () => {
   );
 };
 
-const MenuItem = ({ icon, label, danger, onClick }) => (
-  <button
-    onClick={onClick}
-    className={`w-full flex items-center gap-3 px-4 py-2 text-sm transition-all duration-150
-      ${
-        danger
-          ? "text-red-500 hover:bg-red-50 hover:text-red-600 dark:hover:bg-red-900"
-          : "text-gray-700 hover:bg-indigo-50 hover:text-indigo-600 dark:text-gray-300 dark:hover:bg-indigo-900 dark:hover:text-indigo-300"
-      }
-    `}
-  >
-    {icon && icon.includes(".svg") ? (
-      <img src={icon} alt={label} className="w-5 h-5" />
-    ) : (
-      <span
-        className={`text-base transition-colors duration-150 ${
-          danger ? "text-red-400" : "text-indigo-400"
-        }`}
-      >
-        {icon}
-      </span>
-    )}
+const MenuItem = ({ icon, label, danger, onClick }) => {
+  const isImagePath = icon && typeof icon === "string" && (icon.includes("/") || icon.includes("."));
+  
+  return (
+    <button
+      onClick={onClick}
+      className={`w-full flex items-center gap-3 px-4 py-2 text-sm transition-all duration-150
+        ${
+          danger
+            ? "text-red-500 hover:bg-red-50 hover:text-red-600 dark:hover:bg-red-900"
+            : "text-gray-700 hover:bg-indigo-50 hover:text-indigo-600 dark:text-gray-300 dark:hover:bg-indigo-900 dark:hover:text-indigo-300"
+        }
+      `}
+    >
+      {isImagePath ? (
+        <img 
+          src={icon} 
+          alt={label} 
+          className="w-5 h-5"
+          onError={(e) => {
+            e.target.style.display = "none";
+          }}
+        />
+      ) : icon ? (
+        <span
+          className={`text-base transition-colors duration-150 ${
+            danger ? "text-red-400" : "text-indigo-400"
+          }`}
+        >
+          {icon}
+        </span>
+      ) : null}
 
-    <span className="flex-1 text-left">{label}</span>
-  </button>
-);
+      <span className="flex-1 text-left">{label}</span>
+    </button>
+  );
+};
 
 export default UserMenu;

@@ -1,41 +1,28 @@
-import { Outlet } from "react-router-dom";
-import { GuestSidebar } from "../components/Sidebar/GuestSidebar";
-import { Header } from "../components/Header";
-import { NavLink } from "react-router-dom";
-import { useTranslation } from "react-i18next";
+import { useState } from "react"
+import { Outlet } from "react-router-dom"
+import { GuestSidebar } from "../components/Sidebar/GuestSidebar"
+import { GuestHeader } from "../components/Header/GuestHeader"
 
 export default function GuestLayout() {
-  const { t } = useTranslation()
+  const [sidebarOpen, setSidebarOpen] = useState(true)
+
   return (
     <div className="flex h-screen overflow-hidden bg-gray-50 dark:bg-gray-900">
-      <GuestSidebar />
-      <div className="flex flex-1 flex-col h-full">
-        <Header
-          showNotification={false}
-          actions={
-            <div className="flex items-center gap-3">
-              <NavLink
-                to="/signin"
-                className="text-sm font-medium text-gray-600 hover:text-indigo-600 transition-colors"
-              >
-                {t("signIn")}
-              </NavLink>
+      {/* Sidebar */}
+      <div className={`transition-all duration-300 ease-in-out overflow-hidden
+        bg-white dark:bg-gray-900 border-r border-gray-200 dark:border-gray-700
+        ${sidebarOpen ? "w-54" : "w-0"}
+      `}>
+        <GuestSidebar />
+      </div>
 
-              <NavLink
-                to="/signup"
-                className="text-sm font-medium bg-indigo-600 text-white px-4 py-2 rounded-lg shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-1 transition-all"
-              >
-                {t("signUp")}
-              </NavLink>
-            </div>
-          }
-        />
-
-        <main className="flex-1 overflow-y-auto">
-          <Outlet /> {/* Dùng Outlet để hiển thị các route con */}
+      {/* Main content */}
+      <div className="flex flex-1 flex-col h-full transition-all duration-300 ease-in-out">
+        <GuestHeader onToggleSidebar={() => setSidebarOpen(!sidebarOpen)} />
+        <main className="flex-1 overflow-y-auto p-4">
+          <Outlet />
         </main>
-        
       </div>
     </div>
-  );
+  )
 }

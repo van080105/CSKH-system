@@ -8,7 +8,7 @@ export function LanguageSwitcher() {
   const langRef = useRef(null)
 
   const currentLang = i18n.language === "en" ? "English" : "Tiếng Việt"
-  const flagSrc = i18n.language === "en" ? "UK-Flag.jpg" : "VietNam.png"
+  const flagSrc = i18n.language === "en" ? "/UK-Flag.jpg" : "/VietNam.png"
 
   const changeLang = (lng) => {
     i18n.changeLanguage(lng)
@@ -32,7 +32,14 @@ export function LanguageSwitcher() {
         onClick={() => setOpen((prev) => !prev)}
         className="flex items-center gap-2 px-2 py-1.5 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg text-gray-700 dark:text-gray-200"
       >
-        <img src={flagSrc} alt={currentLang} className="h-4 w-6 object-cover rounded" />
+        <img 
+          src={flagSrc} 
+          alt={currentLang} 
+          className="h-4 w-6 object-cover rounded"
+          onError={(e) => {
+            e.target.style.display = "none";
+          }}
+        />
         <span className="text-sm">{currentLang}</span>
         <ChevronDown className="h-4 w-4" />
       </button>

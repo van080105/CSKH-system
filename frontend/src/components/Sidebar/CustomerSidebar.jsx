@@ -21,7 +21,7 @@ export function CustomerSidebar() {
   const isHomeActive = location.pathname === "/customer"
 
   return (
-    <aside className="w-[220px] border-r border-gray-200 bg-white dark:bg-gray-900 dark:border-gray-700 flex flex-col">
+    <aside className="w-[220px] h-full border-r border-gray-200 bg-white dark:bg-gray-900 dark:border-gray-700 flex flex-col">
       <div className="p-6">
         <h1 className="text-xl font-bold">
           <span className="text-gray-900 dark:text-gray-100">Mock</span>

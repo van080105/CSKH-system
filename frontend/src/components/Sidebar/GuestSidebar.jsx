@@ -18,7 +18,7 @@ export function GuestSidebar() {
   const { t } = useTranslation()
 
   return (
-    <aside className="w-[220px] border-r border-gray-200 bg-white flex flex-col dark:bg-gray-900 dark:border-gray-700">
+    <aside className="w-[220px] h-full border-r border-gray-200 bg-white flex flex-col dark:bg-gray-900 dark:border-gray-700">
       <div className="p-6">
         <h1 className="text-xl font-bold">
           <span className="text-gray-900 dark:text-white">Mock</span>
