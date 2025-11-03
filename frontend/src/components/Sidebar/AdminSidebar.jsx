@@ -37,7 +37,7 @@ export function AdminSidebar() {
       {/* Navigation */}
       <nav className="flex-1 px-3 space-y-1">
         <NavLink
-          to="/admin/"
+          to="/admin"
           className={`${linkClass} ${isHomeActive ? activeClass : inactiveClass}`}
         >
           <Home className="h-4 w-4" />
