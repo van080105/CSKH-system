@@ -3,6 +3,7 @@ import { LanguageSwitcher } from "../LanguageSwitcher";
 import NotificationDropdown from "../NotificationDropdown";
 import { useTranslation } from "react-i18next";
 import UserMenu from "../UserMenu";
+import { NavLink } from "react-router-dom";
 
 export function CustomerHeader({ onToggleSidebar }) {
   const { t } = useTranslation();
@@ -28,9 +29,17 @@ export function CustomerHeader({ onToggleSidebar }) {
       <div className="flex items-center gap-4 ml-auto">
         <NotificationDropdown />
         <LanguageSwitcher />
+
+        <NavLink
+          to="/customer/contact"
+          className="text-sm font-medium text-gray-600 hover:text-indigo-600 dark:text-gray-400 dark:hover:text-indigo-400 transition-colors"
+        >
+          {t("contact")}
+        </NavLink>
+
         <UserMenu />
       </div>
     </header>
-  );
+  )
 }
 

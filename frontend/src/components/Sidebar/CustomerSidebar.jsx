@@ -6,6 +6,7 @@ import {
   FileText,
   Settings,
   LogOut,
+  ShoppingBag,
 } from "lucide-react"
 import { NavLink, useLocation } from "react-router-dom"
 import { useTranslation } from "react-i18next"
@@ -36,6 +37,18 @@ export function CustomerSidebar() {
         >
           <Home className="h-4 w-4" />
           {t("homepage")}
+        </NavLink>
+
+        <NavLink
+          to="/customer/products"
+          className={({ isActive }) =>
+            `${linkClass} ${
+              isActive ? activeClass : "text-gray-600 dark:text-gray-300"
+            }`
+          }
+        >
+          <ShoppingBag className="h-4 w-4" />
+          {t("productIntro")}
         </NavLink>
 
         <NavLink

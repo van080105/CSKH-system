@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { Plus, Edit2, Trash2, X } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
+import { motion } from 'framer-motion'
 
 const initialFAQs = [
   {
@@ -20,7 +21,7 @@ const initialFAQs = [
   },
 ]
 
-export default function FAQUltimateModal() {
+export default function FAQ({ showModify = true }) {
   const [faqs, setFaqs] = useState(initialFAQs)
   const [openIndexes, setOpenIndexes] = useState([])
   const [modalType, setModalType] = useState(null) // 'add' | 'edit' | 'delete'
@@ -85,24 +86,31 @@ export default function FAQUltimateModal() {
   return (
     <div className="relative max-w-6xl mx-auto p-6">
       {/* Thêm FAQ button */}
-      <div className="flex justify-end mb-8">
-        <button
-          className="flex items-center gap-3 px-6 py-3 bg-gradient-to-r from-indigo-500 to-purple-600 text-white rounded-full shadow-lg hover:scale-105 transform transition duration-300"
-          onClick={openAddModal}
-        >
-          <Plus className="h-5 w-5" />
-          {t('addFAQ')}
-        </button>
-      </div>
+      {showModify && (
+        <div className="flex justify-end mb-8">
+          <motion.button
+            className="flex items-center gap-3 px-6 py-3 bg-gradient-to-r from-indigo-500 to-purple-600 text-white rounded-full shadow-lg hover:scale-105 transform transition duration-300"
+            onClick={openAddModal}
+            whileHover={{ scale: 1.05, boxShadow: "0 10px 15px rgba(0, 0, 0, 0.1)" }}
+            whileTap={{ scale: 0.95 }}
+          >
+            <Plus className="h-5 w-5" />
+            {t('addFAQ')}
+          </motion.button>
+        </div>
+      )}
 
       {/* FAQ List */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
         {faqs.map((faq, index) => {
           const isOpen = openIndexes.includes(index)
           return (
-            <div
+            <motion.div
               key={index}
               className="relative bg-white dark:bg-gray-900 rounded-2xl shadow-2xl hover:shadow-3xl transition transform hover:scale-[1.03] overflow-hidden border border-gray-200/50 dark:border-gray-700/50"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.6 }}
             >
               {/* Question */}
               <div
@@ -114,34 +122,50 @@ export default function FAQUltimateModal() {
               </div>
 
               {/* Answer */}
-              <div className={`transition-all duration-500 px-6 overflow-hidden ${isOpen ? 'max-h-96 py-4' : 'max-h-0 py-0'}`}>
+              <motion.div
+                className={`transition-all duration-500 px-6 overflow-hidden ${isOpen ? 'max-h-96 py-4' : 'max-h-0 py-0'}`}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: isOpen ? 1 : 0 }}
+                transition={{ duration: 0.3 }}
+              >
                 <p className="text-gray-700 dark:text-gray-300">{faq.answer}</p>
-              </div>
+              </motion.div>
 
               {/* Actions */}
-              <div className="flex justify-end gap-3 px-6 py-3">
-                <button
-                  onClick={() => openEditModal(index)}
-                  className="flex items-center gap-2 px-4 py-2 rounded-xl bg-blue-600 text-white hover:bg-blue-700 transition"
-                >
-                  <Edit2 className="h-4 w-4" /> {t('modify')}
-                </button>
-                <button
-                  onClick={() => openDeleteModal(index)}
-                  className="flex items-center gap-2 px-4 py-2 rounded-xl bg-red-600 text-white hover:bg-red-700 transition"
-                >
-                  <Trash2 className="h-4 w-4" /> {t('delete')}
-                </button>
-              </div>
-            </div>
+              {showModify && (
+                <div className="flex justify-end gap-3 px-6 py-3">
+                  <motion.button
+                    onClick={() => openEditModal(index)}
+                    className="flex items-center gap-2 px-4 py-2 rounded-xl bg-blue-600 text-white hover:bg-blue-700 transition"
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                  >
+                    <Edit2 className="h-4 w-4" /> {t('modify')}
+                  </motion.button>
+                  <motion.button
+                    onClick={() => openDeleteModal(index)}
+                    className="flex items-center gap-2 px-4 py-2 rounded-xl bg-red-600 text-white hover:bg-red-700 transition"
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                  >
+                    <Trash2 className="h-4 w-4" /> {t('delete')}
+                  </motion.button>
+                </div>
+              )}
+            </motion.div>
           )
         })}
       </div>
 
       {/* Modal Overlay */}
-      {modalType && (
+      {showModify && modalType && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm">
-          <div className="bg-white dark:bg-gray-900 rounded-3xl shadow-3xl max-w-lg w-full p-8 relative transform transition-all scale-95 animate-fade-in">
+          <motion.div
+            className="bg-white dark:bg-gray-900 rounded-3xl shadow-3xl max-w-lg w-full p-8 relative transform transition-all scale-95 animate-fade-in"
+            initial={{ scale: 0.9 }}
+            animate={{ scale: 1 }}
+            transition={{ duration: 0.3 }}
+          >
             {/* Close button */}
             <button
               onClick={closeModal}
@@ -243,7 +267,7 @@ export default function FAQUltimateModal() {
                 </div>
               </>
             )}
-          </div>
+          </motion.div>
         </div>
       )}
     </div>

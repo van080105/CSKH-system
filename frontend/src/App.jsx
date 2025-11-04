@@ -15,6 +15,7 @@ import { MainContent } from "./components/MainContent";
 import { Dashboard } from "./pages/Dashboard";
 import { ManageUsers } from "./pages/ManageUsers";
 import { ManageTickets } from "./pages/ManageTickets";
+import { AgentTickets } from "./pages/AgentTickets";
 import { Profile } from "./pages/Profile";
 
 import FAQ from "./pages/FAQ";
@@ -28,6 +29,7 @@ import { ServiceFeedback } from "./pages/ServiceFeedback"
 import { OrderLists } from "./pages/OrderLists"
 import { OrderDetail } from "./pages/OrderDetail"
 import { Inbox } from "./pages/Inbox"
+import Contact from "./pages/Contact"
 
 import "./App.css";
 import "./lib/i18n";
@@ -45,6 +47,7 @@ function App() {
           <Route path="settings" element={<Settings showElement={false}/>} />
           <Route path="dev-team" element={<DevTeamPage />} />
           <Route path="products" element={<ProductPage />} />
+          <Route path="contact" element={<Contact />} /> 
         </Route>
 
         <Route path="/signup" element={<SignUp />} />
@@ -77,7 +80,7 @@ function App() {
           </ProtectedRoute>
         }>
           <Route index element={<Inbox />} />
-          <Route path="tickets" element={<ManageTickets />} />
+          <Route path="tickets" element={<AgentTickets />} />
           <Route path="profile" element={<Profile />} />
           <Route path="faq" element={<FAQ showModify={false}/>} />
           <Route path="products" element={<ProductPage />} />
@@ -98,6 +101,8 @@ function App() {
           <Route path="chatbot-feedback" element={<ChatbotFeedback />} />
           <Route path="service-feedback" element={<ServiceFeedback />} />
           <Route path="orders" element={<OrderLists />} />
+          <Route path="contact" element={<Contact />} /> 
+          <Route path="products" element={<ProductPage />} />
           <Route path="orders/:id" element={<OrderDetail />} />
           <Route path="settings/*" element={<Settings />} > 
             <Route path="change-password" element={<ChangePassword />} />

@@ -28,6 +28,13 @@ export function GuestHeader({ onToggleSidebar }) {
         <LanguageSwitcher />
         <div className="flex items-center gap-3">
           <NavLink
+            to="/contact"
+            className="text-sm font-medium text-gray-600 hover:text-indigo-600 dark:text-gray-400 dark:hover:text-indigo-400 transition-colors"
+          >
+            {t("contact")}
+          </NavLink>
+
+          <NavLink
             to="/signin"
             className="text-sm font-medium text-gray-600 hover:text-indigo-600 dark:text-gray-400 dark:hover:text-indigo-400 transition-colors"
           >

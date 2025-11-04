@@ -4,6 +4,7 @@ import {
   Plus,
   Search,
   Filter,
+  ChevronDown,
   ChevronLeft,
   ChevronRight,
   X,
@@ -12,107 +13,17 @@ import { useState, useMemo } from "react"
 import { useTranslation } from "react-i18next"
 
 const ticketsData = [
-  { 
-    id: 42321, 
-    name: "Nguyễn Văn A", 
-    title: "Không thể đăng nhập vào tài khoản", 
-    status: "Open", 
-    role: "Khách hàng",
-    content: "Tôi không thể đăng nhập vào tài khoản của mình sau khi reset mật khẩu.",
-    responseContent: "Chúng tôi đã kiểm tra và xác nhận tài khoản của bạn đang bị khóa do thử đăng nhập sai nhiều lần. Vui lòng thử lại sau 30 phút.",
-    assignedTo : "Lê Văn A",
-  },
-  { 
-    id: 42322, 
-    name: "Nguyễn Văn B", 
-    title: "Yêu cầu hoàn tiền đơn hàng #1234", 
-    status: "Pending", 
-    role: "Khách hàng",
-    content: "Tôi yêu cầu hoàn tiền cho đơn hàng vì sản phẩm không đúng như mô tả.",
-    responseContent: "Chúng tôi đã nhận được yêu cầu hoàn tiền của bạn và sẽ xử lý trong vòng 7 ngày làm việc.",
-    assignedTo: "Lê Văn B",
-  },
-  { 
-    id: 42323, 
-    name: "Nguyễn Văn C", 
-    title: "Lỗi khi thanh toán bằng thẻ VISA", 
-    status: "In progress", 
-    role: "Khách hàng",
-    content: "Tôi không thể thanh toán đơn hàng sử dụng thẻ VISA. Lỗi xảy ra khi nhập thông tin thẻ.",
-    responseContent: "Chúng tôi đã xác nhận lỗi thanh toán và đang tiến hành kiểm tra với ngân hàng phát hành thẻ VISA.",
-    assignedTo: "Lê Văn C",
-  },
-  { 
-    id: 42324, 
-    name: "Nguyễn Văn D", 
-    title: "Không nhận được email xác nhận", 
-    status: "Completed", 
-    role: "Khách hàng",
-    content: "Tôi đã đăng ký tài khoản nhưng không nhận được email xác nhận.",
-    responseContent: "Chúng tôi đã xác nhận email của bạn và đã gửi lại email xác nhận. Vui lòng kiểm tra hộp thư rác nếu không thấy.",
-    assignedTo: "Lê Văn D",
-  },
-  { 
-    id: 42325, 
-    name: "Nguyễn Văn E", 
-    title: "Đề xuất tính năng mới", 
-    status: "Closed", 
-    role: "Khách hàng",
-    content: "Tôi đề xuất tính năng hỗ trợ thanh toán qua ví điện tử.",
-    responseContent: "Cảm ơn bạn đã đóng góp ý kiến. Chúng tôi sẽ xem xét và cập nhật trong phiên bản tiếp theo.",
-    assignedTo: "Lê Văn E",
-  },
-  { 
-    id: 42326, 
-    name: "Nguyễn Văn A", 
-    title: "Cần hỗ trợ đổi mật khẩu", 
-    status: "Open", 
-    role: "Khách hàng",
-    content: "Tôi yêu cầu hỗ trợ thay đổi mật khẩu vì quên mật khẩu hiện tại.",
-    responseContent: "Chúng tôi đã gửi yêu cầu đặt lại mật khẩu qua email của bạn. Vui lòng làm theo hướng dẫn trong email.",
-    assignedTo: "Lê Văn G",
-  },
-  { 
-    id: 42327, 
-    name: "Nguyễn Văn B", 
-    title: "Giao diện bị lỗi trên mobile", 
-    status: "Pending", 
-    role: "Khách hàng",
-    content: "Tôi phản ánh rằng giao diện của trang web bị lỗi khi truy cập trên thiết bị di động.",
-    responseContent: "Chúng tôi đã ghi nhận lỗi này và đang tiến hành kiểm tra để cập nhật bản vá lỗi trong thời gian sớm nhất.",
-    assignedTo: "Lê Văn H",
-  },
-  { 
-    id: 42328, 
-    name: "Nguyễn Văn F", 
-    title: "Không tải được tài liệu hướng dẫn", 
-    status: "Open", 
-    role: "Khách hàng",
-    content: "Tôi không thể tải được tài liệu hướng dẫn từ website.",
-    responseContent: "Chúng tôi đã kiểm tra và đang tiến hành khắc phục sự cố tải tài liệu. Bạn có thể thử lại sau.",
-    assignedTo: "Lê Văn T",
-  },
-  { 
-    id: 42329, 
-    name: "Nguyễn Văn G", 
-    title: "Hỗ trợ kích hoạt tài khoản công ty", 
-    status: "In progress", 
-    role: "Khách hàng",
-    content: "Tôi muốn hỗ trợ kích hoạt tài khoản cho công ty.",
-    responseContent: "Chúng tôi đã nhận yêu cầu và sẽ tiến hành kích hoạt tài khoản trong vòng 48 giờ làm việc.",
-    assignedTo: "Lê Văn K",
-  },
-  { 
-    id: 42330, 
-    name: "Nguyễn Văn H", 
-    title: "Thanh toán thất bại nhiều lần", 
-    status: "Open", 
-    role: "Khách hàng",
-    content: "Tôi gặp sự cố khi thanh toán, thanh toán liên tục thất bại dù đã thử nhiều lần.",
-    responseContent: "Chúng tôi đang kiểm tra sự cố và sẽ liên hệ với bạn ngay khi có kết quả.",
-    assignedTo: "Lê Văn L",
-  }
-];
+  { id: 42321, name: "Nguyễn Văn A", title: "Không thể đăng nhập vào tài khoản", status: "Open", role: "Khách hàng" },
+  { id: 42322, name: "Nguyễn Văn B", title: "Yêu cầu hoàn tiền đơn hàng #1234", status: "Pending", role: "Khách hàng" },
+  { id: 42323, name: "Nguyễn Văn C", title: "Lỗi khi thanh toán bằng thẻ VISA", status: "In progress", role: "Khách hàng" },
+  { id: 42324, name: "Nguyễn Văn D", title: "Không nhận được email xác nhận", status: "Completed", role: "Khách hàng" },
+  { id: 42325, name: "Nguyễn Văn E", title: "Đề xuất tính năng mới", status: "Closed", role: "Khách hàng" },
+  { id: 42326, name: "Nguyễn Văn A", title: "Cần hỗ trợ đổi mật khẩu", status: "Open", role: "Khách hàng" },
+  { id: 42327, name: "Nguyễn Văn B", title: "Giao diện bị lỗi trên mobile", status: "Pending", role: "Khách hàng" },
+  { id: 42328, name: "Nguyễn Văn F", title: "Không tải được tài liệu hướng dẫn", status: "Open", role: "Khách hàng" },
+  { id: 42329, name: "Nguyễn Văn G", title: "Hỗ trợ kích hoạt tài khoản công ty", status: "In progress", role: "Khách hàng" },
+  { id: 42330, name: "Nguyễn Văn H", title: "Thanh toán thất bại nhiều lần", status: "Open", role: "Khách hàng" },
+]
 
 const statusStyles = {
   Open: "bg-blue-50 text-blue-700 dark:bg-blue-600/20 dark:text-blue-300",
@@ -266,9 +177,6 @@ export function ManageTickets() {
                   {t("role")}
                 </th>
                 <th className="px-4 py-3 text-left text-xs font-semibold text-gray-600 dark:text-gray-300 uppercase">
-                  {t("assignedTo")}
-                </th>
-                <th className="px-4 py-3 text-left text-xs font-semibold text-gray-600 dark:text-gray-300 uppercase">
                   {t("action")}
                 </th>
               </tr>
@@ -301,7 +209,6 @@ export function ManageTickets() {
                     </span>
                   </td>
                   <td className="px-4 py-3 text-sm text-gray-600 dark:text-gray-300">{ticket.role}</td>
-                  <td className="px-4 py-3 text-sm text-gray-600 dark:text-gray-300">{ticket.assignedTo}</td>
                   <td className="px-4 py-3">
                     <button
                       onClick={() => setSelectedTicket(ticket)}
@@ -438,29 +345,6 @@ export function ManageTickets() {
                 />
               </div>
 
-              <div>
-                <label className="block text-sm font-medium text-gray-600 dark:text-gray-400 mb-1">
-                  {t("content")}
-                </label>
-                <textarea
-                  readOnly
-                  defaultValue={selectedTicket.content}
-                  rows={3}
-                  className="w-full rounded-lg border border-gray-300 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-gray-100 px-3 py-2 text-sm resize-none focus:ring-2 focus:ring-indigo-500 focus:outline-none"
-                ></textarea>
-              </div>
-
-              <div>
-                <label className="block text-sm font-medium text-gray-600 dark:text-gray-400 mb-1">
-                  {t("responseContent")}
-                </label>
-                <textarea
-                  defaultValue={selectedTicket.responseContent}
-                  rows={3}
-                  className="w-full rounded-lg border border-gray-300 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-gray-100 px-3 py-2 text-sm resize-none focus:ring-2 focus:ring-indigo-500 focus:outline-none"
-                ></textarea>
-              </div>
-
               {/* Assign Agent */}
               <div className="border-t border-gray-200 dark:border-gray-700 pt-4 mt-4">
                 <label className="block text-sm font-semibold text-gray-900 dark:text-gray-100 mb-1">
@@ -469,7 +353,6 @@ export function ManageTickets() {
                 <input
                   type="text"
                   placeholder="Agent Full Name"
-                  defaultValue={selectedTicket.assignedTo}
                   className="w-full rounded-lg border border-gray-300 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-gray-100 px-3 py-2 text-sm focus:ring-2 focus:ring-indigo-500 focus:outline-none"
                 />
               </div>

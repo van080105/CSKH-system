@@ -119,7 +119,7 @@ export function Dashboard() {
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Ticket Line Chart */}
         <div className="bg-white dark:bg-gray-800 rounded-xl p-6 border border-gray-200 dark:border-gray-700">
-          <div className="flex items-center justify-between mb-6">
+          <div className="flex items-center justify-between mb-6 flex-wrap gap-4">
             <div>
               <h2 className="text-lg font-semibold text-gray-900 dark:text-white">{t("totalTickets")}</h2>
               <p className="text-2xl font-bold text-gray-900 dark:text-white mt-2">22,192 tickets</p>
@@ -129,10 +129,37 @@ export function Dashboard() {
                 <span className="text-gray-500 dark:text-gray-400">{t("compareTo")} 8/9/2025</span>
               </div>
             </div>
-            <select className="px-3 py-1.5 border border-gray-300 dark:border-gray-600 rounded-lg text-sm dark:bg-gray-800 dark:text-white">
-              <option>{t("all")}</option>
-            </select>
+
+            <div className="flex gap-2 flex-wrap">
+              {/* Dropdown thời gian */}
+              <select className="px-3 py-1.5 w-32 border border-gray-300 dark:border-gray-600 rounded-lg text-sm dark:bg-gray-800 dark:text-white">
+                <option>{t("selectTimeRange")}</option>
+                <option>Last 7 days</option>
+                <option>Last 30 days</option>
+                <option>Last 90 days</option>
+                <option>All time</option>
+              </select>
+
+              {/* Dropdown phòng ban */}
+              <select className="px-3 py-1.5 w-32 border border-gray-300 dark:border-gray-600 rounded-lg text-sm dark:bg-gray-800 dark:text-white">
+                <option>{t("selectDepartment")}</option>
+                <option>Sales</option>
+                <option>Support</option>
+                <option>Marketing</option>
+                <option>Development</option>
+              </select>
+
+              {/* Dropdown nhân viên */}
+              <select className="px-3 py-1.5 w-32 border border-gray-300 dark:border-gray-600 rounded-lg text-sm dark:bg-gray-800 dark:text-white">
+                <option>{t("selectEmployee")}</option>
+                <option>John Doe</option>
+                <option>Jane Smith</option>
+                <option>Mark Johnson</option>
+                <option>Alice Williams</option>
+              </select>
+            </div>
           </div>
+
 
           <ResponsiveContainer width="100%" height={250}>
             <LineChart data={ticketData}>
@@ -160,7 +187,7 @@ export function Dashboard() {
 
         {/* Satisfaction Chart */}
         <div className="bg-white dark:bg-gray-800 rounded-xl p-6 border border-gray-200 dark:border-gray-700">
-          <div className="flex items-center justify-between mb-6">
+          <div className="flex items-center justify-between mb-6 flex-wrap gap-4">
             <div>
               <h2 className="text-lg font-semibold text-gray-900 dark:text-white">{t("customerSatisfaction")}</h2>
               <p className="text-2xl font-bold text-gray-900 dark:text-white mt-2">89.31 %</p>
@@ -170,10 +197,37 @@ export function Dashboard() {
                 <span className="text-gray-500 dark:text-gray-400">{t("compareTo")} 8/9/2025</span>
               </div>
             </div>
-            <select className="px-3 py-1.5 border border-gray-300 dark:border-gray-600 rounded-lg text-sm dark:bg-gray-800 dark:text-white">
-              <option>{t("all")}</option>
-            </select>
+
+            <div className="flex gap-4 flex-wrap">
+              {/* Dropdown cho thời gian */}
+              <select className="px-3 py-1.5 w-32 border border-gray-300 dark:border-gray-600 rounded-lg text-sm dark:bg-gray-800 dark:text-white">
+                <option>{t("selectTimeRange")}</option>
+                <option>Last 7 days</option>
+                <option>Last 30 days</option>
+                <option>Last 90 days</option>
+                <option>All time</option>
+              </select>
+
+              {/* Dropdown cho phòng ban */}
+              <select className="px-3 py-1.5 w-32 border border-gray-300 dark:border-gray-600 rounded-lg text-sm dark:bg-gray-800 dark:text-white">
+                <option>{t("selectDepartment")}</option>
+                <option>Sales</option>
+                <option>Support</option>
+                <option>Marketing</option>
+                <option>Development</option>
+              </select>
+
+              {/* Dropdown cho nhân viên */}
+              <select className="px-3 py-1.5 w-32 border border-gray-300 dark:border-gray-600 rounded-lg text-sm dark:bg-gray-800 dark:text-white">
+                <option>{t("selectEmployee")}</option>
+                <option>John Doe</option>
+                <option>Jane Smith</option>
+                <option>Mark Johnson</option>
+                <option>Alice Williams</option>
+              </select>
+            </div>
           </div>
+
 
           <ResponsiveContainer width="100%" height={250}>
             <LineChart data={satisfactionData}>
