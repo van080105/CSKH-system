@@ -157,6 +157,14 @@ export function Dashboard() {
                 <option>Mark Johnson</option>
                 <option>Alice Williams</option>
               </select>
+
+              {/* Dropdown khu vực */}
+              <select
+                className="border border-gray-300 dark:border-gray-600 dark:bg-gray-800 dark:text-white px-4 py-2 rounded"
+              >
+                <option>Khu vực</option>
+              </select>
+
             </div>
           </div>
 
@@ -225,6 +233,14 @@ export function Dashboard() {
                 <option>Mark Johnson</option>
                 <option>Alice Williams</option>
               </select>
+
+              {/* Dropdown khu vực */}
+              <select
+                className="border border-gray-300 dark:border-gray-600 dark:bg-gray-800 dark:text-white px-4 py-2 rounded"
+              >
+                <option>Khu vực</option>
+              </select>
+                            
             </div>
           </div>
 

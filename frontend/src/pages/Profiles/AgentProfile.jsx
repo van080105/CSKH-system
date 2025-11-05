@@ -1,10 +1,10 @@
-import EditProfileForm from "../components/EditProfileForm"
-import { useState } from "react"
-import { useTranslation } from 'react-i18next'
+import { useState } from "react";
+import { useTranslation } from 'react-i18next';
+import EditProfileForm from "../../components/EditProfileForm";
 
-export function Profile() {
-  const [showEditForm, setShowEditForm] = useState(false)
-  const { t } = useTranslation()
+export function AgentProfile() {
+  const [showEditForm, setShowEditForm] = useState(false);
+  const { t } = useTranslation();
 
   return (
     <div className="min-h-full">
@@ -21,7 +21,7 @@ export function Profile() {
               />
               <div>
                 <h1 className="text-2xl font-bold text-gray-900 dark:text-white">Moni Roy</h1>
-                <p className="text-gray-600 dark:text-gray-300">Admin</p>
+                <p className="text-gray-600 dark:text-gray-300">Agent</p>
               </div>
             </div>
 
@@ -62,8 +62,8 @@ export function Profile() {
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">{t("priviledges")}</label>
-              <div className="px-4 py-3 bg-gray-50 dark:bg-gray-800 rounded-lg text-gray-600 dark:text-gray-300">{t("manageUser")}</div>
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">{t("role")}</label>
+              <div className="px-4 py-3 bg-gray-50 dark:bg-gray-800 rounded-lg text-gray-600 dark:text-gray-300">{ "Chăm sóc khách hàng" || t("customerSupport")}</div>
             </div>
           </div>
         </div>

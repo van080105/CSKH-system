@@ -1,10 +1,8 @@
 "use client"
 
 import {
-  Plus,
   Search,
   Filter,
-  ChevronDown,
   ChevronLeft,
   ChevronRight,
   X,
@@ -13,16 +11,11 @@ import { useState, useMemo } from "react"
 import { useTranslation } from "react-i18next"
 
 const ticketsData = [
-  { id: 42321, name: "Nguyễn Văn A", title: "Không thể đăng nhập vào tài khoản", status: "Open", role: "Khách hàng" },
-  { id: 42322, name: "Nguyễn Văn B", title: "Yêu cầu hoàn tiền đơn hàng #1234", status: "Pending", role: "Khách hàng" },
-  { id: 42323, name: "Nguyễn Văn C", title: "Lỗi khi thanh toán bằng thẻ VISA", status: "In progress", role: "Khách hàng" },
-  { id: 42324, name: "Nguyễn Văn D", title: "Không nhận được email xác nhận", status: "Completed", role: "Khách hàng" },
-  { id: 42325, name: "Nguyễn Văn E", title: "Đề xuất tính năng mới", status: "Closed", role: "Khách hàng" },
-  { id: 42326, name: "Nguyễn Văn A", title: "Cần hỗ trợ đổi mật khẩu", status: "Open", role: "Khách hàng" },
-  { id: 42327, name: "Nguyễn Văn B", title: "Giao diện bị lỗi trên mobile", status: "Pending", role: "Khách hàng" },
-  { id: 42328, name: "Nguyễn Văn F", title: "Không tải được tài liệu hướng dẫn", status: "Open", role: "Khách hàng" },
-  { id: 42329, name: "Nguyễn Văn G", title: "Hỗ trợ kích hoạt tài khoản công ty", status: "In progress", role: "Khách hàng" },
-  { id: 42330, name: "Nguyễn Văn H", title: "Thanh toán thất bại nhiều lần", status: "Open", role: "Khách hàng" },
+  { id: 42321, title: "Không thể đăng nhập vào tài khoản", status: "Open", content: "Tôi không thể đăng nhập vào tài khoản của mình sau khi reset mật khẩu."},
+  { id: 42322, title: "Yêu cầu hoàn tiền đơn hàng #1234", status: "Pending", content: "Tôi yêu cầu hoàn tiền cho đơn hàng vì sản phẩm không đúng như mô tả."},
+  { id: 42323, title: "Lỗi khi thanh toán bằng thẻ VISA", status: "In progress",content: "Tôi không thể thanh toán đơn hàng sử dụng thẻ VISA. Lỗi xảy ra khi nhập thông tin thẻ."},
+  { id: 42324, title: "Không nhận được email xác nhận", status: "Completed", content: "Tôi đã đăng ký tài khoản nhưng không nhận được email xác nhận."},
+  { id: 42325, title: "Đề xuất tính năng mới", status: "Closed", content: "Tôi đề xuất tính năng hỗ trợ thanh toán qua ví điện tử."},
 ]
 
 const statusStyles = {
@@ -33,11 +26,10 @@ const statusStyles = {
   "In progress": "bg-blue-50 text-blue-700 dark:bg-blue-600/20 dark:text-blue-300",
 }
 
-export function ManageTickets() {
+export function CustomerTickets() {
   const [selectedTickets, setSelectedTickets] = useState([])
   const [searchTerm, setSearchTerm] = useState("")
   const [statusFilter, setStatusFilter] = useState("")
-  const [nameFilter, setNameFilter] = useState("")
   const [linesPerPage, setLinesPerPage] = useState(10)
   const [page, setPage] = useState(1)
   const [selectedTicket, setSelectedTicket] = useState(null)
@@ -56,17 +48,15 @@ export function ManageTickets() {
 
     return ticketsData.filter((ticket) => {
       const idMatch = ticket.id.toString().includes(search)
-      const nameMatch = normalize(ticket.name).includes(search)
       const titleMatch = normalize(ticket.title).includes(search)
       const statusMatch = normalize(ticket.status).includes(search)
 
       const matchesSearch = idMatch || nameMatch || titleMatch || statusMatch
       const matchesStatus = statusFilter ? ticket.status === statusFilter : true
-      const matchesName = nameFilter ? ticket.name === nameFilter : true
 
-      return matchesSearch && matchesStatus && matchesName
+      return matchesSearch && matchesStatus 
     })
-  }, [searchTerm, statusFilter, nameFilter])
+  }, [searchTerm, statusFilter])
 
 
   // --- Pagination ---
@@ -91,7 +81,6 @@ export function ManageTickets() {
     }
   }
 
-  const uniqueNames = [...new Set(ticketsData.map((t) => t.name))]
   const uniqueStatuses = [...new Set(ticketsData.map((t) => t.status))]
 
   return (
@@ -102,18 +91,6 @@ export function ManageTickets() {
           <button className="p-2 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg">
             <Filter className="h-5 w-5 text-gray-600 dark:text-gray-300" />
           </button>
-
-          {/* Name Filter */}
-          <select
-            value={nameFilter}
-            onChange={(e) => setNameFilter(e.target.value)}
-            className="px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-lg text-sm bg-white dark:bg-gray-800 text-gray-800 dark:text-gray-200"
-          >
-            <option value="">{t("allNames")}</option>
-            {uniqueNames.map((n) => (
-              <option key={n} value={n}>{n}</option>
-            ))}
-          </select>
 
           {/* Status Filter */}
           <select
@@ -142,10 +119,6 @@ export function ManageTickets() {
             />
           </div>
 
-          <button className="ml-auto flex items-center gap-2 px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors font-medium">
-            <Plus className="h-4 w-4" />
-            {t("addTicket")}
-          </button>
         </div>
 
         {/* Table */}
@@ -164,17 +137,12 @@ export function ManageTickets() {
                 <th className="px-4 py-3 text-left text-xs font-semibold text-gray-600 dark:text-gray-300 uppercase">
                   ID
                 </th>
-                <th className="px-4 py-3 text-left text-xs font-semibold text-gray-600 dark:text-gray-300 uppercase">
-                  {t("fullName")}
-                </th>
+
                 <th className="px-4 py-3 text-left text-xs font-semibold text-gray-600 dark:text-gray-300 uppercase">
                   {t("title")}
                 </th>
                 <th className="px-4 py-3 text-left text-xs font-semibold text-gray-600 dark:text-gray-300 uppercase">
                   {t("status")}
-                </th>
-                <th className="px-4 py-3 text-left text-xs font-semibold text-gray-600 dark:text-gray-300 uppercase">
-                  {t("role")}
                 </th>
                 <th className="px-4 py-3 text-left text-xs font-semibold text-gray-600 dark:text-gray-300 uppercase">
                   {t("action")}
@@ -200,15 +168,15 @@ export function ManageTickets() {
                       className="rounded border-gray-300 dark:border-gray-600"
                     />
                   </td>
+
                   <td className="px-4 py-3 text-sm text-gray-900 dark:text-gray-100">{ticket.id}</td>
-                  <td className="px-4 py-3 text-sm font-medium text-gray-900 dark:text-white">{ticket.name}</td>
                   <td className="px-4 py-3 text-sm text-gray-600 dark:text-gray-300 max-w-xs truncate">{ticket.title}</td>
                   <td className="px-4 py-3">
                     <span className={`inline-flex px-2 py-1 text-xs font-medium rounded ${statusStyles[ticket.status]}`}>
                       {ticket.status}
                     </span>
                   </td>
-                  <td className="px-4 py-3 text-sm text-gray-600 dark:text-gray-300">{ticket.role}</td>
+
                   <td className="px-4 py-3">
                     <button
                       onClick={() => setSelectedTicket(ticket)}
@@ -300,6 +268,7 @@ export function ManageTickets() {
                     {t("status")}
                   </label>
                   <select
+                    disabled
                     defaultValue={selectedTicket.status}
                     className="w-full rounded-lg border border-gray-300 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-gray-100 px-3 py-2 text-sm focus:ring-2 focus:ring-indigo-500 focus:outline-none"
                   >
@@ -310,17 +279,6 @@ export function ManageTickets() {
                     <option>Closed</option>
                   </select>
                 </div>
-              </div>
-
-              <div>
-                <label className="block text-sm font-medium text-gray-600 dark:text-gray-400 mb-1">
-                  {t("fullName")}
-                </label>
-                <input
-                  type="text"
-                  defaultValue={selectedTicket.name}
-                  className="w-full rounded-lg border border-gray-300 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-gray-100 px-3 py-2 text-sm focus:ring-2 focus:ring-indigo-500 focus:outline-none"
-                />
               </div>
 
               <div>
@@ -336,26 +294,15 @@ export function ManageTickets() {
 
               <div>
                 <label className="block text-sm font-medium text-gray-600 dark:text-gray-400 mb-1">
-                  {t("role")}
+                  {t("content")}
                 </label>
-                <input
-                  type="text"
-                  defaultValue={selectedTicket.role}
-                  className="w-full rounded-lg border border-gray-300 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-gray-100 px-3 py-2 text-sm focus:ring-2 focus:ring-indigo-500 focus:outline-none"
-                />
+                <textarea
+                  defaultValue={selectedTicket.content}
+                  rows={3}
+                  className="w-full rounded-lg border border-gray-300 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-gray-100 px-3 py-2 text-sm resize-none focus:ring-2 focus:ring-indigo-500 focus:outline-none"
+                ></textarea>
               </div>
 
-              {/* Assign Agent */}
-              <div className="border-t border-gray-200 dark:border-gray-700 pt-4 mt-4">
-                <label className="block text-sm font-semibold text-gray-900 dark:text-gray-100 mb-1">
-                  {t("assignToAgent")}
-                </label>
-                <input
-                  type="text"
-                  placeholder="Agent Full Name"
-                  className="w-full rounded-lg border border-gray-300 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-gray-100 px-3 py-2 text-sm focus:ring-2 focus:ring-indigo-500 focus:outline-none"
-                />
-              </div>
             </div>
 
             {/* Footer */}

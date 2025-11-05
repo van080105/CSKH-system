@@ -2,8 +2,8 @@
 
 import { useState } from "react"
 import { ChevronLeft, Paperclip, Smile, Link2, AtSign, Hash } from "lucide-react"
-import { MoodSlider } from "../components/MoodSlider"
-import { StarRating } from "../components/StarRating"
+import { MoodSlider } from "../../components/MoodSlider"
+import { StarRating } from "../../components/StarRating"
 
 export function ServiceFeedback() {
   const [satisfaction, setSatisfaction] = useState(3)

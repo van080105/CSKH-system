@@ -1,8 +1,7 @@
 "use client"
 
-import { ChevronLeft } from "lucide-react"
-import { MoodSlider } from "../components/MoodSlider"
-import { StarRating } from "../components/StarRating"
+import { MoodSlider } from "../../components/MoodSlider"
+import { StarRating } from "../../components/StarRating"
 import { useState } from "react"
 
 export function ChatbotFeedback() {
@@ -18,7 +17,6 @@ export function ChatbotFeedback() {
     <div className="min-h-screen bg-white dark:bg-gray-900 p-8">
       {/* Breadcrumb */}
       <div className="mb-8 flex items-center gap-2 text-blue-600 dark:text-blue-400">
-        <ChevronLeft size={20} />
         <span>Đánh giá chatbot của chúng tôi</span>
       </div>
 

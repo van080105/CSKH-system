@@ -1,5 +1,5 @@
 import { Document, Page, Text, View, StyleSheet, Font, Image } from '@react-pdf/renderer';
-import dejavuFont from "../assets/fonts/DejaVuSans.ttf";
+import dejavuFont from "../../assets/fonts/DejaVuSans.ttf";
 import { Buffer } from 'buffer';
 
 window.Buffer = Buffer;

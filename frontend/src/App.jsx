@@ -1,9 +1,9 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { SignIn } from './pages/SignIn';
-import { SignUp } from './pages/SignUp';
-import { ForgotPassword } from './pages/ForgotPassword';
-import { DevTeamPage } from './pages/DevTeam';
-import { ProductPage } from './pages/ProductPage';
+import { SignIn } from './pages/Authorization/SignIn';
+import { SignUp } from './pages/Authorization/SignUp';
+import { ForgotPassword } from './pages/Authorization/ForgotPassword';
+import { DevTeamPage } from './pages/Decorators/DevTeam';
+import { ProductPage } from './pages/Decorators/ProductPage';
 
 import AdminLayout from "./layouts/AdminLayout";
 import AgentLayout from "./layouts/AgentLayout";
@@ -12,24 +12,30 @@ import GuestLayout from "./layouts/GuestLayout"
 
 import ProtectedRoute from "./components/ProtectedRoute";
 import { MainContent } from "./components/MainContent";
-import { Dashboard } from "./pages/Dashboard";
+import { Dashboard } from "./pages/Statistics/Dashboard";
 import { ManageUsers } from "./pages/ManageUsers";
-import { ManageTickets } from "./pages/ManageTickets";
-import { AgentTickets } from "./pages/AgentTickets";
-import { Profile } from "./pages/Profile";
+import { ReportForm } from "./pages/Statistics/ReportForm";
+
+import { ManageTickets } from "./pages/Tickets/ManageTickets";
+import { AgentTickets } from "./pages/Tickets/AgentTickets";
+import { CustomerTickets } from "./pages/Tickets/CustomerTickets";
+
+import { AdminProfile } from "./pages/Profiles/AdminProfile";
+import { CustomerProfile } from "./pages/Profiles/CustomerProfile";
+import { AgentProfile } from "./pages/Profiles/AgentProfile";
 
 import FAQ from "./pages/FAQ";
-import { ReportForm } from "./pages/ReportForm";
 import Settings from "./pages/Settings";
-import Unauthorized from "./pages/Unauthorized"; // Đảm bảo Unauthorized được import
-import { ChangePassword } from "./pages/ChangePassword"
+import Unauthorized from "./pages/Authorization/Unauthorized";
+import { ChangePassword } from "./pages/Authorization/ChangePassword"
 
-import { ChatbotFeedback } from "./pages/ChatbotFeedback"
-import { ServiceFeedback } from "./pages/ServiceFeedback"
+import { ChatbotFeedback } from "./pages/Feedbacks/ChatbotFeedback"
+import { ServiceFeedback } from "./pages/Feedbacks/ServiceFeedback"
+import Contact from "./pages/Feedbacks/Contact"
+
 import { OrderLists } from "./pages/OrderLists"
 import { OrderDetail } from "./pages/OrderDetail"
 import { Inbox } from "./pages/Inbox"
-import Contact from "./pages/Contact"
 
 import "./App.css";
 import "./lib/i18n";
@@ -65,7 +71,7 @@ function App() {
           <Route path="dashboard" element={<Dashboard />} />
           <Route path="users" element={<ManageUsers />} />
           <Route path="tickets" element={<ManageTickets />} />
-          <Route path="profile" element={<Profile />} />
+          <Route path="profile" element={<AdminProfile />} />
           <Route path="faq" element={<FAQ />} />
           <Route path="report" element={<ReportForm />} />
           <Route path="settings/*" element={<Settings />} > 
@@ -81,7 +87,7 @@ function App() {
         }>
           <Route index element={<Inbox />} />
           <Route path="tickets" element={<AgentTickets />} />
-          <Route path="profile" element={<Profile />} />
+          <Route path="profile" element={<AgentProfile />} />
           <Route path="faq" element={<FAQ showModify={false}/>} />
           <Route path="products" element={<ProductPage />} />
           <Route path="dev-team" element={<DevTeamPage />} />
@@ -96,10 +102,11 @@ function App() {
           </ProtectedRoute>
         }>
           <Route index element={<MainContent />} />
-          <Route path="profile" element={<Profile />} />
+          <Route path="profile" element={<CustomerProfile />} />
           <Route path="faq" element={<FAQ showModify = {false} />} />
           <Route path="chatbot-feedback" element={<ChatbotFeedback />} />
           <Route path="service-feedback" element={<ServiceFeedback />} />
+          <Route path="tickets" element={<CustomerTickets />} />
           <Route path="orders" element={<OrderLists />} />
           <Route path="contact" element={<Contact />} /> 
           <Route path="products" element={<ProductPage />} />

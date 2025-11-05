@@ -6,7 +6,7 @@ import { Loader2, CheckCircle, Mail, Sparkles } from "lucide-react"
 import Particles from "react-tsparticles"
 import { loadFull } from "tsparticles"
 
-export default function ContactFormBigTechPlus() {
+export default function Contact() {
   const [formData, setFormData] = useState({
     fullName: "",
     email: "",

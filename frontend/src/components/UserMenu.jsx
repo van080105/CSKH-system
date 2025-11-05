@@ -83,7 +83,7 @@ const UserMenu = () => {
         />
         <div className="text-left hidden md:block">
           <div className="text-sm font-medium text-gray-900 dark:text-gray-100">{userInfo.name}</div>
-          <div className="text-xs text-gray-500 dark:text-gray-400">{roleLabels[userInfo.role] || "User"}</div>
+          <div className="text-xs text-gray-500 dark:text-gray-200">{roleLabels[userInfo.role] || "User"}</div>
         </div>
         <ChevronDown className="h-4 w-4 text-gray-700 dark:text-gray-300" />
       </button>

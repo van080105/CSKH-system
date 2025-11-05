@@ -3,7 +3,7 @@
 import { useState } from "react"
 import { useTranslation } from "react-i18next"
 import { Eye, EyeOff, CheckCircle } from "lucide-react"
-import { useTheme } from "../hooks/useTheme"
+import { useTheme } from "../../hooks/useTheme"
 
 export function ChangePassword({ onClose, onSuccess }) {
   const { t } = useTranslation()

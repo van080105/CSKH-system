@@ -13,7 +13,7 @@ import {
 } from "lucide-react"
 import { useState, useEffect } from "react"
 import { useTranslation } from "react-i18next"
-import { ChangePassword } from "./ChangePassword"
+import { ChangePassword } from "./Authorization/ChangePassword"
 
 const Settings = ({ showElement = true }) => {
   const { theme, changeTheme } = useTheme()

@@ -8,18 +8,18 @@ import { ChevronLeft, ChevronRight, Filter } from "lucide-react"
 import { useTheme } from "../hooks/useTheme"
 
 const orderData = [
-  { id: "00001", name: "Chris", address: "123 Main St", date: "15 Feb 2019", type: "Electric", status: "Completed" },
-  { id: "00002", name: "Rosie", address: "456 Oak Ave", date: "20 Feb 2019", type: "Book", status: "Processing" },
-  { id: "00003", name: "Dan", address: "789 Pine Rd", date: "25 Feb 2019", type: "Medicine", status: "Rejected" },
-  { id: "00004", name: "Gilbe", address: "321 Elm St", date: "28 Feb 2019", type: "Mobile", status: "Completed" },
-  { id: "00005", name: "Alan Cain", address: "042 Mylene Throughway", date: "29 Jul 2019", type: "Watch", status: "Processing" },
-  { id: "00006", name: "Alfred Murray", address: "543 Weimann Mountain", date: "15 Aug 2019", type: "Medicine", status: "Completed" },
-  { id: "00007", name: "Maggie Sullivan", address: "New Scottieberg", date: "21 Dec 2019", type: "Watch", status: "Processing" },
-  { id: "00008", name: "Rosie Todd", address: "New Jon", date: "30 Apr 2019", type: "Medicine", status: "On Hold" },
-  { id: "00009", name: "Dollie Hines", address: "124 Lyla Forge Suite 975", date: "09 Jan 2019", type: "Book", status: "In Transit" },
-  { id: "00010", name: "John Doe", address: "789 Street Ave", date: "10 Mar 2019", type: "Electric", status: "Completed" },
-  { id: "00011", name: "Jane Smith", address: "456 Avenue Rd", date: "22 Apr 2019", type: "Book", status: "Processing" },
-  { id: "00012", name: "Bob Wilson", address: "321 Road St", date: "05 May 2019", type: "Medicine", status: "Completed" },
+  { id: "00001", address: "042 Mylene Throughway", date: "15 Feb 2025", type: "Mobile", status: "Completed" },
+  { id: "00002", address: "042 Mylene Throughway", date: "20 Feb 2025", type: "Mobile", status: "Processing" },
+  { id: "00003", address: "042 Mylene Throughway", date: "25 Feb 2025", type: "Mobile", status: "Rejected" },
+  { id: "00004", address: "042 Mylene Throughway", date: "28 Feb 2025", type: "Mobile", status: "Completed" },
+  { id: "00005", address: "042 Mylene Throughway", date: "29 Jul 2025", type: "Mobile", status: "Processing" },
+  { id: "00006", address: "543 Weimann Mountain", date: "15 Aug 2025", type: "Mobile", status: "Completed" },
+  { id: "00007", address: "New Scottieberg", date: "21 Dec 2024", type: "Mobile", status: "Processing" },
+  { id: "00008", address: "New Jon", date: "30 Apr 2025", type: "Mobile", status: "On Hold" },
+  { id: "00009", address: "543 Weimann Mountain", date: "09 Jan 2025", type: "Mobile", status: "In Transit" },
+  { id: "00010", address: "543 Weimann Mountain", date: "10 Mar 2025", type: "Mobile", status: "Completed" },
+  { id: "00011", address: "543 Weimann Mountain", date: "22 Apr 2025", type: "Mobile", status: "Processing" },
+  { id: "00012", address: "543 Weimann Mountain", date: "05 May 2025", type: "Mobile", status: "Completed" },
 ]
 
 const statusColors = {
@@ -313,9 +313,6 @@ export function OrderLists() {
                 {t("id")}
               </th>
               <th className="px-6 py-3 text-left text-sm font-semibold text-gray-900 dark:text-gray-100">
-                {t("name")}
-              </th>
-              <th className="px-6 py-3 text-left text-sm font-semibold text-gray-900 dark:text-gray-100">
                 {t("address")}
               </th>
               <th className="px-6 py-3 text-left text-sm font-semibold text-gray-900 dark:text-gray-100">
@@ -341,7 +338,6 @@ export function OrderLists() {
                     <input type="checkbox" className="dark:bg-gray-700 dark:border-gray-600" />
                   </td>
                   <td className="px-6 py-4 text-sm text-gray-900 dark:text-gray-100">{order.id}</td>
-                  <td className="px-6 py-4 text-sm text-gray-900 dark:text-gray-100">{order.name}</td>
                   <td className="px-6 py-4 text-sm text-gray-600 dark:text-gray-400">{order.address}</td>
                   <td className="px-6 py-4 text-sm text-gray-600 dark:text-gray-400">{order.date}</td>
                   <td className="px-6 py-4 text-sm text-gray-900 dark:text-gray-100">{order.type}</td>

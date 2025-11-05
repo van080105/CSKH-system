@@ -114,6 +114,7 @@ i18n.use(LanguageDetector).use(initReactI18next).init({
         orderLists : "Danh sách đơn hàng",
         filterBy : "Lọc theo",
         selectDate : "Chọn ngày",
+        selectRegion : "Chọn khu vực",
         orderType : "Loại đơn hàng",
         orderStatus : "Trạng thái đơn hàng",
         resetFilter : "Đặt lại bộ lọc",
@@ -176,6 +177,30 @@ i18n.use(LanguageDetector).use(initReactI18next).init({
         selectDepartment : "Phòng ban",
         selectEmployee : "Nhân viên",
         assignedTo : "Nhân viên được gán",
+        membershipLevel : "Hạng thành viên",
+        featuredModels: "Các Mẫu iPhone Nổi Bật",
+        iphone17Description: "iPhone 17 với thiết kế tiên tiến, hiệu suất cực nhanh và hệ thống camera cách mạng, nâng tầm trải nghiệm chụp ảnh của bạn lên một mức độ mới.",
+        iphone17ProDescription: "iPhone 17 Pro sở hữu màn hình Super Retina XDR mới, chip A17 Bionic mạnh mẽ và hệ thống camera chuyên nghiệp với các tính năng nâng cao như chế độ ban đêm và zoom quang học 5x.",
+        iphoneSEDescription: "iPhone SE: Sự kết hợp hoàn hảo giữa hiệu suất mạnh mẽ và giá trị tuyệt vời, thích hợp cho những ai muốn sở hữu iPhone giá rẻ.",
+
+        whyChooseUs: "Tại Sao Chọn Chúng Tôi?",
+        premiumQuality: "Chất Lượng Cao",
+        premiumQualityContent: "Sản phẩm của chúng tôi được chọn lọc kỹ lưỡng, bảo đảm mang lại hiệu suất cao và độ bền vượt trội.",
+        specialOffers: "Ưu Đãi Đặc Biệt",
+        specialOffersContent: "Chúng tôi cung cấp nhiều ưu đãi hấp dẫn, giúp bạn sở hữu iPhone với mức giá tốt nhất.",
+        customerCare: "Chăm Sóc Khách Hàng",
+        customerCareContent: "Đội ngũ hỗ trợ chuyên nghiệp, luôn sẵn sàng giúp đỡ bạn trong mọi vấn đề về sản phẩm và dịch vụ.",
+        trustedBrand: "Thương Hiệu Uy Tín",
+        trustedBrandContent: "Mockstack là một thương hiệu đáng tin cậy, luôn đi đầu trong việc cung cấp các sản phẩm công nghệ hiện đại và dịch vụ chăm sóc khách hàng tận tâm.",
+
+        customerReviews: "Đánh Giá Khách Hàng",
+        review1: "Sản phẩm tuyệt vời! Tôi đã mua iPhone qua Mockstack và không thể hài lòng hơn với chất lượng sản phẩm cũng như dịch vụ chăm sóc khách hàng.",
+        review2: "Dịch vụ chuyên nghiệp, nhanh chóng và rất thân thiện. Tôi chắc chắn sẽ quay lại mua thêm những sản phẩm khác.",
+        
+        privacyPolicy: "Chính Sách Bảo Mật",
+        termsOfService: "Điều Khoản Dịch Vụ",
+        contactUs: "Liên Hệ Chúng Tôi",
+        allRightsReserved: "Tất cả quyền được bảo lưu"
         // Thêm các key khác...
       },
     },
@@ -290,6 +315,7 @@ i18n.use(LanguageDetector).use(initReactI18next).init({
         orderLists : "Order Lists",
         filterBy : "Filter By",
         selectDate : "Select Date",
+        selectRegion : "Select Region",
         orderType : "Order Type",
         orderStatus : "Order Status",
         resetFilter : "Reset Filter",
@@ -351,6 +377,33 @@ i18n.use(LanguageDetector).use(initReactI18next).init({
         selectDepartment : "Department",
         selectEmployee : "Employee",
         assignedTo : "Assigned to",
+        membershipLevel : "Membership Level",
+        featuredModels: "Featured iPhone Models",
+        iphone17Description: "The iPhone 17 with a cutting-edge design, blazing fast performance, and revolutionary camera system that takes your photos to the next level.",
+        iphone17ProDescription: "The iPhone 17 Pro features an all-new Super Retina XDR display, A17 Bionic chip, and a pro-grade camera system with advanced features like night mode and 5x optical zoom.",
+        iphoneSEDescription: "iPhone SE: The perfect combination of powerful performance and great value, ideal for those who want an affordable iPhone.",
+        
+        whyChooseUs: "Why Choose Us?",
+        premiumQuality: "Premium Quality",
+        premiumQualityContent: "Our products are carefully selected to ensure high performance and exceptional durability.",
+        
+        specialOffers: "Special Offers",
+        specialOffersContent: "We offer many attractive deals to help you own an iPhone at the best price.",
+        
+        customerCare: "Customer Care",
+        customerCareContent: "Our professional support team is always ready to assist you with any product or service issues.",
+        
+        trustedBrand: "Trusted Brand",
+        trustedBrandContent: "Mockstack is a trusted brand, always leading in providing modern tech products and customer care services.",
+        
+        customerReviews: "Customer Reviews",
+        review1: "Excellent product! I bought my iPhone through Mockstack and couldn't be more satisfied with the product quality and customer service.",
+        review2: "Professional, fast service, and very friendly. I will definitely return to buy more products.",
+        
+        privacyPolicy: "Privacy Policy",
+        termsOfService: "Terms of Service",
+        contactUs: "Contact Us",
+        allRightsReserved: "All rights reserved"
         // Add more keys...
       },
     },

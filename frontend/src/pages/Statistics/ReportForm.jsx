@@ -5,6 +5,7 @@ import { ReportPDF } from './ReportPDF'
 import { toPng } from 'html-to-image'
 import ExcelJS from 'exceljs'
 import { saveAs } from 'file-saver'
+import { useTranslation } from "react-i18next"
 
 const chartData = [
   { name: "T1", ticketData2025: 10000, ticketData2024: 8000, satisfactionData2025: 75, satisfactionData2024: 70 },
@@ -20,14 +21,15 @@ export function ReportForm({ onClose }) {
   const [year, setYear] = useState("2025")
   const [staff, setStaff] = useState("Nhân viên")
   const [area, setArea] = useState("Khu vực")
-
+  
   const [ticketChartImage, setTicketChartImage] = useState(null)
   const [satisfactionChartImage, setSatisfactionChartImage] = useState(null)
 
   const reportRef = useRef();
   const ticketsChartRef = useRef();
-
   const satisfactionChartRef = useRef();
+  const { t } = useTranslation()
+  
   const exportExcel = async () => {
     const workbook = new ExcelJS.Workbook();
     const worksheet = workbook.addWorksheet("Báo cáo");
@@ -121,6 +123,16 @@ export function ReportForm({ onClose }) {
             <option>2024</option>
             <option>2025</option>
           </select>
+
+          {/* Dropdown cho phòng ban */}
+          <select className="px-3 py-1.5 w-32 border border-gray-300 dark:border-gray-600 rounded-lg text-sm dark:bg-gray-800 dark:text-white">
+            <option>{t("selectDepartment")}</option>
+            <option>Sales</option>
+            <option>Support</option>
+            <option>Marketing</option>
+            <option>Development</option>
+          </select>
+
           <select
             value={staff}
             onChange={(e) => setStaff(e.target.value)}
@@ -128,6 +140,7 @@ export function ReportForm({ onClose }) {
           >
             <option>Nhân viên</option>
           </select>
+
           <select
             value={area}
             onChange={(e) => setArea(e.target.value)}

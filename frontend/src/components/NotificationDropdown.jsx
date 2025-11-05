@@ -1,8 +1,6 @@
 import { useState, useRef, useEffect } from 'react';
-import { Bell, MessageCircle } from 'lucide-react';
-import { NavLink
+import { Bell } from 'lucide-react';
 
- } from 'react-router-dom';
 const notifications = [
   {
     id: 1,
@@ -142,18 +140,6 @@ const NotificationDropdown = () => {
               </li>
             )}
           </ul>
-
-          {/* Footer */}
-          <div className="p-4 border-t dark:border-gray-700 text-center">
-            <NavLink
-              to="/contact"
-              onClick={() => setOpen(false)}
-              className="inline-flex items-center justify-center gap-2 mt-2 bg-gradient-to-r from-blue-500 to-purple-500 text-white px-4 py-2 rounded-lg hover:opacity-90 transition font-medium shadow-md"
-            >
-              <MessageCircle className="w-5 h-5" />
-              Liên hệ với nhân viên
-            </NavLink>
-          </div>
 
         </div>
       )}

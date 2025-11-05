@@ -4,7 +4,7 @@ import { useState, useRef, useEffect } from "react"
 import { X, Send, Smile, ImageIcon, MessageCircle, Paperclip } from "lucide-react"
 import EmojiPicker from "emoji-picker-react"
 import { useTranslation } from "react-i18next"
-import { ChatbotFeedback } from "../pages/ChatbotFeedback"
+import { ChatbotFeedback } from "../pages/Feedbacks/ChatbotFeedback"
 
 export function ChatWidget() {
   const [isOpen, setIsOpen] = useState(false)
@@ -89,15 +89,15 @@ export function ChatWidget() {
         <div className="fixed inset-0 bg-black/40 backdrop-blur-sm flex items-center justify-center z-[9999] animate-fadeIn">
           <div
             ref={overlayRef}
-            className="relative w-[95%] max-w-5xl max-h-[90vh] bg-white rounded-2xl shadow-2xl overflow-auto animate-slideUp"
+            className="relative w-[95%] max-w-5xl max-h-[90vh] bg-white dark:bg-gray-900 rounded-2xl shadow-2xl overflow-auto animate-slideUp"
             style={{ scrollbarWidth: "thin", scrollbarColor: "#ccc transparent" }}
           >
             {/* Nút đóng feedback */}
             <button
-              className="absolute top-3 right-3 p-2 rounded-full bg-gray-100 hover:bg-gray-200 z-50"
+              className="absolute top-3 right-3 p-2 rounded-full bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 z-50"
               onClick={() => setShowFeedback(false)}
             >
-              <X className="h-5 w-5 text-gray-700" />
+              <X className="h-5 w-5 text-gray-700 dark:text-gray-300" />
             </button>
 
             <ChatbotFeedback />
@@ -135,7 +135,7 @@ export function ChatWidget() {
               }}
             >
               <button
-                className="absolute top-4 right-4 p-2 text-white hover:bg-white/20 rounded-lg transition-colors z-50"
+                className="absolute top-4 right-4 p-2 text-white dark:text-gray-300 hover:bg-white/20 dark:hover:bg-gray-800 rounded-lg transition-colors z-50"
                 onClick={() => setIsOpen(false)}
               >
                 <X className="h-5 w-5" />
