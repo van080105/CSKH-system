@@ -1,6 +1,6 @@
-CREATE DATABASE CSKH
+CREATE DATABASE CSKH15
 GO
-USE CSKH
+USE CSKH15
 GO
 
 -- Bảng Notification
@@ -58,7 +58,6 @@ CREATE TABLE FeedbackForm (
     Rating INT,
     Content NVARCHAR(255),
     SentDate DATETIME,
-    OrderID INT,
     FOREIGN KEY (CustomerID) REFERENCES Customer(CustomerID),
 	FOREIGN KEY (FormID) REFERENCES Form(FormID)
 );
@@ -71,7 +70,6 @@ CREATE TABLE Receiver (
 CREATE TABLE Message1 (
     ID INT PRIMARY KEY,
     Content NVARCHAR(255) NOT NULL,
-    SentDate DATETIME,
     ReceiverID VARCHAR(5) NOT NULL,
     FOREIGN KEY (ReceiverID) REFERENCES Receiver(ReceiverID)
 );
@@ -79,7 +77,8 @@ CREATE TABLE Message1 (
 -- Bảng CustomerSend
 CREATE TABLE CustomerSend(
 	CustomerID INT,
-	MessageID INT PRIMARY KEY,
+	MessageID INT,
+    PRIMARY KEY(CustomerID, MessageID),
 	FOREIGN KEY (CustomerID) REFERENCES Customer(CustomerID),
 	FOREIGN KEY (MessageID) REFERENCES Message1(ID)
 );
@@ -87,7 +86,8 @@ CREATE TABLE CustomerSend(
 -- Bảng CustomerCreate
 CREATE TABLE CustomerCreate(
 	CustomerID INT,
-	FormID INT PRIMARY KEY,
+	FormID INT,
+    PRIMARY KEY(CustomerID, FormID),
 	FOREIGN KEY (CustomerID) REFERENCES Customer(CustomerID),
 	FOREIGN KEY (FormID) REFERENCES Form(FormID)
 );
@@ -107,8 +107,8 @@ CREATE TABLE ClassifyTable (
     TableID INT PRIMARY KEY,
     NameTable NVARCHAR(100),
     Category NVARCHAR(100),
-    ChildTableID INT,
-	FOREIGN KEY (ChildTableID) REFERENCES ClassifyTable(TableID)
+    ParentTableID INT,
+	FOREIGN KEY (ParentTableID) REFERENCES ClassifyTable(TableID)
 );
 
 -- Bảng Assign
@@ -131,6 +131,7 @@ CREATE TABLE Chatbot (
 CREATE TABLE FeedbackChatbot (
     CustomerID INT PRIMARY KEY,
     Vers NVARCHAR(50),
+    Rating INT,
     FOREIGN KEY (CustomerID) REFERENCES Customer(CustomerID),
     FOREIGN KEY (Vers) REFERENCES Chatbot(Vers)
 );
@@ -140,7 +141,7 @@ CREATE TABLE Orders (
     OrderID INT PRIMARY KEY,
     CustomerID INT NOT NULL,
     OrderDate DATETIME,
-    Status NVARCHAR(50),
+    Stt NVARCHAR(50),
     DeliveryAddress NVARCHAR(200),
     FOREIGN KEY (CustomerID) REFERENCES Customer(CustomerID)
 );
@@ -148,12 +149,17 @@ CREATE TABLE Orders (
 -- Bảng OrderItem
 CREATE TABLE OrderItem (
     OrderItemID INT PRIMARY KEY,
-    OrderID INT NOT NULL,
     Quantity INT NOT NULL,
     ProductName NVARCHAR(100),
     UnitPrice DECIMAL(10,2),
-    FOREIGN KEY (OrderID) REFERENCES Orders(OrderID)
 );
+
+CREATE TABLE Belong (
+    OrderID INT,
+    OrderItemID INT,
+    FOREIGN KEY (OrderID) REFERENCES Orders(OrderID),
+    FOREIGN KEY (OrderItemID) REFERENCES OrderItem(OrderItemID)
+)
 
 -- Bảng Guest
 CREATE TABLE Guest (
@@ -166,7 +172,8 @@ CREATE TABLE Guest (
 -- Bảng GuestSend
 CREATE TABLE GuestSend (
     ID0 INT,
-    MessageID INT PRIMARY KEY,
+    MessageID INT,
+    PRIMARY KEY(ID0, MessageID),
     FOREIGN KEY (ID0) REFERENCES Guest(ID0),
     FOREIGN KEY (MessageID) REFERENCES Message1(ID)
 );
@@ -174,7 +181,8 @@ CREATE TABLE GuestSend (
 -- Bảng GuestCreate
 CREATE TABLE GuestCreate (
     ID0 INT,
-    FormID INT PRIMARY KEY,
+    FormID INT,
+    PRIMARY KEY(ID0, FormID),
     FOREIGN KEY (ID0) REFERENCES Guest(ID0),
     FOREIGN KEY (FormID) REFERENCES Form(FormID)
 );
