@@ -1,77 +1,99 @@
 import { defineConfig, loadEnv } from 'vite'
-import react from '@vitejs/plugin-react'
+import react from '@vitejs/plugin-react-swc'
 import tailwindcss from '@tailwindcss/vite'
 import svgr from 'vite-plugin-svgr'
 import viteCompression from 'vite-plugin-compression'
 import { visualizer } from 'rollup-plugin-visualizer'
 import path from 'path'
 import { VitePWA } from 'vite-plugin-pwa'
-import legacy from '@vitejs/plugin-legacy'
 import { ViteImageOptimizer } from 'vite-plugin-image-optimizer'
 
 export default defineConfig(({ mode }) => {
-  // 🧠 Load biến môi trường tương ứng
   const env = loadEnv(mode, process.cwd(), '')
+  const isProd = mode === 'production'
+  const APP_VERSION = JSON.stringify(process.env.npm_package_version)
+  const BUILD_DATE = JSON.stringify(new Date().toISOString())
 
   return {
-    // Cấu hình chung
     base: '/',
     plugins: [
+      // ⚡ React dùng SWC: build nhanh gấp 10x Babel
       react(),
-      tailwindcss(),
-      svgr(),
-      viteCompression({
-        algorithm: 'brotliCompress',
-        threshold: 1024, // Chỉ nén file >1KB
-        deleteOriginFile: false, // Giữ lại bản gốc (để server tùy chọn gửi .br/.gz)
-      }),
-      visualizer({ open: false, filename: 'dist/stats.html' }),
 
-      // 🧩 PWA (Progressive Web App)
+      // 🧩 Tailwind + PurgeCSS tự động (chỉ giữ class thực sự dùng)
+      tailwindcss(),
+
+      // 🖼 SVG dưới dạng React Component
+      svgr(),
+
+      // 💨 Nén Brotli + Gzip song song
+      viteCompression({ algorithm: 'brotliCompress', threshold: 512, ext: '.br' }),
+      viteCompression({ algorithm: 'gzip', threshold: 512, ext: '.gz' }),
+
+      // 📊 Phân tích bundle
+      visualizer({
+        open: false,
+        filename: 'dist/stats.html',
+        gzipSize: true,
+        brotliSize: true,
+      }),
+
+      // 🌍 Progressive Web App (chuẩn App Store)
       VitePWA({
         registerType: 'autoUpdate',
         includeAssets: ['favicon.svg', 'robots.txt', 'apple-touch-icon.png'],
         manifest: {
-          name: 'My React App',
-          short_name: 'ReactApp',
+          name: 'Mockstack - Hệ thống tư vấn và chăm sóc khách hàng',
+          short_name: 'Mockstack',
           theme_color: '#0ea5e9',
           background_color: '#ffffff',
           display: 'standalone',
           start_url: '/',
           icons: [
+            { src: '/pwa-192x192.png', sizes: '192x192', type: 'image/png' },
+            { src: '/pwa-512x512.png', sizes: '512x512', type: 'image/png' },
             {
-              src: '/pwa-192x192.png',
-              sizes: '192x192',
-              type: 'image/png',
-            },
-            {
-              src: '/pwa-512x512.png',
+              src: '/pwa-512x512-maskable.png',
               sizes: '512x512',
               type: 'image/png',
+              purpose: 'maskable',
+            },
+          ],
+        },
+        workbox: {
+          maximumFileSizeToCacheInBytes: 6 * 1024 * 1024, // 6 MB
+          runtimeCaching: [
+            {
+              urlPattern: ({ request }) =>
+                request.destination === 'image' ||
+                request.destination === 'script' ||
+                request.destination === 'style',
+              handler: 'CacheFirst',
+              options: {
+                cacheName: 'static-assets',
+                expiration: {
+                  maxEntries: 200,
+                  maxAgeSeconds: 60 * 60 * 24 * 30, // 30 ngày
+                },
+              },
             },
           ],
         },
       }),
 
-      // 🧩 Plugin nén ảnh
+      // 🧩 Nén ảnh thông minh
       ViteImageOptimizer({
-        jpg: { quality: 80 },
-        png: { quality: 80 },
-        webp: { quality: 80 },
-        avif: { quality: 80 },
-      }),
-
-      // 🧩 Legacy build – hỗ trợ browser cũ (IE11, Safari 12,…)
-      legacy({
-        targets: ['defaults', 'not IE 11'],
-        additionalLegacyPolyfills: ['regenerator-runtime/runtime'],
+        jpg: { quality: 70, progressive: true },
+        png: { quality: 70, speed: 3 },
+        webp: { quality: 70 },
+        avif: { quality: 65 },
       }),
     ],
 
     // ⚡ Dev Server
     server: {
-      port: Number(env.VITE_PORT) || 6660,
       host: true,
+      port: Number(env.VITE_PORT) || 6660,
       open: true,
       cors: true,
       allowedHosts: ['triangulately-percolable-rowen.ngrok-free.dev'],
@@ -83,12 +105,9 @@ export default defineConfig(({ mode }) => {
           rewrite: path => path.replace(/^\/api/, ''),
         },
       },
-      watch: {
-        usePolling: true,
-      },
     },
 
-    // 🧱 Resolve Alias
+    // 📁 Alias
     resolve: {
       alias: {
         '@': path.resolve(__dirname, './src'),
@@ -102,60 +121,56 @@ export default defineConfig(({ mode }) => {
       },
     },
 
-    // ⚙️ Build cho production
+    // 🏗️ Build tối đa hiệu năng
     build: {
       outDir: 'dist',
-      sourcemap: mode !== 'production',
-      minify: 'terser',
       target: 'esnext',
       cssCodeSplit: true,
+      sourcemap: !isProd,
+      minify: isProd ? 'terser' : false,
       reportCompressedSize: true,
-      chunkSizeWarningLimit: 800, // tăng giới hạn cảnh báo bundle
+      chunkSizeWarningLimit: 1500,
+
       rollupOptions: {
         output: {
-          // Tách vendor và logic riêng
-          manualChunks(id) {
-            if (id.includes('node_modules')) {
-              if (id.includes('react')) return 'vendor-react'
-              if (id.includes('tailwindcss')) return 'vendor-tailwind'
-              return 'vendor'
-            }
-          },
           chunkFileNames: 'assets/js/[name]-[hash].js',
           entryFileNames: 'assets/js/[name]-[hash].js',
           assetFileNames: ({ name }) => {
-            if (/\.(gif|jpe?g|png|svg|webp)$/.test(name ?? '')) {
+            if (/\.(gif|jpe?g|png|svg|webp|avif)$/.test(name ?? ''))
               return 'assets/images/[name]-[hash][extname]'
-            }
-            if (/\.css$/.test(name ?? '')) {
+            if (/\.css$/.test(name ?? ''))
               return 'assets/css/[name]-[hash][extname]'
-            }
             return 'assets/[name]-[hash][extname]'
           },
         },
       },
+
+      terserOptions: {
+        compress: {
+          drop_console: isProd,
+          drop_debugger: isProd,
+          pure_funcs: ['console.log', 'console.info', 'console.debug'],
+        },
+        format: { comments: false },
+      },
     },
 
-    // 🧩 Optimize Deps
-    optimizeDeps: {
-      include: ['react', 'react-dom', 'react-router-dom'],
-      exclude: ['@vitejs/plugin-react'],
-      esbuildOptions: { target: 'esnext' },
-    },
-
-    // 🧩 Preview server
     preview: {
       port: 8080,
       open: true,
     },
 
-    // 🌍 Định nghĩa biến toàn cục
+    // 🌍 Global constants
     define: {
-      __APP_VERSION__: JSON.stringify(process.env.npm_package_version),
-      __BUILD_DATE__: JSON.stringify(new Date().toISOString()),
+      __APP_VERSION__: APP_VERSION,
+      __BUILD_DATE__: BUILD_DATE,
       __API_URL__: JSON.stringify(env.VITE_API_URL),
-      __DEV__: JSON.stringify(mode === 'development'),
+      __DEV__: JSON.stringify(!isProd),
     },
+
+    // ⚡ Cache thông minh
+    cacheDir: '.vite_cache',
   }
 })
+
 

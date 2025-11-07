@@ -1,5 +1,5 @@
 import {
-  Home,
+  MessageSquare,
   Ticket,
   HelpCircle,
   FileText,
@@ -18,7 +18,7 @@ export function AgentSidebar() {
     "bg-indigo-600 text-white font-medium hover:bg-indigo-700"
   const { t } = useTranslation()
   const location = useLocation()
-  const isHomeActive = location.pathname === "/agent/"
+  const isHomeActive = location.pathname === "/agent/inbox"
 
   return (
     <aside className="w-[220px] h-full border-r border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 flex flex-col">
@@ -31,11 +31,11 @@ export function AgentSidebar() {
 
       <nav className="flex-1 px-3 space-y-1">
         <NavLink
-          to="/agent/"
+          to="/agent/inbox"
           className={`${linkClass} ${isHomeActive ? activeClass : "text-gray-600 dark:text-gray-300"}`}
         >
-          <Home className="h-4 w-4" />
-          {t("homepage")}
+          <MessageSquare className="h-4 w-4" />
+          {t("inbox")}
         </NavLink>
 
         <NavLink

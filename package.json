@@ -6,7 +6,13 @@
     "contrib": "git-contributor"
   },
   "git-contributor": {
-    "files": ["README.md"],
+    "files": [
+      "README.md"
+    ],
     "showAutoTip": false
+  },
+  "dependencies": {
+    "@vitejs/plugin-react-swc": "^4.2.1",
+    "rollup-plugin-critical": "^1.0.15"
   }
 }

@@ -18,6 +18,7 @@ const ticketsData = [
     title: "Không thể đăng nhập vào tài khoản", 
     status: "Open", 
     role: "Khách hàng",
+    category: "Hỗ trợ kỹ thuật",  
     content: "Tôi không thể đăng nhập vào tài khoản của mình sau khi reset mật khẩu.",
     responseContent: "Chúng tôi đã kiểm tra và xác nhận tài khoản của bạn đang bị khóa do thử đăng nhập sai nhiều lần. Vui lòng thử lại sau 30 phút.",
     assignedTo : "Lê Văn A",
@@ -28,6 +29,7 @@ const ticketsData = [
     title: "Yêu cầu hoàn tiền đơn hàng #1234", 
     status: "Pending", 
     role: "Khách hàng",
+    category: "Vấn đề thanh toán",
     content: "Tôi yêu cầu hoàn tiền cho đơn hàng vì sản phẩm không đúng như mô tả.",
     responseContent: "Chúng tôi đã nhận được yêu cầu hoàn tiền của bạn và sẽ xử lý trong vòng 7 ngày làm việc.",
     assignedTo: "Lê Văn B",
@@ -38,6 +40,7 @@ const ticketsData = [
     title: "Lỗi khi thanh toán bằng thẻ VISA", 
     status: "In progress", 
     role: "Khách hàng",
+    category: "Vấn đề thanh toán",
     content: "Tôi không thể thanh toán đơn hàng sử dụng thẻ VISA. Lỗi xảy ra khi nhập thông tin thẻ.",
     responseContent: "Chúng tôi đã xác nhận lỗi thanh toán và đang tiến hành kiểm tra với ngân hàng phát hành thẻ VISA.",
     assignedTo: "Lê Văn C",
@@ -48,6 +51,7 @@ const ticketsData = [
     title: "Không nhận được email xác nhận", 
     status: "Completed", 
     role: "Khách hàng",
+    category: "Hỗ trợ kỹ thuật",
     content: "Tôi đã đăng ký tài khoản nhưng không nhận được email xác nhận.",
     responseContent: "Chúng tôi đã xác nhận email của bạn và đã gửi lại email xác nhận. Vui lòng kiểm tra hộp thư rác nếu không thấy.",
     assignedTo: "Lê Văn D",
@@ -58,6 +62,7 @@ const ticketsData = [
     title: "Đề xuất tính năng mới", 
     status: "Closed", 
     role: "Khách hàng",
+    category: "Góp ý và phản hồi",
     content: "Tôi đề xuất tính năng hỗ trợ thanh toán qua ví điện tử.",
     responseContent: "Cảm ơn bạn đã đóng góp ý kiến. Chúng tôi sẽ xem xét và cập nhật trong phiên bản tiếp theo.",
     assignedTo: "Lê Văn E",
@@ -68,6 +73,7 @@ const ticketsData = [
     title: "Cần hỗ trợ đổi mật khẩu", 
     status: "Open", 
     role: "Khách hàng",
+    category: "Hỗ trợ kỹ thuật",
     content: "Tôi yêu cầu hỗ trợ thay đổi mật khẩu vì quên mật khẩu hiện tại.",
     responseContent: "Chúng tôi đã gửi yêu cầu đặt lại mật khẩu qua email của bạn. Vui lòng làm theo hướng dẫn trong email.",
     assignedTo: "Lê Văn G",
@@ -78,6 +84,7 @@ const ticketsData = [
     title: "Giao diện bị lỗi trên mobile", 
     status: "Pending", 
     role: "Khách hàng",
+    category: "Phản hồi và ý kiến",
     content: "Tôi phản ánh rằng giao diện của trang web bị lỗi khi truy cập trên thiết bị di động.",
     responseContent: "Chúng tôi đã ghi nhận lỗi này và đang tiến hành kiểm tra để cập nhật bản vá lỗi trong thời gian sớm nhất.",
     assignedTo: "Lê Văn H",
@@ -88,6 +95,7 @@ const ticketsData = [
     title: "Không tải được tài liệu hướng dẫn", 
     status: "Open", 
     role: "Khách hàng",
+    category: "Hỗ trợ kỹ thuật",
     content: "Tôi không thể tải được tài liệu hướng dẫn từ website.",
     responseContent: "Chúng tôi đã kiểm tra và đang tiến hành khắc phục sự cố tải tài liệu. Bạn có thể thử lại sau.",
     assignedTo: "Lê Văn T",
@@ -98,6 +106,7 @@ const ticketsData = [
     title: "Hỗ trợ kích hoạt tài khoản công ty", 
     status: "In progress", 
     role: "Khách hàng",
+    category: "Hỗ trợ kỹ thuật",
     content: "Tôi muốn hỗ trợ kích hoạt tài khoản cho công ty.",
     responseContent: "Chúng tôi đã nhận yêu cầu và sẽ tiến hành kích hoạt tài khoản trong vòng 48 giờ làm việc.",
     assignedTo: "Lê Văn K",
@@ -108,6 +117,7 @@ const ticketsData = [
     title: "Thanh toán thất bại nhiều lần", 
     status: "Open", 
     role: "Khách hàng",
+    category: "Vấn đề thanh toán",
     content: "Tôi gặp sự cố khi thanh toán, thanh toán liên tục thất bại dù đã thử nhiều lần.",
     responseContent: "Chúng tôi đang kiểm tra sự cố và sẽ liên hệ với bạn ngay khi có kết quả.",
     assignedTo: "Lê Văn L",
@@ -126,6 +136,7 @@ export function ManageTickets() {
   const [selectedTickets, setSelectedTickets] = useState([])
   const [searchTerm, setSearchTerm] = useState("")
   const [statusFilter, setStatusFilter] = useState("")
+  const [categoryFilter, setCategoryFilter] = useState("")
   const [nameFilter, setNameFilter] = useState("")
   const [linesPerPage, setLinesPerPage] = useState(10)
   const [page, setPage] = useState(1)
@@ -148,14 +159,16 @@ export function ManageTickets() {
       const nameMatch = normalize(ticket.name).includes(search)
       const titleMatch = normalize(ticket.title).includes(search)
       const statusMatch = normalize(ticket.status).includes(search)
-
-      const matchesSearch = idMatch || nameMatch || titleMatch || statusMatch
+      const categoryMatch = normalize(ticket.category).includes(search)
+      
+      const matchesSearch = idMatch || nameMatch || titleMatch || statusMatch || categoryMatch
       const matchesStatus = statusFilter ? ticket.status === statusFilter : true
+      const matchesCategory = categoryFilter ? ticket.category === categoryFilter : true
       const matchesName = nameFilter ? ticket.name === nameFilter : true
 
-      return matchesSearch && matchesStatus && matchesName
+      return matchesSearch && matchesStatus && matchesName && matchesCategory
     })
-  }, [searchTerm, statusFilter, nameFilter])
+  }, [searchTerm, statusFilter, nameFilter, categoryFilter])
 
 
   // --- Pagination ---
@@ -182,6 +195,7 @@ export function ManageTickets() {
 
   const uniqueNames = [...new Set(ticketsData.map((t) => t.name))]
   const uniqueStatuses = [...new Set(ticketsData.map((t) => t.status))]
+  const uniqueCategories = [...new Set(ticketsData.map((t) => t.category))]
 
   return (
     <div className="p-6 relative">
@@ -213,6 +227,18 @@ export function ManageTickets() {
             <option value="">{t("allStatuses")}</option>
             {uniqueStatuses.map((s) => (
               <option key={s} value={s}>{s}</option>
+            ))}
+          </select>
+
+          {/* Category Filter */}
+          <select
+            value={categoryFilter}
+            onChange={(e) => setCategoryFilter(e.target.value)}
+            className="px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-lg text-sm bg-white dark:bg-gray-800 text-gray-800 dark:text-gray-200"
+          >
+            <option value="">{t("allCategories")}</option>
+            {uniqueCategories.map((c) => (
+              <option key={c} value={c}>{c}</option>
             ))}
           </select>
 
@@ -266,6 +292,9 @@ export function ManageTickets() {
                   {t("role")}
                 </th>
                 <th className="px-4 py-3 text-left text-xs font-semibold text-gray-600 dark:text-gray-300 uppercase">
+                  {t("category")}
+                </th>
+                <th className="px-4 py-3 text-left text-xs font-semibold text-gray-600 dark:text-gray-300 uppercase">
                   {t("assignedTo")}
                 </th>
                 <th className="px-4 py-3 text-left text-xs font-semibold text-gray-600 dark:text-gray-300 uppercase">
@@ -301,6 +330,7 @@ export function ManageTickets() {
                     </span>
                   </td>
                   <td className="px-4 py-3 text-sm text-gray-600 dark:text-gray-300">{ticket.role}</td>
+                  <td className="px-4 py-3 text-sm text-gray-600 dark:text-gray-300">{ticket.category}</td>
                   <td className="px-4 py-3 text-sm text-gray-600 dark:text-gray-300">{ticket.assignedTo}</td>
                   <td className="px-4 py-3">
                     <button
@@ -434,6 +464,17 @@ export function ManageTickets() {
                 <input
                   type="text"
                   defaultValue={selectedTicket.role}
+                  className="w-full rounded-lg border border-gray-300 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-gray-100 px-3 py-2 text-sm focus:ring-2 focus:ring-indigo-500 focus:outline-none"
+                />
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-gray-600 dark:text-gray-400 mb-1">
+                  {t("category")}
+                </label>
+                <input
+                  type="text"
+                  defaultValue={selectedTicket.category}
                   className="w-full rounded-lg border border-gray-300 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-gray-100 px-3 py-2 text-sm focus:ring-2 focus:ring-indigo-500 focus:outline-none"
                 />
               </div>

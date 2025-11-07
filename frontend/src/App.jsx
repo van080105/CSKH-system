@@ -26,7 +26,10 @@ import { AgentProfile } from "./pages/Profiles/AgentProfile";
 
 import FAQ from "./pages/FAQ";
 import Settings from "./pages/Settings";
+
 import Unauthorized from "./pages/Authorization/Unauthorized";
+import { NotFoundPage } from "./pages/Authorization/NotFound";
+
 import { ChangePassword } from "./pages/Authorization/ChangePassword"
 
 import { ChatbotFeedback } from "./pages/Feedbacks/ChatbotFeedback"
@@ -35,7 +38,9 @@ import Contact from "./pages/Feedbacks/Contact"
 
 import { OrderLists } from "./pages/OrderLists"
 import { OrderDetail } from "./pages/OrderDetail"
+
 import { Inbox } from "./pages/Inbox"
+import { InboxDetail } from "./pages/InboxDetail";
 
 import "./App.css";
 import "./lib/i18n";
@@ -85,7 +90,9 @@ function App() {
             <AgentLayout />
           </ProtectedRoute>
         }>
-          <Route index element={<Inbox />} />
+          <Route path="inbox" element={<Inbox />}>
+            <Route path=":id" element={<InboxDetail />} /> 
+          </Route>
           <Route path="tickets" element={<AgentTickets />} />
           <Route path="profile" element={<AgentProfile />} />
           <Route path="faq" element={<FAQ showModify={false}/>} />
@@ -118,7 +125,12 @@ function App() {
 
         {/* Trang Unauthorized */}
         <Route path="/unauthorized" element={<Unauthorized />} />
+        
+        {/* Trang 404 */}
+        <Route path="*" element={<NotFoundPage />} />  
+
       </Routes>
+      
     </BrowserRouter>
   );
 }
