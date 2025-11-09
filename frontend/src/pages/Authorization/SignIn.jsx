@@ -40,7 +40,7 @@ export function SignIn() {
         if (foundUser) {
           localStorage.setItem("user", JSON.stringify(foundUser))
           if (foundUser.role === "admin") navigate("/admin/")
-          else if (foundUser.role === "agent") navigate("/agent/")
+          else if (foundUser.role === "agent") navigate("/agent/inbox/")
           else navigate("/customer/")
         }
       }, 300)
@@ -64,7 +64,7 @@ export function SignIn() {
       localStorage.setItem("user", JSON.stringify(foundUser))
       setTimeout(() => {
         if (foundUser.role === "admin") navigate("/admin/")
-        else if (foundUser.role === "agent") navigate("/agent/")
+        else if (foundUser.role === "agent") navigate("/agent/inbox")
         else navigate("/customer/")
       }, 800)
     } else {
