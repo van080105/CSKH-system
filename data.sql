@@ -1,4 +1,4 @@
-﻿USE CSKH15
+USE CSKH17
 GO
 
 -- Notification-- 
@@ -124,71 +124,71 @@ INSERT INTO Customer (CustomerID, Membership) VALUES
 
 --Form--
 INSERT INTO Form (FormID, Title, Content, Stt, Typ, SentDate) VALUES
-(1, 'iPhone 14 có những màu nào?', 'Tôi muốn hỏi iPhone 14 hiện có bao nhiêu màu và màu nào đang được bán chạy nhất?', 'Chưa trả lời', 'Dòng sản phẩm', '2025-04-01'),
-(2, 'iPhone 14 Pro Max có hỗ trợ eSIM không?', 'Tôi đang dùng eSIM, không biết iPhone 14 Pro Max có hỗ trợ dùng eSIM không?', 'Đã trả lời', 'Dòng sản phẩm', '2025-04-02'),
-(3, 'iPhone 14 và 14 Plus khác nhau điểm nào?', 'Tôi phân vân giữa iPhone 14 và iPhone 14 Plus, cho tôi hỏi sự khác biệt chính giữa hai máy?', 'Chưa trả lời', 'Dòng sản phẩm', '2025-04-03'),
-(4, 'iPhone 14 Pro quay video 4K có giới hạn thời gian không?', 'Tôi muốn quay video 4K để làm vlog, cho tôi hỏi iPhone 14 Pro có bị giới hạn thời gian quay không?', 'Đang xử lý', 'Dòng sản phẩm', '2025-04-04'),
-(5, 'Dung lượng pin iPhone 14 Pro Max bao nhiêu mAh?', 'Tôi cần biết thông số pin của iPhone 14 Pro Max để so sánh với mẫu máy đang dùng.', 'Đã trả lời', 'Dòng sản phẩm', '2025-04-05'),
+(1, 'iPhone 14 có những màu nào?', 'Tôi muốn hỏi iPhone 14 hiện có bao nhiêu màu và màu nào đang được bán chạy nhất?', 'Chưa trả lời', 'iPhone 14 Series', '2025-04-01'),
+(2, 'iPhone 14 Pro Max có hỗ trợ eSIM không?', 'Tôi đang dùng eSIM, không biết iPhone 14 Pro Max có hỗ trợ dùng eSIM không?', 'Đã trả lời', 'iPhone 14 Series', '2025-04-02'),
+(3, 'iPhone 14 và 14 Plus khác nhau điểm nào?', 'Tôi phân vân giữa iPhone 14 và iPhone 14 Plus, cho tôi hỏi sự khác biệt chính giữa hai máy?', 'Chưa trả lời', 'iPhone 14 Series', '2025-04-03'),
+(4, 'iPhone 14 Pro quay video 4K có giới hạn thời gian không?', 'Tôi muốn quay video 4K để làm vlog, cho tôi hỏi iPhone 14 Pro có bị giới hạn thời gian quay không?', 'Chưa trả lời', 'iPhone 14 Series', '2025-04-04'),
+(5, 'Dung lượng pin iPhone 14 Pro Max bao nhiêu mAh?', 'Tôi cần biết thông số pin của iPhone 14 Pro Max để so sánh với mẫu máy đang dùng.', 'Đã trả lời', 'iPhone 14 Series', '2025-04-05'),
      
-(6, 'iPhone 15 có cổng USB-C chưa?', 'Tôi nghe nói iPhone 15 đã chuyển sang cổng USB-C, thông tin này có đúng không?', 'Đã trả lời', 'Dòng sản phẩm', '2025-04-06'),
-(7, 'iPhone 15 Pro có hỗ trợ quay video ProRes không?', 'Tôi muốn quay phim chất lượng cao nên muốn hỏi iPhone 15 Pro có quay được ProRes không?', 'Chưa trả lời', 'Dòng sản phẩm', '2025-04-07'),
-(8, 'Sự khác nhau giữa iPhone 15 và iPhone 15 Pro là gì?', 'Tôi đang phân vân giữa 2 mẫu này. Nhờ cửa hàng giải thích giúp khác biệt chính về hiệu năng và camera.', 'Đang xử lý', 'Dòng sản phẩm', '2025-04-08'),
-(9, 'Titanium trên iPhone 15 Pro có dễ trầy không?', 'Chất liệu titanium mới trên iPhone 15 Pro có bền không và có dễ bị trầy xước không?', 'Chưa trả lời', 'Dòng sản phẩm', '2025-04-09'),
-(10, 'iPhone 15 Pro Max có Zoom quang học bao nhiêu lần?', 'Tôi hay chụp ảnh du lịch, muốn hỏi iPhone 15 Pro Max có zoom quang học tối đa bao nhiêu lần?', 'Đã trả lời', 'Dòng sản phẩm', '2025-04-10'),
+(6, 'iPhone 15 có cổng USB-C chưa?', 'Tôi nghe nói iPhone 15 đã chuyển sang cổng USB-C, thông tin này có đúng không?', 'Đã trả lời', 'iPhone 15 Series', '2025-04-06'),
+(7, 'iPhone 15 Pro có hỗ trợ quay video ProRes không?', 'Tôi muốn quay phim chất lượng cao nên muốn hỏi iPhone 15 Pro có quay được ProRes không?', 'Chưa trả lời', 'iPhone 15 Series', '2025-04-07'),
+(8, 'Sự khác nhau giữa iPhone 15 và iPhone 15 Pro là gì?', 'Tôi đang phân vân giữa 2 mẫu này. Nhờ cửa hàng giải thích giúp khác biệt chính về hiệu năng và camera.', 'Chưa trả lời', 'iPhone 15 Series', '2025-04-08'),
+(9, 'Titanium trên iPhone 15 Pro có dễ trầy không?', 'Chất liệu titanium mới trên iPhone 15 Pro có bền không và có dễ bị trầy xước không?', 'Chưa trả lời', 'iPhone 15 Series', '2025-04-09'),
+(10, 'iPhone 15 Pro Max có Zoom quang học bao nhiêu lần?', 'Tôi hay chụp ảnh du lịch, muốn hỏi iPhone 15 Pro Max có zoom quang học tối đa bao nhiêu lần?', 'Đã trả lời', 'iPhone 15 Series', '2025-04-10'),
 	 
-(11, 'iPhone 16 có hỗ trợ sạc không dây nhanh?', 'Cho tôi hỏi iPhone 16 có công nghệ sạc không dây nhanh và công suất tối đa là bao nhiêu?', 'Chưa trả lời', 'Dòng sản phẩm', '2025-04-11'),
-(12, 'iPhone 16 pin có dung lượng bao nhiêu?', 'Tôi muốn biết thông số pin của iPhone 16 để cân nhắc nâng cấp.', 'Đã trả lời', 'Dòng sản phẩm', '2025-04-12'),
-(13, 'iPhone 16 Pro có quay video 8K được không?', 'Camera của iPhone 16 Pro có hỗ trợ quay video 8K hay không và chất lượng ra sao?', 'Đang xử lý', 'Dòng sản phẩm', '2025-04-13'),
-(14, 'Hiệu năng iPhone 16 mạnh hơn iPhone 15 nhiều không?', 'Tôi đang dùng iPhone 15, muốn biết iPhone 16 có nâng cấp nhiều về hiệu năng không?', 'Chưa trả lời', 'Dòng sản phẩm', '2025-04-14'),
-(15, 'iPhone 16 Pro Max có thay đổi thiết kế gì mới?', 'Tôi muốn tìm hiểu xem mẫu iPhone 16 Pro Max có nâng cấp đặc biệt về thiết kế không?', 'Đã trả lời', 'Dòng sản phẩm', '2025-04-15'),
+(11, 'iPhone 16 có hỗ trợ sạc không dây nhanh?', 'Cho tôi hỏi iPhone 16 có công nghệ sạc không dây nhanh và công suất tối đa là bao nhiêu?', 'Chưa trả lời', 'iPhone 16 Series', '2025-04-11'),
+(12, 'iPhone 16 pin có dung lượng bao nhiêu?', 'Tôi muốn biết thông số pin của iPhone 16 để cân nhắc nâng cấp.', 'Đã trả lời', 'iPhone 16 Series', '2025-04-12'),
+(13, 'iPhone 16 Pro có quay video 8K được không?', 'Camera của iPhone 16 Pro có hỗ trợ quay video 8K hay không và chất lượng ra sao?', 'Chưa trả lời', 'iPhone 16 Series', '2025-04-13'),
+(14, 'Hiệu năng iPhone 16 mạnh hơn iPhone 15 nhiều không?', 'Tôi đang dùng iPhone 15, muốn biết iPhone 16 có nâng cấp nhiều về hiệu năng không?', 'Chưa trả lời', 'iPhone 16 Series', '2025-04-14'),
+(15, 'iPhone 16 Pro Max có thay đổi thiết kế gì mới?', 'Tôi muốn tìm hiểu xem mẫu iPhone 16 Pro Max có nâng cấp đặc biệt về thiết kế không?', 'Đã trả lời', 'iPhone 16 Series', '2025-04-15'),
 	
-(16, 'iPhone 17 có thay đổi camera trước không?', 'Camera selfie của iPhone 17 có được nâng cấp gì về độ phân giải và góc nhìn không?', 'Đã trả lời', 'Dòng sản phẩm', '2025-04-16'),
+(16, 'iPhone 17 có thay đổi camera trước không?', 'Camera selfie của iPhone 17 có được nâng cấp gì về độ phân giải và góc nhìn không?', 'Đã trả lời', 'iPhone 17 Series', '2025-04-16'),
 (17, 'iPhone 17 dùng chip gì?', 'Cho tôi hỏi cấu hình chip xử lý của iPhone 17 có mạnh hơn đời trước nhiều không?', 'Chưa trả lời', 'Dòng sản phẩm', '2025-04-17'),
-(18, 'iPhone 17 Pro có tính năng quay không gian (Spatial Video) mới không?', 'Tôi quan tâm tính năng quay video 3D trên mẫu mới, cửa hàng có thông tin chi tiết không?', 'Đang xử lý', 'Dòng sản phẩm', '2025-04-18'),
+(18, 'iPhone 17 Pro có tính năng quay không gian (Spatial Video) mới không?', 'Tôi quan tâm tính năng quay video 3D trên mẫu mới, cửa hàng có thông tin chi tiết không?', 'Chưa trả lời', 'iPhone 17 Series', '2025-04-18'),
 (19, 'iPhone 17 có mấy phiên bản dung lượng?', 'Tôi muốn hỏi iPhone 17 có các phiên bản dung lượng bao nhiêu GB?', 'Chưa trả lời', 'Dòng sản phẩm', '2025-04-19'),
-(20, 'Màn hình iPhone 17 Pro Max sáng tối đa bao nhiêu nits?', 'Tôi cần biết độ sáng tối đa của màn hình để đánh giá khả năng hiển thị ngoài trời.', 'Đã trả lời', 'Dòng sản phẩm', '2025-04-20'),
+(20, 'Màn hình iPhone 17 Pro Max sáng tối đa bao nhiêu nits?', 'Tôi cần biết độ sáng tối đa của màn hình để đánh giá khả năng hiển thị ngoài trời.', 'Đã trả lời', 'iPhone 17 Series', '2025-04-20'),
       
-(21, 'Ốp lưng cho iPhone 15 có kháng khuẩn không?', 'Cho tôi hỏi cửa hàng có bán loại ốp lưng kháng khuẩn dành cho iPhone 15 không?', 'Đã trả lời', 'Dòng sản phẩm', '2025-04-21'),
-(22, 'AirPods Pro 2 có chống ồn tốt không?', 'Tôi muốn tìm tai nghe chống ồn tốt để đi máy bay, AirPods Pro 2 có phù hợp không?', 'Chưa trả lời', 'Dòng sản phẩm', '2025-04-22'),
-(23, 'Cáp sạc USB-C cho iPhone có bền không?', 'Tôi cần mua cáp sạc USB-C chính hãng cho iPhone, độ bền có cao không?', 'Đang xử lý', 'Dòng sản phẩm', '2025-04-23'),
-(24, 'Cường lực nào tốt nhất cho iPhone 16 Pro Max?', 'Tôi đang tìm miếng dán cường lực bảo vệ màn hình, loại nào tốt và khó vỡ?', 'Chưa trả lời', 'Dòng sản phẩm', '2025-04-24'),
-(25, 'Tôi có thể mua sạc 30W cho iPhone 14 ở đây không?', 'Điện thoại tôi hỗ trợ sạc nhanh, không biết cửa hàng có bán sạc 30W chính hãng không?', 'Đã trả lời', 'Dòng sản phẩm', '2025-04-25'),
+(21, 'Ốp lưng cho iPhone 15 có kháng khuẩn không?', 'Cho tôi hỏi cửa hàng có bán loại ốp lưng kháng khuẩn dành cho iPhone 15 không?', 'Đã trả lời', 'Phụ kiện', '2025-04-21'),
+(22, 'AirPods Pro 2 có chống ồn tốt không?', 'Tôi muốn tìm tai nghe chống ồn tốt để đi máy bay, AirPods Pro 2 có phù hợp không?', 'Chưa trả lời', 'Phụ kiện', '2025-04-22'),
+(23, 'Cáp sạc USB-C cho iPhone có bền không?', 'Tôi cần mua cáp sạc USB-C chính hãng cho iPhone, độ bền có cao không?', 'Đang xử lý', 'Phụ kiện', '2025-04-23'),
+(24, 'Cường lực nào tốt nhất cho iPhone 16 Pro Max?', 'Tôi đang tìm miếng dán cường lực bảo vệ màn hình, loại nào tốt và khó vỡ?', 'Chưa trả lời', 'Phụ kiện', '2025-04-24'),
+(25, 'Tôi có thể mua sạc 30W cho iPhone 14 ở đây không?', 'Điện thoại tôi hỗ trợ sạc nhanh, không biết cửa hàng có bán sạc 30W chính hãng không?', 'Đã trả lời', 'Phụ kiện', '2025-04-25'),
 	
-(26, 'iPhone mua tại cửa hàng được bảo hành bao lâu?', 'Tôi muốn hỏi chính sách bảo hành của iPhone mua tại hệ thống là bao nhiêu tháng?', 'Đã trả lời', 'Dịch vụ', '2025-04-26'),
-(27, 'Bảo hành pin iPhone có bao gồm chai pin không?', 'Pin iPhone sau một thời gian bị chai liệu có được bảo hành không?', 'Chưa trả lời', 'Dịch vụ', '2025-04-27'),
-(28, 'Tôi bị rơi iPhone, có được bảo hành không?', 'Máy tôi bị rơi vỡ kính sau. Trường hợp này có được hỗ trợ bảo hành không?', 'Đang xử lý', 'Dịch vụ', '2025-04-28'),
-(29, 'Bảo hành có cần giữ hóa đơn không?', 'Nếu tôi làm mất hóa đơn bán hàng thì có được bảo hành hay không?', 'Chưa trả lời', 'Dịch vụ', '2025-04-29'),
-(30, 'iPhone lỗi nguồn có được đổi máy mới không?', 'Nếu máy bị lỗi nguồn do nhà sản xuất trong thời gian bảo hành thì tôi có được đổi máy mới không?', 'Đã trả lời', 'Dịch vụ', '2025-04-30'),
+(26, 'iPhone mua tại cửa hàng được bảo hành bao lâu?', 'Tôi muốn hỏi chính sách bảo hành của iPhone mua tại hệ thống là bao nhiêu tháng?', 'Đã trả lời', 'Bảo hành', '2025-04-26'),
+(27, 'Bảo hành pin iPhone có bao gồm chai pin không?', 'Pin iPhone sau một thời gian bị chai liệu có được bảo hành không?', 'Chưa trả lời', 'Bảo hành', '2025-04-27'),
+(28, 'Tôi bị rơi iPhone, có được bảo hành không?', 'Máy tôi bị rơi vỡ kính sau. Trường hợp này có được hỗ trợ bảo hành không?', 'Chưa trả lời', 'Bảo hành', '2025-04-28'),
+(29, 'Bảo hành có cần giữ hóa đơn không?', 'Nếu tôi làm mất hóa đơn bán hàng thì có được bảo hành hay không?', 'Chưa trả lời', 'Bảo hành', '2025-04-29'),
+(30, 'iPhone lỗi nguồn có được đổi máy mới không?', 'Nếu máy bị lỗi nguồn do nhà sản xuất trong thời gian bảo hành thì tôi có được đổi máy mới không?', 'Đã trả lời', 'Bảo hành', '2025-04-30'),
 	
-(31, 'Thay màn hình iPhone 14 giá bao nhiêu?', 'Màn hình iPhone 14 của tôi bị nứt, không biết chi phí thay thế khoảng bao nhiêu?', 'Đang xử lý', 'Dịch vụ', '2025-05-01'),
-(32, 'Sửa Face ID iPhone 15 Pro có đảm bảo không?', 'Face ID máy tôi bị lỗi, nếu sửa có ảnh hưởng đến khả năng bảo mật không?', 'Chưa trả lời', 'Dịch vụ', '2025-05-02'),
-(33, 'Thay pin iPhone 16 có mất chống nước không?', 'Nếu thay pin tại cửa hàng thì máy có còn chống nước như ban đầu không?', 'Đã trả lời', 'Dịch vụ', '2025-05-03'),
-(34, 'Loa iPhone 15 nghe bị rè có sửa được không?', 'Loa trong khi gọi bị rè, không biết đây có phải lỗi phần cứng và chi phí sửa thế nào?', 'Chưa trả lời', 'Dịch vụ', '2025-05-04'),
-(35, 'Camera iPhone 17 Pro bị mờ sau khi rơi', 'Camera sau bị mờ như có hơi nước bên trong, trường hợp này có sửa được không?', 'Đã trả lời', 'Dịch vụ', '2025-05-05'),
+(31, 'Thay màn hình iPhone 14 giá bao nhiêu?', 'Màn hình iPhone 14 của tôi bị nứt, không biết chi phí thay thế khoảng bao nhiêu?', 'Chưa trả lời', 'Sửa chữa', '2025-05-01'),
+(32, 'Sửa Face ID iPhone 15 Pro có đảm bảo không?', 'Face ID máy tôi bị lỗi, nếu sửa có ảnh hưởng đến khả năng bảo mật không?', 'Chưa trả lời', 'Sửa chữa', '2025-05-02'),
+(33, 'Thay pin iPhone 16 có mất chống nước không?', 'Nếu thay pin tại cửa hàng thì máy có còn chống nước như ban đầu không?', 'Đã trả lời', 'Sửa chữa', '2025-05-03'),
+(34, 'Loa iPhone 15 nghe bị rè có sửa được không?', 'Loa trong khi gọi bị rè, không biết đây có phải lỗi phần cứng và chi phí sửa thế nào?', 'Chưa trả lời', 'Sửa chữa', '2025-05-04'),
+(35, 'Camera iPhone 17 Pro bị mờ sau khi rơi', 'Camera sau bị mờ như có hơi nước bên trong, trường hợp này có sửa được không?', 'Đã trả lời', 'Sửa chữa', '2025-05-05'),
 	
-(36, 'iPhone 14 thu cũ đổi mới được bao nhiêu?', 'Tôi có iPhone 14 còn tốt, cửa hàng thu lại giá bao nhiêu nếu tôi đổi lên iPhone mới?', 'Chưa trả lời', 'Dịch vụ', '2025-05-06'),
-(37, 'Thu cũ đổi mới có cần hộp và phụ kiện không?', 'Điện thoại của tôi không còn hộp và phụ kiện, có được tham gia chương trình thu cũ đổi mới không?', 'Đã trả lời', 'Dịch vụ', '2025-05-07'),
-(38, 'Máy bị trầy có được thu cũ không?', 'iPhone của tôi có vài vết trầy xước nhẹ, trường hợp này có được tham gia thu cũ đổi mới không?', 'Đang xử lý', 'Dịch vụ', '2025-05-08'),
-(39, 'Thu cũ đổi mới có áp dụng cho mua trả góp không?', 'Tôi muốn đổi lên iPhone mới nhưng dùng trả góp, chương trình có hỗ trợ không?', 'Chưa trả lời', 'Dịch vụ', '2025-05-09'),
-(40, 'Thu cũ đổi mới có cần kiểm tra máy trước không?', 'Khi mang máy đến đổi thì có phải kiểm tra chất lượng trước khi định giá không?', 'Đã trả lời', 'Dịch vụ', '2025-05-10'),
+(36, 'iPhone 14 thu cũ đổi mới được bao nhiêu?', 'Tôi có iPhone 14 còn tốt, cửa hàng thu lại giá bao nhiêu nếu tôi đổi lên iPhone mới?', 'Chưa trả lời', 'Chính sách đổi trả', '2025-05-06'),
+(37, 'Thu cũ đổi mới có cần hộp và phụ kiện không?', 'Điện thoại của tôi không còn hộp và phụ kiện, có được tham gia chương trình thu cũ đổi mới không?', 'Đã trả lời', 'Chính sách đổi trả', '2025-05-07'),
+(38, 'Máy bị trầy có được thu cũ không?', 'iPhone của tôi có vài vết trầy xước nhẹ, trường hợp này có được tham gia thu cũ đổi mới không?', 'Chưa trả lời', 'Chính sách đổi trả', '2025-05-08'),
+(39, 'Thu cũ đổi mới có áp dụng cho mua trả góp không?', 'Tôi muốn đổi lên iPhone mới nhưng dùng trả góp, chương trình có hỗ trợ không?', 'Chưa trả lời', 'Chính sách đổi trả', '2025-05-09'),
+(40, 'Thu cũ đổi mới có cần kiểm tra máy trước không?', 'Khi mang máy đến đổi thì có phải kiểm tra chất lượng trước khi định giá không?', 'Đã trả lời', 'Chính sách đổi trả', '2025-05-10'),
 	
-(41, 'Điện thoại bị lỗi trong 7 ngày có được đổi mới không?', 'Nếu iPhone tôi mua bị lỗi nhà sản xuất trong 7 ngày thì có được đổi mới 1:1 không?', 'Đã trả lời', 'Chính sách', '2025-05-11'),
-(42, 'Đổi trả khi không thích sản phẩm có được không?', 'Tôi mua máy nhưng không còn nhu cầu sử dụng nữa, không biết có thể trả lại không?', 'Chưa trả lời', 'Chính sách', '2025-05-12'),
-(43, 'Đổi trả có cần đầy đủ phụ kiện không?', 'Tôi làm mất khay sim thì có được đổi trả sản phẩm hay không?', 'Đang xử lý', 'Chính sách', '2025-05-13'),
-(44, 'Thời gian đổi trả tối đa là bao lâu?', 'Cửa hàng cho phép đổi trả trong bao nhiêu ngày kể từ khi mua?', 'Chưa trả lời', 'Chính sách', '2025-05-14'),
-(45, 'Hóa đơn điện tử có dùng để đổi trả được không?', 'Tôi chỉ có hóa đơn điện tử, vậy có hợp lệ để đổi trả không?', 'Đã trả lời', 'Chính sách', '2025-05-15'),
+(41, 'Điện thoại bị lỗi trong 7 ngày có được đổi mới không?', 'Nếu iPhone tôi mua bị lỗi nhà sản xuất trong 7 ngày thì có được đổi mới 1:1 không?', 'Đã trả lời', 'Chính sách đổi trả', '2025-05-11'),
+(42, 'Đổi trả khi không thích sản phẩm có được không?', 'Tôi mua máy nhưng không còn nhu cầu sử dụng nữa, không biết có thể trả lại không?', 'Chưa trả lời', 'Chính sách đổi trả', '2025-05-12'),
+(43, 'Đổi trả có cần đầy đủ phụ kiện không?', 'Tôi làm mất khay sim thì có được đổi trả sản phẩm hay không?', 'Chưa trả lời', 'Chính sách đổi trả', '2025-05-13'),
+(44, 'Thời gian đổi trả tối đa là bao lâu?', 'Cửa hàng cho phép đổi trả trong bao nhiêu ngày kể từ khi mua?', 'Chưa trả lời', 'Chính sách đổi trả', '2025-05-14'),
+(45, 'Hóa đơn điện tử có dùng để đổi trả được không?', 'Tôi chỉ có hóa đơn điện tử, vậy có hợp lệ để đổi trả không?', 'Đã trả lời', 'Chính sách đổi trả', '2025-05-15'),
 	 
-(46, 'Cửa hàng hỗ trợ thanh toán bằng thẻ tín dụng không?', 'Tôi muốn thanh toán bằng thẻ Visa, không biết cửa hàng có hỗ trợ không?', 'Đã trả lời', 'Hỗ trợ', '2025-05-16'),
-(47, 'Có thể thanh toán trả góp qua ngân hàng nào?', 'Nếu tôi muốn mua trả góp thì có những ngân hàng nào liên kết?', 'Chưa trả lời', 'Hỗ trợ', '2025-05-17'),
-(48, 'Thanh toán qua ví điện tử có khuyến mãi không?', 'Nếu tôi thanh toán qua Momo hoặc ZaloPay thì có ưu đãi gì không?', 'Đang xử lý', 'Hỗ trợ', '2025-05-18'),
-(49, 'Thanh toán khi nhận hàng có được kiểm tra máy trước không?', 'Khi thanh toán COD, tôi có được mở hộp kiểm tra sản phẩm trước khi trả tiền không?', 'Chưa trả lời', 'Hỗ trợ', '2025-05-19'),
-(50, 'Tôi có thể xuất hóa đơn công ty khi mua iPhone không?', 'Công ty tôi cần hóa đơn đỏ, không biết cửa hàng có thể xuất hóa đơn VAT không?', 'Đã trả lời', 'Hỗ trợ', '2025-05-20'),
+(46, 'Cửa hàng hỗ trợ thanh toán bằng thẻ tín dụng không?', 'Tôi muốn thanh toán bằng thẻ Visa, không biết cửa hàng có hỗ trợ không?', 'Đã trả lời', 'Hỗ trợ thanh toán', '2025-05-16'),
+(47, 'Có thể thanh toán trả góp qua ngân hàng nào?', 'Nếu tôi muốn mua trả góp thì có những ngân hàng nào liên kết?', 'Chưa trả lời', 'Hỗ trợ thanh toán', '2025-05-17'),
+(48, 'Thanh toán qua ví điện tử có khuyến mãi không?', 'Nếu tôi thanh toán qua Momo hoặc ZaloPay thì có ưu đãi gì không?', 'Chưa trả lời', 'Hỗ trợ thanh toán', '2025-05-18'),
+(49, 'Thanh toán khi nhận hàng có được kiểm tra máy trước không?', 'Khi thanh toán COD, tôi có được mở hộp kiểm tra sản phẩm trước khi trả tiền không?', 'Chưa trả lời', 'Hỗ trợ thanh toán', '2025-05-19'),
+(50, 'Tôi có thể xuất hóa đơn công ty khi mua iPhone không?', 'Công ty tôi cần hóa đơn đỏ, không biết cửa hàng có thể xuất hóa đơn VAT không?', 'Đã trả lời', 'Hỗ trợ thanh toán', '2025-05-20'),
 	
-(51, 'Làm sao để đặt hàng online trên website?', 'Tôi lần đầu mua online, bạn có thể hướng dẫn tôi cách đặt hàng trên website không?', 'Đã trả lời', 'Hỗ trợ', '2025-05-21'),
-(52, 'Đặt hàng online có cần đặt cọc không?', 'Nếu tôi đặt hàng iPhone thì có phải thanh toán trước hay đặt cọc gì không?', 'Chưa trả lời', 'Hỗ trợ', '2025-05-22'),
-(53, 'Bao lâu thì giao hàng sau khi đặt?', 'Tôi muốn biết thời gian giao hàng dự kiến sau khi đặt mua iPhone.', 'Đang xử lý', 'Hỗ trợ', '2025-05-23'),
-(54, 'Có thể đặt giữ máy và ra cửa hàng nhận không?', 'Tôi muốn đặt giữ máy online rồi ra cửa hàng trải nghiệm và thanh toán trực tiếp được chứ?', 'Chưa trả lời', 'Hỗ trợ', '2025-05-24'),
-(55, 'Tôi có thể hủy đơn hàng đã đặt không?', 'Nếu tôi đổi ý sau khi đặt hàng thì có thể hủy đơn không và có mất phí gì không?', 'Đã trả lời', 'Hỗ trợ', '2025-05-25');
+(51, 'Làm sao để đặt hàng online trên website?', 'Tôi lần đầu mua online, bạn có thể hướng dẫn tôi cách đặt hàng trên website không?', 'Đã trả lời', 'Hỗ trợ đặt hàng', '2025-05-21'),
+(52, 'Đặt hàng online có cần đặt cọc không?', 'Nếu tôi đặt hàng iPhone thì có phải thanh toán trước hay đặt cọc gì không?', 'Chưa trả lời', 'Hỗ trợ đặt hàng', '2025-05-22'),
+(53, 'Bao lâu thì giao hàng sau khi đặt?', 'Tôi muốn biết thời gian giao hàng dự kiến sau khi đặt mua iPhone.', 'Chưa trả lời', 'Hỗ trợ đặt hàng', '2025-05-23'),
+(54, 'Có thể đặt giữ máy và ra cửa hàng nhận không?', 'Tôi muốn đặt giữ máy online rồi ra cửa hàng trải nghiệm và thanh toán trực tiếp được chứ?', 'Chưa trả lời', 'Hỗ trợ đặt hàng', '2025-05-24'),
+(55, 'Tôi có thể hủy đơn hàng đã đặt không?', 'Nếu tôi đổi ý sau khi đặt hàng thì có thể hủy đơn không và có mất phí gì không?', 'Đã trả lời', 'Hỗ trợ đặt hàng', '2025-05-25');
 	
 --FeedbackForm--
 INSERT INTO FeedbackForm (FormID, CustomerID, Rating, Content, SentDate)
@@ -288,7 +288,7 @@ INSERT INTO Message1 (ID, Content, ReceiverID) VALUES
 (39, N'Khi nào đơn hàng của tôi sẽ được giao chính xác? Xin cung cấp thời gian dự kiến.', 'R13'),
 (40, N'Làm thế nào để nâng cấp iOS lên phiên bản mới nhất mà không mất dữ liệu?', 'R0'),
 (41, N'Xin cho biết chính sách bảo mật thông tin khách hàng khi mua hàng online.', 'R0'),
-(42, N'Tôi muốn thay đổi địa chỉ giao hàng cho đơn số 1029, vui lòng hỗ trợ nhanh.', 'R15'),--check lại khi ghép khach
+(42, N'Tôi muốn thay đổi địa chỉ giao hàng cho đơn số 1029, vui lòng hỗ trợ nhanh.', 'R15'),
 (43, N'Địa chỉ mới của tôi: 456 Phố Tràng Tiền, Quận Hoàn Kiếm, Hà Nội. Hãy cập nhật giúp tôi.', 'R15'),
 (44, N'Tôi muốn được hỗ trợ đồng bộ dữ liệu', 'R0'),
 (45, N'Tôi muốn nhân viên tư vấn giúp chọn máy phù hợp công việc.', 'R0'),
@@ -314,83 +314,82 @@ INSERT INTO CustomerSend (CustomerID, MessageID) VALUES
 (21, 3),
 (22, 18), (22, 27),
 (23, 32), (23, 41),
-(24, 33), (24, 31),
-(25, 34),
-
+(24, 33),
+(25, 34), 
 (26, 19),
 (27, 5),
 (28, 6),
 (29, 7),
 (30, 20), (30, 21),
-
 (31, 8),
 (32, 9), (32, 59),
 (33, 10),
 (34, 11),
 (35, 22),
-
 (36, 46), (36, 57),
 (37, 47),
 (38, 48),
 (39, 49),
 (40, 12), (40, 14),
-
 (41, 35),
 (42, 36),
 (43, 37),
 (44, 50),
 (45, 13), (45, 15),
-
 (46, 23),
 (47, 24),
 (48, 38), 
 (49, 42), (49, 43), (49, 39),
 (50, 54),
-
 (51, 1),
 (52, 2),
 (53, 17),
 (54, 28), (54, 31),
 (55, 56),
-
-(56, 45), (56, 4),
-(57, 28), (57, 35),
+(56, 4),
 (58, 51),
 (59, 60),
 (60, 44);
 
 
+
 --CUSTOMER CREATE--
 INSERT INTO CustomerCreate (CustomerID, FormID) VALUES
-(21, 15),
-(22, 16),
-(23, 17),
-(24, 18),
-(25, 19),
-(26, 20),
-(27, 21),
-(28, 22),
-(29, 23),
-(30, 24),
-(31, 25), (31, 26), (31, 27),
-(32, 28), (32, 29),
-(33, 30), (33, 31), (33, 32), (33, 33),
-(34, 34), (34, 35), (34, 36),
-(35, 37), (35, 38), (35, 39), (35, 40),
-(36, 42),
-(37, 43),
-(38, 44),
-(39, 45),
-(40, 46), (40, 41),
-(41, 47),
-(42, 48),
-(43, 49),
-(44, 50),
-(45, 51),
-(46, 52),
-(47, 53),
-(48, 54),
-(49, 55);
+(21, 1), (21, 36), (21, 38),
+(22, 2), 
+(23, 3),
+(24, 4), (22, 37),
+(25, 5),
+
+(26, 9), (26, 45),
+(27, 10),
+(28, 11),
+(29, 12),
+(30, 13), (30, 46),
+
+(31, 17), (31, 18), (31, 19),
+(32, 20), (32, 21),
+(33, 22), (33, 23), (33, 24),
+(34, 28), (34, 33), 
+(35, 34), 
+
+(36, 6),
+(37, 7),
+(38, 8),
+(39, 26), (39, 35), (39, 39),
+(40, 31), (40, 29),
+
+(41, 14),
+(42, 15), (42, 48), (42, 49),
+(43, 16), (43, 47),
+(44, 43),
+(45, 44),
+
+(46, 50),
+(47, 51),
+(48, 52),
+(49, 53),
+(50, 54);
 
 INSERT INTO Agent (AgentID, ReceiverID, Stt, ResponsibleField) VALUES
 (6,  'R1',  N'Đang hoạt động', N'Tư vấn sản phẩm iPhone'),
@@ -411,41 +410,50 @@ INSERT INTO Agent (AgentID, ReceiverID, Stt, ResponsibleField) VALUES
 (19, 'R14', N'Đang hoạt động', N'Tư vấn sản phẩm iPhone'),
 (20, 'R15', N'Đang hoạt động', N'Chính sách & hỗ trợ khách hàng');
 
+INSERT INTO ReceiveForm(AgentID, FormID) VALUES
+(6, 1), (9, 2), (6, 3), (9, 4), (6, 5), (9, 6), (6, 7), (9, 8), 
+(11, 9), (14, 10), (11, 11), (14, 12), (11, 13), (14, 14), (11, 15), (14, 16),
+(16, 17), (19, 18), (16, 19), (19, 20), (16, 21), (19, 22), (16, 23), (19, 24), (16, 25), 
+(7, 26), (7, 31), (12, 27), (12, 32), (17, 28), (17, 33), (7, 29), (12, 30), (17, 34), (7, 35),
+(8, 36), (8, 37), (8, 38), (10, 39), (10, 40), (10, 41), (10, 42), 
+(13, 43), (13, 44), (13, 45), (13, 46), (15, 47), (15, 48), (15, 49),
+(18, 50), (18, 51), (18, 52), (20, 53), (20, 54), (20, 55); 
+
+
 
 --ClasifyTable--
 -- Cấp 1: Nhóm chính
-INSERT INTO ClassifyTable (TableID, NameTable, Category, ParentTableID) VALUES
-(1, N'Sản phẩm', N'Danh mục chính', NULL),
-(2, N'Dịch vụ hậu mãi', N'Danh mục chính', NULL),
-(3, N'Chính sách & hỗ trợ', N'Danh mục chính', NULL),
-(4, N'Phân loại theo miền', N'Danh mục chính', NULL),
-(5, N'Phân loại khách hàng', N'Danh mục chính', NULL),
+INSERT INTO ClassifyTable (TableID, NameTable, ParentTableID) VALUES
+(1, N'Sản phẩm', NULL),
+(2, N'Dịch vụ hậu mãi', NULL),
+(3, N'Chính sách & hỗ trợ', NULL),
+(4, N'Phân loại theo miền', NULL),
+(5, N'Phân loại khách hàng', NULL),
 -- Cấp 2: Nhóm con của "Sản phẩm"
-(11, N'iPhone 14 Series', N'Dòng sản phẩm', 1),
-(12, N'iPhone 15 Series', N'Dòng sản phẩm', 1),
-(13, N'iPhone 16 Series', N'Dòng sản phẩm', 1),
-(14, N'iPhone 17 Series', N'Dòng sản phẩm', 1),
-(15, N'Phụ kiện', N'Dòng sản phẩm', 1),
+(11, N'iPhone 14 Series', 1),
+(12, N'iPhone 15 Series', 1),
+(13, N'iPhone 16 Series', 1),
+(14, N'iPhone 17 Series', 1),
+(15, N'Phụ kiện', 1),
 -- Cấp 2: Nhóm con của "Dịch vụ hậu mãi"
-(21, N'Bảo hành', N'Dịch vụ', 2),
-(22, N'Sửa chữa', N'Dịch vụ', 2),
-(23, N'Thu cũ đổi mới', N'Dịch vụ', 2),
+(21, N'Bảo hành', 2),
+(22, N'Sửa chữa', 2),
 -- Cấp 2: Nhóm con của "Chính sách & hỗ trợ"
-(31, N'Chính sách đổi trả', N'Chính sách', 3),
-(32, N'Hướng dẫn thanh toán', N'Hỗ trợ', 3),
-(33, N'Hướng dẫn đặt hàng', N'Hỗ trợ', 3),
+(31, N'Chính sách đổi trả', 3),
+(32, N'Hướng dẫn thanh toán', 3),
+(33, N'Hướng dẫn đặt hàng', 3),
 -- CẤP 2: Miền (thuộc nhóm "Phân loại theo miền")
-(41, N'Miền Bắc', N'Khu vực địa lý', 4),
-(42, N'Miền Trung', N'Khu vực địa lý', 4),
-(43, N'Miền Nam', N'Khu vực địa lý', 4),
+(41, N'Miền Bắc', 4),
+(42, N'Miền Trung', 4),
+(43, N'Miền Nam', 4),
 -- CẤP 3: Chi tiết theo tỉnh/thành (ví dụ thực tế)
-(45, N'Hà Nội', N'Tỉnh/Thành phố', 41),
-(46, N'Đà Nẵng', N'Tỉnh/Thành phố', 42),
-(47, N'TP. Hồ Chí Minh', N'Tỉnh/Thành phố', 43),
+(45, N'Hà Nội', 41),
+(46, N'Đà Nẵng', 42),
+(47, N'TP. Hồ Chí Minh', 43),
 -- CẤP 2: Loại thành viên khách hàng
-(51, N'Đồng', N'Nhóm khách hàng', 5),
-(52, N'Bạc', N'Nhóm khách hàng', 5),
-(53, N'Vàng', N'Nhóm khách hàng', 5);
+(51, N'Đồng', 5),
+(52, N'Bạc',  5),
+(53, N'Vàng', 5);
 
 --Assign--
 INSERT INTO Assign (AgentID, TableID) VALUES
@@ -454,9 +462,9 @@ INSERT INTO Assign (AgentID, TableID) VALUES
 (11, 11), (11, 12), (11, 13), (11, 14), (11, 15), (14, 11), (14, 12), (14, 13), (14, 14), (14, 15),
 (16, 11), (16, 12), (16, 13), (16, 14), (16, 15), (19, 11), (19, 12), (19, 13), (19, 14), (19, 15), 
 -- Nhóm 2: Bảo hành & Sửa chữa
-(7, 21), (7, 22), (7, 23), 
-(12, 21), (12, 22), (12, 23),
-(17, 21), (17, 22), (17, 23),
+(7, 21), (7, 22), 
+(12, 21), (12, 22),
+(17, 21), (17, 22),
 -- Nhóm 3: Chính sách & Hỗ trợ
 (8, 31), (8, 32), (8, 33), (10, 31), (10, 32), (10, 33), 
 (13, 31), (13, 32), (13, 33), (15, 31), (15, 32), (15, 33), 
@@ -575,8 +583,8 @@ INSERT INTO Guest (ID0, Fullname, Email) VALUES
 
 --GUEST SEND--
 INSERT INTO GuestSend (ID0, MessageID) VALUES 
-(01, 45), (01, 0),
-(02, 28), (02, 16),
+(01, 0),
+(02, 16),
 (03, 29), (03, 30), 
 (04, 26), (04, 25),
 (05, 52),
@@ -587,22 +595,17 @@ INSERT INTO GuestSend (ID0, MessageID) VALUES
 
 --GUEST CREATE--
 INSERT INTO GuestCreate (ID0, FormID) VALUES
-(01, 1), (01, 2), (01, 3),
-(02, 4), (02, 5),
-(03, 6), (03, 7), (03, 8),
-(04, 9), (04, 10), (04, 11),
-(05, 12),
-(06, 13),
-(07, 14);
-
+(01, 40), (01, 41), 
+(02, 55), (02, 25),
+(03, 42), (04, 27), (05, 32), (06, 30);
 --FAQ--
 INSERT INTO FAQ (ID, Category, Question, Answer) VALUES
 -- ===== SẢN PHẨM =====
-(1, N'Sản phẩm', N'iPhone 15 Pro Max có mấy màu?', N'Hiện có 4 màu: Titan tự nhiên, Titan xanh, Titan trắng và Titan đen.'),
-(2, N'Sản phẩm', N'iPhone 15 thường khác gì iPhone 15 Pro?', N'iPhone 15 Pro dùng khung titan, chip A17 Pro và có camera tele; iPhone 15 thường dùng chip A16 và khung nhôm.'),
-(3, N'Sản phẩm', N'iPhone 14 có hỗ trợ 5G không?', N'Có, toàn bộ dòng iPhone 14 đều hỗ trợ 5G tại Việt Nam.'),
-(4, N'Sản phẩm', N'iPhone 16 có chống nước không?', N'Có, đạt chuẩn IP68, chịu được độ sâu 6m trong 30 phút.'),
-(5, N'Sản phẩm', N'iPhone 17 có tín năng gì mới so với các series khác?', N'Có, camera có thể zoom tới 8x, màn hình 120Hz, thiết kế bằng khung nhôm với các màu sắc tươi mới.');
+(1, N'iphone 15 Series', N'iPhone 15 Pro Max có mấy màu?', N'Hiện có 4 màu: Titan tự nhiên, Titan xanh, Titan trắng và Titan đen.'),
+(2, N'iphone 15 Series', N'iPhone 15 thường khác gì iPhone 15 Pro?', N'iPhone 15 Pro dùng khung titan, chip A17 Pro và có camera tele; iPhone 15 thường dùng chip A16 và khung nhôm.'),
+(3, N'iphone 14 Series', N'iPhone 14 có hỗ trợ 5G không?', N'Có, toàn bộ dòng iPhone 14 đều hỗ trợ 5G tại Việt Nam.'),
+(4, N'iphone 16 Series', N'iPhone 16 có chống nước không?', N'Có, đạt chuẩn IP68, chịu được độ sâu 6m trong 30 phút.'),
+(5, N'iphone 17 Series', N'iPhone 17 có tín năng gì mới so với các series khác?', N'Có, camera có thể zoom tới 8x, màn hình 120Hz, thiết kế bằng khung nhôm với các màu sắc tươi mới.');
 -- ===== BẢO HÀNH / DỊCH VỤ =====
 INSERT INTO FAQ (ID, Category, Question, Answer) VALUES
 (6, N'Bảo hành', N'iPhone được bảo hành bao lâu?', N'Tất cả sản phẩm iPhone chính hãng được bảo hành 12 tháng theo chính sách của Apple Việt Nam.'),
@@ -612,12 +615,12 @@ INSERT INTO FAQ (ID, Category, Question, Answer) VALUES
 (10, N'Sửa chữa', N'Điện thoại không lên nguồn?', N'Vui lòng đưa đến chi nhánh gần nhất để được hỗ trợ sữa chữa hoặc bạn có thể thực hiện bấm tổ hợp phím tắt (nút nguồn + nút giảm âm lượng) để thử cài đặt lại điện thoại');
 -- ===== CHÍNH SÁCH & HỖ TRỢ =====
 INSERT INTO FAQ (ID, Category, Question, Answer) VALUES
-(11, N'Chính sách', N'Cửa hàng có hỗ trợ trả góp không?', N'Có, hỗ trợ trả góp 0% qua thẻ tín dụng của nhiều ngân hàng.'),
-(12, N'Hỗ trợ', N'Tôi có thể thanh toán khi nhận hàng không?', N'Có, hỗ trợ thanh toán COD (nhận hàng rồi trả tiền).'),
-(13, N'Chính sách', N'Tôi có thể đổi trả hàng trong bao lâu?', N'Bạn có thể đổi trả trong 15 ngày nếu sản phẩm lỗi do nhà sản xuất.'),
-(14, N'Chính sách', N'Hàng lỗi do người dùng có được đổi không?', N'Không, chỉ sản phẩm lỗi kỹ thuật mới được đổi theo quy định.'),
-(15, N'Hỗ trợ', N'Làm sao để liên hệ trung tâm chăm sóc khách hàng?', N'Bạn có thể gọi hotline 1800-1122 (miễn phí) hoặc chat trực tiếp trên website.'),
-(16, N'Hỗ trợ', N'Tôi muốn nhận hóa đơn điện tử thì làm sao?', N'Hóa đơn điện tử sẽ được gửi qua email sau khi đơn hàng được giao thành công.');
+(11, N'Hỗ trợ thanh toán', N'Cửa hàng có hỗ trợ trả góp không?', N'Có, hỗ trợ trả góp 0% qua thẻ tín dụng của nhiều ngân hàng.'),
+(12, N'Hỗ trợ thanh toán', N'Tôi có thể thanh toán khi nhận hàng không?', N'Có, hỗ trợ thanh toán COD (nhận hàng rồi trả tiền).'),
+(13, N'Chính sách đổi trả', N'Tôi có thể đổi trả hàng trong bao lâu?', N'Bạn có thể đổi trả trong 15 ngày nếu sản phẩm lỗi do nhà sản xuất.'),
+(14, N'Chính sách đổi trả', N'Hàng lỗi do người dùng có được đổi không?', N'Không, chỉ sản phẩm lỗi kỹ thuật mới được đổi theo quy định.'),
+(15, N'Hỗ trợ đặt hàng', N'Làm sao để liên hệ trung tâm chăm sóc khách hàng?', N'Bạn có thể gọi hotline 1800-1122 (miễn phí) hoặc chat trực tiếp trên website.'),
+(16, N'Hỗ trợ thanh toán', N'Tôi muốn nhận hóa đơn điện tử thì làm sao?', N'Hóa đơn điện tử sẽ được gửi qua email sau khi đơn hàng được giao thành công.');
 
 --BelongTo--
 -- ===== SẢN PHẨM =====
@@ -640,8 +643,8 @@ INSERT INTO BelongTo (FAQ_ID, ClassifyTableID) VALUES
 (12, 32), -- Thanh toán khi nhận hàng → Hướng dẫn thanh toán
 (13, 31), -- Đổi trả trong bao lâu → Chính sách đổi trả
 (14, 31), -- Hàng lỗi do người dùng → Chính sách đổi trả
-(15, 3),  -- Liên hệ trung tâm CSKH → Chính sách & hỗ trợ
-(16, 33);  -- Hóa đơn điện tử → Chính sách & hỗ trợ
+(15, 33),  -- Liên hệ trung tâm CSKH → Chính sách & hỗ trợ
+(16, 32);  -- Hóa đơn điện tử → Chính sách & hỗ trợ
 
 INSERT INTO Classify (FormID, TableID) VALUES
 (1, 11), (2, 11), (3, 11), (4, 11), (5, 11),
@@ -651,7 +654,7 @@ INSERT INTO Classify (FormID, TableID) VALUES
 (21, 15), (22, 15), (23, 15), (24, 15), (25, 15),
 (26, 21), (27, 21), (28, 21), (29, 21), (30, 21),
 (31, 22), (32, 22), (33, 22), (34, 22), (35, 22),
-(36, 23), (37, 23), (38, 23), (39, 23), (40, 23),
+(36, 31), (37, 31), (38, 31), (39, 31), (40, 31),
 (41, 31), (42, 31), (43, 31), (44, 31), (45, 31),
 (46, 32), (47, 32), (48, 32), (49, 32), (50, 32),
 (51, 33), (52, 33), (53, 33), (54, 33), (55, 33);
