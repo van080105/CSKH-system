@@ -1,14 +1,15 @@
-CREATE DATABASE CSKH15
+CREATE DATABASE CSKH17
 GO
-USE CSKH15
+USE CSKH17
 GO
 
 -- Bảng Notification
 CREATE TABLE Notification (
     NoID INT PRIMARY KEY,
     Content NVARCHAR(255) NOT NULL,
-    SentDate DATETIME
+    SentDate DATETIME2(0)
 );
+
 
 -- Bảng Account
 CREATE TABLE Account (
@@ -27,6 +28,7 @@ CREATE TABLE ReceiveNotification (
     FOREIGN KEY (NoID) REFERENCES Notification(NoID),
     FOREIGN KEY (AccountID) REFERENCES Account(ID)
 );
+
 
 -- Bảng Admin
 CREATE TABLE Admin (
@@ -48,7 +50,7 @@ CREATE TABLE Form (
     Content NVARCHAR(255) NOT NULL,
     Stt NVARCHAR(50),
     Typ NVARCHAR(50),
-    SentDate DATETIME
+    SentDate DATETIME2(0)
 );
 
 -- Bảng FeedbackForm
@@ -57,10 +59,11 @@ CREATE TABLE FeedbackForm (
     CustomerID INT,
     Rating INT,
     Content NVARCHAR(255),
-    SentDate DATETIME,
+    SentDate DATETIME2(0),
     FOREIGN KEY (CustomerID) REFERENCES Customer(CustomerID),
 	FOREIGN KEY (FormID) REFERENCES Form(FormID)
 );
+
 -- Bảng Receiver
 CREATE TABLE Receiver (
     ReceiverID VARCHAR(5) PRIMARY KEY
@@ -77,8 +80,8 @@ CREATE TABLE Message1 (
 -- Bảng CustomerSend
 CREATE TABLE CustomerSend(
 	CustomerID INT,
-	MessageID INT,
-    PRIMARY KEY(CustomerID, MessageID),
+	MessageID INT PRIMARY KEY,
+    --PRIMARY KEY(CustomerID, MessageID),
 	FOREIGN KEY (CustomerID) REFERENCES Customer(CustomerID),
 	FOREIGN KEY (MessageID) REFERENCES Message1(ID)
 );
@@ -86,8 +89,8 @@ CREATE TABLE CustomerSend(
 -- Bảng CustomerCreate
 CREATE TABLE CustomerCreate(
 	CustomerID INT,
-	FormID INT,
-    PRIMARY KEY(CustomerID, FormID),
+	FormID INT PRIMARY KEY,
+   -- PRIMARY KEY(CustomerID, FormID),
 	FOREIGN KEY (CustomerID) REFERENCES Customer(CustomerID),
 	FOREIGN KEY (FormID) REFERENCES Form(FormID)
 );
@@ -106,7 +109,6 @@ CREATE TABLE Agent (
 CREATE TABLE ClassifyTable (
     TableID INT PRIMARY KEY,
     NameTable NVARCHAR(100),
-    Category NVARCHAR(100),
     ParentTableID INT,
 	FOREIGN KEY (ParentTableID) REFERENCES ClassifyTable(TableID)
 );
@@ -140,7 +142,7 @@ CREATE TABLE FeedbackChatbot (
 CREATE TABLE Orders (
     OrderID INT PRIMARY KEY,
     CustomerID INT NOT NULL,
-    OrderDate DATETIME,
+    OrderDate DATETIME2(0),
     Stt NVARCHAR(50),
     DeliveryAddress NVARCHAR(200),
     FOREIGN KEY (CustomerID) REFERENCES Customer(CustomerID)
@@ -172,8 +174,8 @@ CREATE TABLE Guest (
 -- Bảng GuestSend
 CREATE TABLE GuestSend (
     ID0 INT,
-    MessageID INT,
-    PRIMARY KEY(ID0, MessageID),
+    MessageID INT PRIMARY KEY,
+    --PRIMARY KEY(ID0, MessageID),
     FOREIGN KEY (ID0) REFERENCES Guest(ID0),
     FOREIGN KEY (MessageID) REFERENCES Message1(ID)
 );
@@ -181,8 +183,8 @@ CREATE TABLE GuestSend (
 -- Bảng GuestCreate
 CREATE TABLE GuestCreate (
     ID0 INT,
-    FormID INT,
-    PRIMARY KEY(ID0, FormID),
+    FormID INT PRIMARY KEY,
+  --  PRIMARY KEY(ID0, FormID),
     FOREIGN KEY (ID0) REFERENCES Guest(ID0),
     FOREIGN KEY (FormID) REFERENCES Form(FormID)
 );
@@ -215,4 +217,9 @@ CREATE TABLE Classify (
 
 );
 
---DROP DATABASE CSKH;
+CREATE TABLE ReceiveForm(
+	AgentID INT,
+	FormID INT PRIMARY KEY,
+	FOREIGN KEY (AgentID) REFERENCES Agent(AgentID),
+	FOREIGN KEY (FormID) REFERENCES Form(FormID)
+);
