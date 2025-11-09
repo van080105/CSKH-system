@@ -2,6 +2,7 @@ import { Building2, Headphones, ShoppingCart, Apple, Star, Gift, Users } from "l
 import { useTranslation } from "react-i18next";
 import { motion } from "framer-motion";
 import { ChatWidget } from "./ChatWidget";
+import { useState } from "react";
 
 const cardVariants = {
   offscreen: { y: 50, opacity: 0 },
@@ -23,6 +24,16 @@ const sectionVariants = {
 
 export function MainContent() {
   const { t } = useTranslation();
+
+  const [modalContent, setModalContent] = useState(""); 
+  const [isOpen, setIsOpen] = useState(false);
+
+  const openModal = (content) => {
+    setModalContent(content);
+    setIsOpen(true);
+  };
+
+  const closeModal = () => setIsOpen(false);
 
   return (
     <div className="container max-w-6xl mx-auto py-16 px-6">
@@ -188,28 +199,53 @@ export function MainContent() {
       >
         <div className="container max-w-6xl mx-auto text-center">
           <div className="flex justify-center space-x-6 mb-6">
-            <a
-              href="/"
+            <button
+              onClick={() => openModal(t("privacyPolicyContent"))}
               className="text-lg font-semibold hover:text-indigo-300 dark:hover:text-indigo-400 transition duration-300"
             >
               {t("privacyPolicy")}
-            </a>
-            <a
-              href="/"
+            </button>
+
+            <button
+              onClick={() => openModal(t("termsOfServiceContent"))}
               className="text-lg font-semibold hover:text-indigo-300 dark:hover:text-indigo-400 transition duration-300"
             >
               {t("termsOfService")}
-            </a>
-            <a
-              href="/"
+            </button>
+
+            <button
+              onClick={() => openModal(t("contactUsContent"))}
               className="text-lg font-semibold hover:text-indigo-300 dark:hover:text-indigo-400 transition duration-300"
             >
               {t("contactUs")}
-            </a>
+            </button>
           </div>
+
           <p className="text-gray-300 text-sm">&copy; 2025 Mockstack. {t("allRightsReserved")}</p>
         </div>
       </motion.footer>
+
+      {isOpen && (
+        <div
+          className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50 p-4"
+          onClick={closeModal}
+        >
+          <div
+            className="bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 rounded-xl p-6 max-w-lg w-full shadow-2xl relative"
+            onClick={(e) => e.stopPropagation()} // prevent close when clicking inside
+          >
+            <button
+              className="absolute top-3 right-3 text-gray-500 hover:text-gray-800 dark:hover:text-white transition"
+              onClick={closeModal}
+            >
+              ✕
+            </button>
+            <div className="text-left space-y-4">
+              <p>{modalContent}</p>
+            </div>
+          </div>
+        </div>
+      )}
 
     </div>
   );

@@ -106,7 +106,7 @@ export function AgentSidebar() {
         </NavLink>
 
         <NavLink
-          to="/signin"
+          to="/"
           className={({ isActive }) =>
             `${linkClass} ${isActive ? activeClass : "text-gray-600 dark:text-gray-300"}`
           }

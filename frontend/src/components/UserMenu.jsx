@@ -114,7 +114,7 @@ const UserMenu = () => {
               // Xử lý logout ở đây
               console.log("Logging out...");
               localStorage.removeItem("user");
-              navigate("/signin");
+              navigate("/");
             }}
           />
         </div>

@@ -118,7 +118,7 @@ export function AdminSidebar() {
         </NavLink>
 
         <NavLink
-          to="/signin"
+          to="/"
           className={({ isActive }) =>
             `${linkClass} ${isActive ? activeClass : inactiveClass}`
           }

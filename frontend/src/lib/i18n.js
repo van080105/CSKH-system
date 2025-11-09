@@ -230,7 +230,13 @@ i18n.use(LanguageDetector).use(initReactI18next).init({
           support: "Hỗ trợ kỹ thuật",
           feedback: "Góp ý & phản hồi"
         },   
-        inbox: "Hộp thoại",         
+        inbox: "Hộp thoại",
+        searchFAQ : "Tìm kiếm câu hỏi...",         
+        noResultsFound : "Không tìm thấy kết quả",
+
+        privacyPolicyContent : "Chúng tôi cam kết bảo vệ thông tin cá nhân của bạn. Tất cả dữ liệu sẽ được lưu trữ an toàn và chỉ được sử dụng cho mục đích cải thiện trải nghiệm khách hàng.",
+        termsOfServiceContent : "Khi sử dụng dịch vụ của chúng tôi, bạn đồng ý tuân thủ các điều khoản đã nêu. Chúng tôi nỗ lực mang đến trải nghiệm minh bạch và công bằng cho tất cả khách hàng.",
+        contactUsContent : "Chúng tôi luôn sẵn sàng hỗ trợ bạn. Hãy liên hệ với chúng tôi qua email hoặc số điện thoại để được giải đáp mọi thắc mắc một cách nhanh chóng và tận tâm.",
         // Thêm các key khác...
       },
     },
@@ -463,6 +469,12 @@ i18n.use(LanguageDetector).use(initReactI18next).init({
           feedback: "Feedback & Suggestions"
         },
         inbox : "Inbox",
+        searchFAQ : "Search FAQs...",
+        noResultsFound : "No results found",
+
+        privacyPolicyContent : "We are committed to protecting your personal information. All data is securely stored and used solely to enhance your customer experience.",
+        termsOfServiceContent : "By using our services, you agree to comply with the outlined terms. We strive to provide a transparent and fair experience for all customers.",
+        contactUsContent : "We are always ready to assist you. Please reach out via email or phone for prompt and dedicated support for any inquiries.",
         // Add more keys...
       },
     },

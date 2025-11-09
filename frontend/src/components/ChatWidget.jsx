@@ -82,6 +82,25 @@ export function ChatWidget() {
     return () => document.removeEventListener("mousedown", handleOutsideClick)
   }, [showFeedback])
 
+  const handleSendMessage = async () => {
+    if (!message.trim()) return
+
+    const userMessage = message
+    setMessage("") // reset input
+    // Hiển thị tin nhắn người dùng
+    // (thêm vào list message của bạn)
+    
+    const res = await fetch("/api/chat", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ message: userMessage }),
+    })
+
+    const data = await res.json()
+    // Hiển thị phản hồi AI
+    console.log("AI:", data.reply)
+  }
+
   return (
     <>
       {/* Overlay Feedback */}
@@ -284,6 +303,7 @@ export function ChatWidget() {
                 <button
                   type="button"
                   className="p-2 bg-blue-600 text-white hover:bg-blue-700 rounded-lg flex-shrink-0"
+                  onClick={handleSendMessage}
                 >
                   <Send className="h-4 w-4" />
                 </button>

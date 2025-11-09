@@ -104,7 +104,7 @@ export function CustomerSidebar() {
         </NavLink>
 
         <NavLink
-          to="/signin"
+          to="/"
           className={({ isActive }) =>
             `${linkClass} ${isActive ? activeClass : inactiveClass}`
           }
