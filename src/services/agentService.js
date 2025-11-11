@@ -123,7 +123,7 @@ export const replyAssignedFormService = async (agentId, formId, resContent) => {
     throw new Error("Thiếu formId hoặc nội dung trả lời (resContent).");
   }
 
-  // 1️⃣ Kiểm tra form có được gán cho agent và chưa trả lời
+  //Kiểm tra form có được gán cho agent và chưa trả lời
   const assigned = (await pool.request()
     .input("formId", formId)
     .input("agentId", agentId)
@@ -139,7 +139,7 @@ export const replyAssignedFormService = async (agentId, formId, resContent) => {
     throw new Error("Form này đã được trả lời hoặc không được gán cho bạn.");
   }
 
-  // 2️⃣ Cập nhật nội dung trả lời
+  //Cập nhật nội dung trả lời
   const result = await pool.request()
     .input("formId", formId)
     .input("resContent", resContent)
@@ -153,7 +153,7 @@ export const replyAssignedFormService = async (agentId, formId, resContent) => {
     throw new Error("Không thể cập nhật nội dung form.");
   }
 
-  // 3️⃣ Cập nhật trạng thái Form sau khi trả lời
+  //Cập nhật trạng thái Form sau khi trả lời
   await pool.request()
     .input("formId", formId)
     .query(`
