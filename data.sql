@@ -124,71 +124,72 @@ INSERT INTO Customer (CustomerID, Membership) VALUES
 
 --Form--
 INSERT INTO Form (FormID, Title, Content, Stt, Typ, SentDate) VALUES
-(1, 'iPhone 14 có những màu nào?', 'Tôi muốn hỏi iPhone 14 hiện có bao nhiêu màu và màu nào đang được bán chạy nhất?', 'Chưa trả lời', 'iPhone 14 Series', '2025-04-01'),
-(2, 'iPhone 14 Pro Max có hỗ trợ eSIM không?', 'Tôi đang dùng eSIM, không biết iPhone 14 Pro Max có hỗ trợ dùng eSIM không?', 'Đã trả lời', 'iPhone 14 Series', '2025-04-02'),
-(3, 'iPhone 14 và 14 Plus khác nhau điểm nào?', 'Tôi phân vân giữa iPhone 14 và iPhone 14 Plus, cho tôi hỏi sự khác biệt chính giữa hai máy?', 'Chưa trả lời', 'iPhone 14 Series', '2025-04-03'),
-(4, 'iPhone 14 Pro quay video 4K có giới hạn thời gian không?', 'Tôi muốn quay video 4K để làm vlog, cho tôi hỏi iPhone 14 Pro có bị giới hạn thời gian quay không?', 'Chưa trả lời', 'iPhone 14 Series', '2025-04-04'),
-(5, 'Dung lượng pin iPhone 14 Pro Max bao nhiêu mAh?', 'Tôi cần biết thông số pin của iPhone 14 Pro Max để so sánh với mẫu máy đang dùng.', 'Đã trả lời', 'iPhone 14 Series', '2025-04-05'),
-     
-(6, 'iPhone 15 có cổng USB-C chưa?', 'Tôi nghe nói iPhone 15 đã chuyển sang cổng USB-C, thông tin này có đúng không?', 'Đã trả lời', 'iPhone 15 Series', '2025-04-06'),
-(7, 'iPhone 15 Pro có hỗ trợ quay video ProRes không?', 'Tôi muốn quay phim chất lượng cao nên muốn hỏi iPhone 15 Pro có quay được ProRes không?', 'Chưa trả lời', 'iPhone 15 Series', '2025-04-07'),
-(8, 'Sự khác nhau giữa iPhone 15 và iPhone 15 Pro là gì?', 'Tôi đang phân vân giữa 2 mẫu này. Nhờ cửa hàng giải thích giúp khác biệt chính về hiệu năng và camera.', 'Chưa trả lời', 'iPhone 15 Series', '2025-04-08'),
-(9, 'Titanium trên iPhone 15 Pro có dễ trầy không?', 'Chất liệu titanium mới trên iPhone 15 Pro có bền không và có dễ bị trầy xước không?', 'Chưa trả lời', 'iPhone 15 Series', '2025-04-09'),
-(10, 'iPhone 15 Pro Max có Zoom quang học bao nhiêu lần?', 'Tôi hay chụp ảnh du lịch, muốn hỏi iPhone 15 Pro Max có zoom quang học tối đa bao nhiêu lần?', 'Đã trả lời', 'iPhone 15 Series', '2025-04-10'),
-	 
-(11, 'iPhone 16 có hỗ trợ sạc không dây nhanh?', 'Cho tôi hỏi iPhone 16 có công nghệ sạc không dây nhanh và công suất tối đa là bao nhiêu?', 'Chưa trả lời', 'iPhone 16 Series', '2025-04-11'),
-(12, 'iPhone 16 pin có dung lượng bao nhiêu?', 'Tôi muốn biết thông số pin của iPhone 16 để cân nhắc nâng cấp.', 'Đã trả lời', 'iPhone 16 Series', '2025-04-12'),
-(13, 'iPhone 16 Pro có quay video 8K được không?', 'Camera của iPhone 16 Pro có hỗ trợ quay video 8K hay không và chất lượng ra sao?', 'Chưa trả lời', 'iPhone 16 Series', '2025-04-13'),
-(14, 'Hiệu năng iPhone 16 mạnh hơn iPhone 15 nhiều không?', 'Tôi đang dùng iPhone 15, muốn biết iPhone 16 có nâng cấp nhiều về hiệu năng không?', 'Chưa trả lời', 'iPhone 16 Series', '2025-04-14'),
-(15, 'iPhone 16 Pro Max có thay đổi thiết kế gì mới?', 'Tôi muốn tìm hiểu xem mẫu iPhone 16 Pro Max có nâng cấp đặc biệt về thiết kế không?', 'Đã trả lời', 'iPhone 16 Series', '2025-04-15'),
-	
-(16, 'iPhone 17 có thay đổi camera trước không?', 'Camera selfie của iPhone 17 có được nâng cấp gì về độ phân giải và góc nhìn không?', 'Đã trả lời', 'iPhone 17 Series', '2025-04-16'),
-(17, 'iPhone 17 dùng chip gì?', 'Cho tôi hỏi cấu hình chip xử lý của iPhone 17 có mạnh hơn đời trước nhiều không?', 'Chưa trả lời', 'Dòng sản phẩm', '2025-04-17'),
-(18, 'iPhone 17 Pro có tính năng quay không gian (Spatial Video) mới không?', 'Tôi quan tâm tính năng quay video 3D trên mẫu mới, cửa hàng có thông tin chi tiết không?', 'Chưa trả lời', 'iPhone 17 Series', '2025-04-18'),
-(19, 'iPhone 17 có mấy phiên bản dung lượng?', 'Tôi muốn hỏi iPhone 17 có các phiên bản dung lượng bao nhiêu GB?', 'Chưa trả lời', 'Dòng sản phẩm', '2025-04-19'),
-(20, 'Màn hình iPhone 17 Pro Max sáng tối đa bao nhiêu nits?', 'Tôi cần biết độ sáng tối đa của màn hình để đánh giá khả năng hiển thị ngoài trời.', 'Đã trả lời', 'iPhone 17 Series', '2025-04-20'),
-      
-(21, 'Ốp lưng cho iPhone 15 có kháng khuẩn không?', 'Cho tôi hỏi cửa hàng có bán loại ốp lưng kháng khuẩn dành cho iPhone 15 không?', 'Đã trả lời', 'Phụ kiện', '2025-04-21'),
-(22, 'AirPods Pro 2 có chống ồn tốt không?', 'Tôi muốn tìm tai nghe chống ồn tốt để đi máy bay, AirPods Pro 2 có phù hợp không?', 'Chưa trả lời', 'Phụ kiện', '2025-04-22'),
-(23, 'Cáp sạc USB-C cho iPhone có bền không?', 'Tôi cần mua cáp sạc USB-C chính hãng cho iPhone, độ bền có cao không?', 'Đang xử lý', 'Phụ kiện', '2025-04-23'),
-(24, 'Cường lực nào tốt nhất cho iPhone 16 Pro Max?', 'Tôi đang tìm miếng dán cường lực bảo vệ màn hình, loại nào tốt và khó vỡ?', 'Chưa trả lời', 'Phụ kiện', '2025-04-24'),
-(25, 'Tôi có thể mua sạc 30W cho iPhone 14 ở đây không?', 'Điện thoại tôi hỗ trợ sạc nhanh, không biết cửa hàng có bán sạc 30W chính hãng không?', 'Đã trả lời', 'Phụ kiện', '2025-04-25'),
-	
-(26, 'iPhone mua tại cửa hàng được bảo hành bao lâu?', 'Tôi muốn hỏi chính sách bảo hành của iPhone mua tại hệ thống là bao nhiêu tháng?', 'Đã trả lời', 'Bảo hành', '2025-04-26'),
-(27, 'Bảo hành pin iPhone có bao gồm chai pin không?', 'Pin iPhone sau một thời gian bị chai liệu có được bảo hành không?', 'Chưa trả lời', 'Bảo hành', '2025-04-27'),
-(28, 'Tôi bị rơi iPhone, có được bảo hành không?', 'Máy tôi bị rơi vỡ kính sau. Trường hợp này có được hỗ trợ bảo hành không?', 'Chưa trả lời', 'Bảo hành', '2025-04-28'),
-(29, 'Bảo hành có cần giữ hóa đơn không?', 'Nếu tôi làm mất hóa đơn bán hàng thì có được bảo hành hay không?', 'Chưa trả lời', 'Bảo hành', '2025-04-29'),
-(30, 'iPhone lỗi nguồn có được đổi máy mới không?', 'Nếu máy bị lỗi nguồn do nhà sản xuất trong thời gian bảo hành thì tôi có được đổi máy mới không?', 'Đã trả lời', 'Bảo hành', '2025-04-30'),
-	
-(31, 'Thay màn hình iPhone 14 giá bao nhiêu?', 'Màn hình iPhone 14 của tôi bị nứt, không biết chi phí thay thế khoảng bao nhiêu?', 'Chưa trả lời', 'Sửa chữa', '2025-05-01'),
-(32, 'Sửa Face ID iPhone 15 Pro có đảm bảo không?', 'Face ID máy tôi bị lỗi, nếu sửa có ảnh hưởng đến khả năng bảo mật không?', 'Chưa trả lời', 'Sửa chữa', '2025-05-02'),
-(33, 'Thay pin iPhone 16 có mất chống nước không?', 'Nếu thay pin tại cửa hàng thì máy có còn chống nước như ban đầu không?', 'Đã trả lời', 'Sửa chữa', '2025-05-03'),
-(34, 'Loa iPhone 15 nghe bị rè có sửa được không?', 'Loa trong khi gọi bị rè, không biết đây có phải lỗi phần cứng và chi phí sửa thế nào?', 'Chưa trả lời', 'Sửa chữa', '2025-05-04'),
-(35, 'Camera iPhone 17 Pro bị mờ sau khi rơi', 'Camera sau bị mờ như có hơi nước bên trong, trường hợp này có sửa được không?', 'Đã trả lời', 'Sửa chữa', '2025-05-05'),
-	
-(36, 'iPhone 14 thu cũ đổi mới được bao nhiêu?', 'Tôi có iPhone 14 còn tốt, cửa hàng thu lại giá bao nhiêu nếu tôi đổi lên iPhone mới?', 'Chưa trả lời', 'Chính sách đổi trả', '2025-05-06'),
-(37, 'Thu cũ đổi mới có cần hộp và phụ kiện không?', 'Điện thoại của tôi không còn hộp và phụ kiện, có được tham gia chương trình thu cũ đổi mới không?', 'Đã trả lời', 'Chính sách đổi trả', '2025-05-07'),
-(38, 'Máy bị trầy có được thu cũ không?', 'iPhone của tôi có vài vết trầy xước nhẹ, trường hợp này có được tham gia thu cũ đổi mới không?', 'Chưa trả lời', 'Chính sách đổi trả', '2025-05-08'),
-(39, 'Thu cũ đổi mới có áp dụng cho mua trả góp không?', 'Tôi muốn đổi lên iPhone mới nhưng dùng trả góp, chương trình có hỗ trợ không?', 'Chưa trả lời', 'Chính sách đổi trả', '2025-05-09'),
-(40, 'Thu cũ đổi mới có cần kiểm tra máy trước không?', 'Khi mang máy đến đổi thì có phải kiểm tra chất lượng trước khi định giá không?', 'Đã trả lời', 'Chính sách đổi trả', '2025-05-10'),
-	
-(41, 'Điện thoại bị lỗi trong 7 ngày có được đổi mới không?', 'Nếu iPhone tôi mua bị lỗi nhà sản xuất trong 7 ngày thì có được đổi mới 1:1 không?', 'Đã trả lời', 'Chính sách đổi trả', '2025-05-11'),
-(42, 'Đổi trả khi không thích sản phẩm có được không?', 'Tôi mua máy nhưng không còn nhu cầu sử dụng nữa, không biết có thể trả lại không?', 'Chưa trả lời', 'Chính sách đổi trả', '2025-05-12'),
-(43, 'Đổi trả có cần đầy đủ phụ kiện không?', 'Tôi làm mất khay sim thì có được đổi trả sản phẩm hay không?', 'Chưa trả lời', 'Chính sách đổi trả', '2025-05-13'),
-(44, 'Thời gian đổi trả tối đa là bao lâu?', 'Cửa hàng cho phép đổi trả trong bao nhiêu ngày kể từ khi mua?', 'Chưa trả lời', 'Chính sách đổi trả', '2025-05-14'),
-(45, 'Hóa đơn điện tử có dùng để đổi trả được không?', 'Tôi chỉ có hóa đơn điện tử, vậy có hợp lệ để đổi trả không?', 'Đã trả lời', 'Chính sách đổi trả', '2025-05-15'),
-	 
-(46, 'Cửa hàng hỗ trợ thanh toán bằng thẻ tín dụng không?', 'Tôi muốn thanh toán bằng thẻ Visa, không biết cửa hàng có hỗ trợ không?', 'Đã trả lời', 'Hỗ trợ thanh toán', '2025-05-16'),
-(47, 'Có thể thanh toán trả góp qua ngân hàng nào?', 'Nếu tôi muốn mua trả góp thì có những ngân hàng nào liên kết?', 'Chưa trả lời', 'Hỗ trợ thanh toán', '2025-05-17'),
-(48, 'Thanh toán qua ví điện tử có khuyến mãi không?', 'Nếu tôi thanh toán qua Momo hoặc ZaloPay thì có ưu đãi gì không?', 'Chưa trả lời', 'Hỗ trợ thanh toán', '2025-05-18'),
-(49, 'Thanh toán khi nhận hàng có được kiểm tra máy trước không?', 'Khi thanh toán COD, tôi có được mở hộp kiểm tra sản phẩm trước khi trả tiền không?', 'Chưa trả lời', 'Hỗ trợ thanh toán', '2025-05-19'),
-(50, 'Tôi có thể xuất hóa đơn công ty khi mua iPhone không?', 'Công ty tôi cần hóa đơn đỏ, không biết cửa hàng có thể xuất hóa đơn VAT không?', 'Đã trả lời', 'Hỗ trợ thanh toán', '2025-05-20'),
-	
-(51, 'Làm sao để đặt hàng online trên website?', 'Tôi lần đầu mua online, bạn có thể hướng dẫn tôi cách đặt hàng trên website không?', 'Đã trả lời', 'Hỗ trợ đặt hàng', '2025-05-21'),
-(52, 'Đặt hàng online có cần đặt cọc không?', 'Nếu tôi đặt hàng iPhone thì có phải thanh toán trước hay đặt cọc gì không?', 'Chưa trả lời', 'Hỗ trợ đặt hàng', '2025-05-22'),
-(53, 'Bao lâu thì giao hàng sau khi đặt?', 'Tôi muốn biết thời gian giao hàng dự kiến sau khi đặt mua iPhone.', 'Chưa trả lời', 'Hỗ trợ đặt hàng', '2025-05-23'),
-(54, 'Có thể đặt giữ máy và ra cửa hàng nhận không?', 'Tôi muốn đặt giữ máy online rồi ra cửa hàng trải nghiệm và thanh toán trực tiếp được chứ?', 'Chưa trả lời', 'Hỗ trợ đặt hàng', '2025-05-24'),
-(55, 'Tôi có thể hủy đơn hàng đã đặt không?', 'Nếu tôi đổi ý sau khi đặt hàng thì có thể hủy đơn không và có mất phí gì không?', 'Đã trả lời', 'Hỗ trợ đặt hàng', '2025-05-25');
+(1, N'iPhone 14 có những màu nào?', N'Tôi muốn hỏi iPhone 14 hiện có bao nhiêu màu và màu nào đang được bán chạy nhất?', N'Chưa trả lời', N'iPhone 14 Series', '2025-04-01'),
+(2, N'iPhone 14 Pro Max có hỗ trợ eSIM không?', N'Tôi đang dùng eSIM, không biết iPhone 14 Pro Max có hỗ trợ dùng eSIM không?', N'Đã trả lời', N'iPhone 14 Series', '2025-04-02'),
+(3, N'iPhone 14 và 14 Plus khác nhau điểm nào?', N'Tôi phân vân giữa iPhone 14 và iPhone 14 Plus, cho tôi hỏi sự khác biệt chính giữa hai máy?', N'Chưa trả lời', N'iPhone 14 Series', '2025-04-03'),
+(4, N'iPhone 14 Pro quay video 4K có giới hạn thời gian không?', N'Tôi muốn quay video 4K để làm vlog, cho tôi hỏi iPhone 14 Pro có bị giới hạn thời gian quay không?', N'Chưa trả lời', N'iPhone 14 Series', '2025-04-04'),
+(5, N'Dung lượng pin iPhone 14 Pro Max bao nhiêu mAh?', N'Tôi cần biết thông số pin của iPhone 14 Pro Max để so sánh với mẫu máy đang dùng.', N'Đã trả lời', N'iPhone 14 Series', '2025-04-05'),
+
+(6, N'iPhone 15 có cổng USB-C chưa?', N'Tôi nghe nói iPhone 15 đã chuyển sang cổng USB-C, thông tin này có đúng không?', N'Đã trả lời', N'iPhone 15 Series', '2025-04-06'),
+(7, N'iPhone 15 Pro có hỗ trợ quay video ProRes không?', N'Tôi muốn quay phim chất lượng cao nên muốn hỏi iPhone 15 Pro có quay được ProRes không?', N'Chưa trả lời', N'iPhone 15 Series', '2025-04-07'),
+(8, N'Sự khác nhau giữa iPhone 15 và iPhone 15 Pro là gì?', N'Tôi đang phân vân giữa 2 mẫu này. Nhờ cửa hàng giải thích giúp khác biệt chính về hiệu năng và camera.', N'Chưa trả lời', N'iPhone 15 Series', '2025-04-08'),
+(9, N'Titanium trên iPhone 15 Pro có dễ trầy không?', N'Chất liệu titanium mới trên iPhone 15 Pro có bền không và có dễ bị trầy xước không?', N'Chưa trả lời', N'iPhone 15 Series', '2025-04-09'),
+(10, N'iPhone 15 Pro Max có Zoom quang học bao nhiêu lần?', N'Tôi hay chụp ảnh du lịch, muốn hỏi iPhone 15 Pro Max có zoom quang học tối đa bao nhiêu lần?', N'Đã trả lời', N'iPhone 15 Series', '2025-04-10'),
+
+(11, N'iPhone 16 có hỗ trợ sạc không dây nhanh?', N'Cho tôi hỏi iPhone 16 có công nghệ sạc không dây nhanh và công suất tối đa là bao nhiêu?', N'Chưa trả lời', N'iPhone 16 Series', '2025-04-11'),
+(12, N'iPhone 16 pin có dung lượng bao nhiêu?', N'Tôi muốn biết thông số pin của iPhone 16 để cân nhắc nâng cấp.', N'Đã trả lời', N'iPhone 16 Series', '2025-04-12'),
+(13, N'iPhone 16 Pro có quay video 8K được không?', N'Camera của iPhone 16 Pro có hỗ trợ quay video 8K hay không và chất lượng ra sao?', N'Chưa trả lời', N'iPhone 16 Series', '2025-04-13'),
+(14, N'Hiệu năng iPhone 16 mạnh hơn iPhone 15 nhiều không?', N'Tôi đang dùng iPhone 15, muốn biết iPhone 16 có nâng cấp nhiều về hiệu năng không?', N'Chưa trả lời', N'iPhone 16 Series', '2025-04-14'),
+(15, N'iPhone 16 Pro Max có thay đổi thiết kế gì mới?', N'Tôi muốn tìm hiểu xem mẫu iPhone 16 Pro Max có nâng cấp đặc biệt về thiết kế không?', N'Đã trả lời', N'iPhone 16 Series', '2025-04-15'),
+
+(16, N'iPhone 17 có thay đổi camera trước không?', N'Camera selfie của iPhone 17 có được nâng cấp gì về độ phân giải và góc nhìn không?', N'Đã trả lời', N'iPhone 17 Series', '2025-04-16'),
+(17, N'iPhone 17 dùng chip gì?', N'Cho tôi hỏi cấu hình chip xử lý của iPhone 17 có mạnh hơn đời trước nhiều không?', N'Chưa trả lời', N'Dòng sản phẩm', '2025-04-17'),
+(18, N'iPhone 17 Pro có tính năng quay không gian (Spatial Video) mới không?', N'Tôi quan tâm tính năng quay video 3D trên mẫu mới, cửa hàng có thông tin chi tiết không?', N'Chưa trả lời', N'iPhone 17 Series', '2025-04-18'),
+(19, N'iPhone 17 có mấy phiên bản dung lượng?', N'Tôi muốn hỏi iPhone 17 có các phiên bản dung lượng bao nhiêu GB?', N'Chưa trả lời', N'Dòng sản phẩm', '2025-04-19'),
+(20, N'Màn hình iPhone 17 Pro Max sáng tối đa bao nhiêu nits?', N'Tôi cần biết độ sáng tối đa của màn hình để đánh giá khả năng hiển thị ngoài trời.', N'Đã trả lời', N'iPhone 17 Series', '2025-04-20'),
+
+(21, N'Ốp lưng cho iPhone 15 có kháng khuẩn không?', N'Cho tôi hỏi cửa hàng có bán loại ốp lưng kháng khuẩn dành cho iPhone 15 không?', N'Đã trả lời', N'Phụ kiện', '2025-04-21'),
+(22, N'AirPods Pro 2 có chống ồn tốt không?', N'Tôi muốn tìm tai nghe chống ồn tốt để đi máy bay, AirPods Pro 2 có phù hợp không?', N'Chưa trả lời', N'Phụ kiện', '2025-04-22'),
+(23, N'Cáp sạc USB-C cho iPhone có bền không?', N'Tôi cần mua cáp sạc USB-C chính hãng cho iPhone, độ bền có cao không?', N'Đang xử lý', N'Phụ kiện', '2025-04-23'),
+(24, N'Cường lực nào tốt nhất cho iPhone 16 Pro Max?', N'Tôi đang tìm miếng dán cường lực bảo vệ màn hình, loại nào tốt và khó vỡ?', N'Chưa trả lời', N'Phụ kiện', '2025-04-24'),
+(25, N'Tôi có thể mua sạc 30W cho iPhone 14 ở đây không?', N'Điện thoại tôi hỗ trợ sạc nhanh, không biết cửa hàng có bán sạc 30W chính hãng không?', N'Đã trả lời', N'Phụ kiện', '2025-04-25'),
+
+(26, N'iPhone mua tại cửa hàng được bảo hành bao lâu?', N'Tôi muốn hỏi chính sách bảo hành của iPhone mua tại hệ thống là bao nhiêu tháng?', N'Đã trả lời', N'Bảo hành', '2025-04-26'),
+(27, N'Bảo hành pin iPhone có bao gồm chai pin không?', N'Pin iPhone sau một thời gian bị chai liệu có được bảo hành không?', N'Chưa trả lời', N'Bảo hành', '2025-04-27'),
+(28, N'Tôi bị rơi iPhone, có được bảo hành không?', N'Máy tôi bị rơi vỡ kính sau. Trường hợp này có được hỗ trợ bảo hành không?', N'Chưa trả lời', N'Bảo hành', '2025-04-28'),
+(29, N'Bảo hành có cần giữ hóa đơn không?', N'Nếu tôi làm mất hóa đơn bán hàng thì có được bảo hành hay không?', N'Chưa trả lời', N'Bảo hành', '2025-04-29'),
+(30, N'iPhone lỗi nguồn có được đổi máy mới không?', N'Nếu máy bị lỗi nguồn do nhà sản xuất trong thời gian bảo hành thì tôi có được đổi máy mới không?', N'Đã trả lời', N'Bảo hành', '2025-04-30'),
+
+(31, N'Thay màn hình iPhone 14 giá bao nhiêu?', N'Màn hình iPhone 14 của tôi bị nứt, không biết chi phí thay thế khoảng bao nhiêu?', N'Chưa trả lời', N'Sửa chữa', '2025-05-01'),
+(32, N'Sửa Face ID iPhone 15 Pro có đảm bảo không?', N'Face ID máy tôi bị lỗi, nếu sửa có ảnh hưởng đến khả năng bảo mật không?', N'Chưa trả lời', N'Sửa chữa', '2025-05-02'),
+(33, N'Thay pin iPhone 16 có mất chống nước không?', N'Nếu thay pin tại cửa hàng thì máy có còn chống nước như ban đầu không?', N'Đã trả lời', N'Sửa chữa', '2025-05-03'),
+(34, N'Loa iPhone 15 nghe bị rè có sửa được không?', N'Loa trong khi gọi bị rè, không biết đây có phải lỗi phần cứng và chi phí sửa thế nào?', N'Chưa trả lời', N'Sửa chữa', '2025-05-04'),
+(35, N'Camera iPhone 17 Pro bị mờ sau khi rơi', N'Camera sau bị mờ như có hơi nước bên trong, trường hợp này có sửa được không?', N'Đã trả lời', N'Sửa chữa', '2025-05-05'),
+
+(36, N'iPhone 14 thu cũ đổi mới được bao nhiêu?', N'Tôi có iPhone 14 còn tốt, cửa hàng thu lại giá bao nhiêu nếu tôi đổi lên iPhone mới?', N'Chưa trả lời', N'Chính sách đổi trả', '2025-05-06'),
+(37, N'Thu cũ đổi mới có cần hộp và phụ kiện không?', N'Điện thoại của tôi không còn hộp và phụ kiện, có được tham gia chương trình thu cũ đổi mới không?', N'Đã trả lời', N'Chính sách đổi trả', '2025-05-07'),
+(38, N'Máy bị trầy có được thu cũ không?', N'iPhone của tôi có vài vết trầy xước nhẹ, trường hợp này có được tham gia thu cũ đổi mới không?', N'Chưa trả lời', N'Chính sách đổi trả', '2025-05-08'),
+(39, N'Thu cũ đổi mới có áp dụng cho mua trả góp không?', N'Tôi muốn đổi lên iPhone mới nhưng dùng trả góp, chương trình có hỗ trợ không?', N'Chưa trả lời', N'Chính sách đổi trả', '2025-05-09'),
+(40, N'Thu cũ đổi mới có cần kiểm tra máy trước không?', N'Khi mang máy đến đổi thì có phải kiểm tra chất lượng trước khi định giá không?', N'Đã trả lời', N'Chính sách đổi trả', '2025-05-10'),
+
+(41, N'Điện thoại bị lỗi trong 7 ngày có được đổi mới không?', N'Nếu iPhone tôi mua bị lỗi nhà sản xuất trong 7 ngày thì có được đổi mới 1:1 không?', N'Đã trả lời', N'Chính sách đổi trả', '2025-05-11'),
+(42, N'Đổi trả khi không thích sản phẩm có được không?', N'Tôi mua máy nhưng không còn nhu cầu sử dụng nữa, không biết có thể trả lại không?', N'Chưa trả lời', N'Chính sách đổi trả', '2025-05-12'),
+(43, N'Đổi trả có cần đầy đủ phụ kiện không?', N'Tôi làm mất khay sim thì có được đổi trả sản phẩm hay không?', N'Chưa trả lời', N'Chính sách đổi trả', '2025-05-13'),
+(44, N'Thời gian đổi trả tối đa là bao lâu?', N'Cửa hàng cho phép đổi trả trong bao nhiêu ngày kể từ khi mua?', N'Chưa trả lời', N'Chính sách đổi trả', '2025-05-14'),
+(45, N'Hóa đơn điện tử có dùng để đổi trả được không?', N'Tôi chỉ có hóa đơn điện tử, vậy có hợp lệ để đổi trả không?', N'Đã trả lời', N'Chính sách đổi trả', '2025-05-15'),
+
+(46, N'Cửa hàng hỗ trợ thanh toán bằng thẻ tín dụng không?', N'Tôi muốn thanh toán bằng thẻ Visa, không biết cửa hàng có hỗ trợ không?', N'Đã trả lời', N'Hỗ trợ thanh toán', '2025-05-16'),
+(47, N'Có thể thanh toán trả góp qua ngân hàng nào?', N'Nếu tôi muốn mua trả góp thì có những ngân hàng nào liên kết?', N'Chưa trả lời', N'Hỗ trợ thanh toán', '2025-05-17'),
+(48, N'Thanh toán qua ví điện tử có khuyến mãi không?', N'Nếu tôi thanh toán qua Momo hoặc ZaloPay thì có ưu đãi gì không?', N'Chưa trả lời', N'Hỗ trợ thanh toán', '2025-05-18'),
+(49, N'Thanh toán khi nhận hàng có được kiểm tra máy trước không?', N'Khi thanh toán COD, tôi có được mở hộp kiểm tra sản phẩm trước khi trả tiền không?', N'Chưa trả lời', N'Hỗ trợ thanh toán', '2025-05-19'),
+(50, N'Tôi có thể xuất hóa đơn công ty khi mua iPhone không?', N'Công ty tôi cần hóa đơn đỏ, không biết cửa hàng có thể xuất hóa đơn VAT không?', N'Đã trả lời', N'Hỗ trợ thanh toán', '2025-05-20'),
+
+(51, N'Làm sao để đặt hàng online trên website?', N'Tôi lần đầu mua online, bạn có thể hướng dẫn tôi cách đặt hàng trên website không?', N'Đã trả lời', N'Hỗ trợ đặt hàng', '2025-05-21'),
+(52, N'Đặt hàng online có cần đặt cọc không?', N'Nếu tôi đặt hàng iPhone thì có phải thanh toán trước hay đặt cọc gì không?', N'Chưa trả lời', N'Hỗ trợ đặt hàng', '2025-05-22'),
+(53, N'Bao lâu thì giao hàng sau khi đặt?', N'Tôi muốn biết thời gian giao hàng dự kiến sau khi đặt mua iPhone.', N'Chưa trả lời', N'Hỗ trợ đặt hàng', '2025-05-23'),
+(54, N'Có thể đặt giữ máy và ra cửa hàng nhận không?', N'Tôi muốn đặt giữ máy online rồi ra cửa hàng trải nghiệm và thanh toán trực tiếp được chứ?', N'Chưa trả lời', N'Hỗ trợ đặt hàng', '2025-05-24'),
+(55, N'Tôi có thể hủy đơn hàng đã đặt không?', N'Nếu tôi đổi ý sau khi đặt hàng thì có thể hủy đơn không và có mất phí gì không?', N'Đã trả lời', N'Hỗ trợ đặt hàng', '2025-05-25');
+
 	
 --FeedbackForm--
 INSERT INTO FeedbackForm (FormID, CustomerID, Rating, Content, SentDate)
@@ -657,5 +658,6 @@ INSERT INTO Classify (FormID, TableID) VALUES
 (41, 31), (42, 31), (43, 31), (44, 31), (45, 31),
 (46, 32), (47, 32), (48, 32), (49, 32), (50, 32),
 (51, 33), (52, 33), (53, 33), (54, 33), (55, 33);
+
 
 
