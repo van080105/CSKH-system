@@ -449,7 +449,7 @@ INSERT INTO ClassifyTable (TableID, NameTable, ParentTableID) VALUES
 -- CẤP 3: Chi tiết theo tỉnh/thành (ví dụ thực tế)
 (45, N'Hà Nội', 41),
 (46, N'Đà Nẵng', 42),
-(47, N'TP. Hồ Chí Minh', 43),
+(47, N'Hồ Chí Minh', 43),
 -- CẤP 2: Loại thành viên khách hàng
 (51, N'Đồng', 5),
 (52, N'Bạc',  5),
