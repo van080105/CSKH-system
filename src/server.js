@@ -20,9 +20,8 @@ app.use("/api/accounts", accountRoutes);
 app.use('/api/notifications', notificationRoutes);
 app.use('/api/faq', faqRoutes);
 app.use("/api/chatbots", chatbotRoutes);
-app.use("/api/classify", agentRoutes);
+app.use("/api", agentRoutes);
 app.use("/api/forms", assignFormRoutes);
-
 app.use(errorHandler);
 
 const port = process.env.PORT || 8080;

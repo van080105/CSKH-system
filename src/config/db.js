@@ -9,7 +9,6 @@ const dbConfig = {
     encrypt: false,
     trustServerCertificate: true,
     enableArithAbort: true, 
-    charset: 'UTF-8'
   },
   authentication: {
     type: "ntlm",

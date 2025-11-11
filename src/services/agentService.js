@@ -1,5 +1,6 @@
 import { getPool } from "../config/db.js";
 import sql from "mssql";
+
 export const getAllChildrenRecursive = async (parentId, includeParent = false) => {
   const pool = await getPool();
   const req = pool.request();
@@ -112,4 +113,59 @@ export const classifyAgentsService = async () => {
   }
 
   return { message: "Phân loại nhân viên thành công", totalAgents: agents.length };
+};
+
+
+export const replyAssignedFormService = async (agentId, formId, resContent) => {
+  const pool = await getPool();
+
+  if (!formId || !resContent) {
+    throw new Error("Thiếu formId hoặc nội dung trả lời (resContent).");
+  }
+
+  // 1️⃣ Kiểm tra form có được gán cho agent và chưa trả lời
+  const assigned = (await pool.request()
+    .input("formId", formId)
+    .input("agentId", agentId)
+    .query(`
+      SELECT * 
+      FROM ReceiveForm 
+      WHERE FormID = @formId 
+        AND AgentID = @agentId
+        AND (resContent IS NULL OR LTRIM(RTRIM(resContent)) = '')
+    `)).recordset[0];
+
+  if (!assigned) {
+    throw new Error("Form này đã được trả lời hoặc không được gán cho bạn.");
+  }
+
+  // 2️⃣ Cập nhật nội dung trả lời
+  const result = await pool.request()
+    .input("formId", formId)
+    .input("resContent", resContent)
+    .query(`
+      UPDATE ReceiveForm 
+      SET resContent = @resContent 
+      WHERE FormID = @formId
+    `);
+
+  if (result.rowsAffected[0] === 0) {
+    throw new Error("Không thể cập nhật nội dung form.");
+  }
+
+  // 3️⃣ Cập nhật trạng thái Form sau khi trả lời
+  await pool.request()
+    .input("formId", formId)
+    .query(`
+      UPDATE Form 
+      SET Stt = N'Đã trả lời'
+      WHERE FormID = @formId
+    `);
+
+  return {
+    message: "Form đã được trả lời thành công.",
+    formId,
+    agentId,
+    resContent,
+  };
 };
