@@ -1,4 +1,4 @@
-USE CSKH17
+USE CSKH19
 GO
 
 -- Notification-- 
@@ -410,15 +410,14 @@ INSERT INTO Agent (AgentID, ReceiverID, Stt, ResponsibleField) VALUES
 (19, 'R14', N'Đang hoạt động', N'Tư vấn sản phẩm iPhone'),
 (20, 'R15', N'Đang hoạt động', N'Chính sách & hỗ trợ khách hàng');
 
-INSERT INTO ReceiveForm(AgentID, FormID) VALUES
-(6, 1), (9, 2), (6, 3), (9, 4), (6, 5), (9, 6), (6, 7), (9, 8), 
-(11, 9), (14, 10), (11, 11), (14, 12), (11, 13), (14, 14), (11, 15), (14, 16),
-(16, 17), (19, 18), (16, 19), (19, 20), (16, 21), (19, 22), (16, 23), (19, 24), (16, 25), 
-(7, 26), (7, 31), (12, 27), (12, 32), (17, 28), (17, 33), (7, 29), (12, 30), (17, 34), (7, 35),
-(8, 36), (8, 37), (8, 38), (10, 39), (10, 40), (10, 41), (10, 42), 
-(13, 43), (13, 44), (13, 45), (13, 46), (15, 47), (15, 48), (15, 49),
-(18, 50), (18, 51), (18, 52), (20, 53), (20, 54), (20, 55); 
-
+INSERT INTO ReceiveForm(AgentID, FormID, resContent) VALUES
+(6, 1, NULL), (9, 2, NULL), (6, 3, NULL), (9, 4, NULL), (6, 5, NULL), (9, 6, NULL), (6, 7, NULL), (9, 8, NULL), 
+(11, 9, NULL), (14, 10, NULL), (11, 11, NULL), (14, 12, NULL), (11, 13, NULL), (14, 14, NULL), (11, 15, NULL), (14, 16, NULL),
+(16, 17, NULL), (19, 18, NULL), (16, 19, NULL), (19, 20, NULL), (16, 21, NULL), (19, 22, NULL), (16, 23, NULL), (19, 24, NULL), (16, 25, NULL), 
+(7, 26, NULL), (7, 31, NULL), (12, 27, NULL), (12, 32, NULL), (17, 28, NULL), (17, 33, NULL), (7, 29, NULL), (12, 30, NULL), (17, 34, NULL), (7, 35, NULL),
+(8, 36, NULL), (8, 37, NULL), (8, 38, NULL), (10, 39, NULL), (10, 40, NULL), (10, 41, NULL), (10, 42, NULL), 
+(13, 43, NULL), (13, 44, NULL), (13, 45, NULL), (13, 46, NULL), (13, 47, NULL), (13, 48, NULL), (13, 49, NULL),
+(18, 50, NULL), (18, 51, NULL), (18, 52, NULL), (20, 53, NULL), (20, 54, NULL), (20, 55, NULL); 
 
 
 --ClasifyTable--
