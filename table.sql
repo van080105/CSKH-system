@@ -1,6 +1,6 @@
-CREATE DATABASE CSKH17
+CREATE DATABASE CSKH19
 GO
-USE CSKH17
+USE CSKH19
 GO
 
 -- Bảng Notification
@@ -9,7 +9,6 @@ CREATE TABLE Notification (
     Content NVARCHAR(255) NOT NULL,
     SentDate DATETIME2(0)
 );
-
 
 -- Bảng Account
 CREATE TABLE Account (
@@ -104,6 +103,10 @@ CREATE TABLE Agent (
     FOREIGN KEY (AgentID) REFERENCES Account(ID),
 	FOREIGN KEY (ReceiverID) REFERENCES Receiver(ReceiverID)
 );
+UPDATE Agent
+SET Stt = N'Không hoạt động'
+WHERE LTRIM(RTRIM(REPLACE(REPLACE(REPLACE(Stt, CHAR(160), ''), CHAR(9), ''), CHAR(13), ''))) LIKE N'Không hoạt động%';
+
 
 -- Bảng ClassifyTable
 CREATE TABLE ClassifyTable (
@@ -220,6 +223,7 @@ CREATE TABLE Classify (
 CREATE TABLE ReceiveForm(
 	AgentID INT,
 	FormID INT PRIMARY KEY,
+	resContent NVARCHAR(255) NULL, 
 	FOREIGN KEY (AgentID) REFERENCES Agent(AgentID),
 	FOREIGN KEY (FormID) REFERENCES Form(FormID)
 );
