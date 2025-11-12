@@ -71,6 +71,25 @@ WINDOWS_PASS=...
 > - Cấu hình môi trường này dùng cho DBMS (windown authentication) và `WINDOWS_PASS` có thể bỏ qua nếu máy bạn không cài mật khẩu login máy.
 
 ---
+# 🚀 Kết nối Node.js với Microsoft SQL Server (MSSQL)
+
+Hướng dẫn chi tiết cách thiết lập **kết nối Node.js** với **Microsoft SQL Server** sử dụng **SQL Authentication** (tài khoản `user` / `password`).
+- Nên tạo một login mới
+
+---
+
+## 🧩 1. Cài đặt môi trường
+
+### Yêu cầu
+- Node.js >= 16.x
+- SQL Server đã cài đặt sẵn và có tài khoản đăng nhập SQL (ví dụ: `user: quy`, `password: 12345`)
+- Cho phép kết nối TCP/IP trên SQL Server:
+  1. Mở **SQL Server Configuration Manager**
+  2. Chọn `SQL Server Network Configuration → Protocols for MSSQLSERVER`
+  3. Bật `TCP/IP`
+  4. Khởi động lại dịch vụ `SQL Server`
+Note: Nếu vẫn lỗi liên hệ pdiqui17
+---
 
 ## ▶️ CÁCH CHẠY DỰ ÁN
 
