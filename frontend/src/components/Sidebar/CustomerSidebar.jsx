@@ -19,7 +19,7 @@ export function CustomerSidebar() {
   const inactiveClass = "text-gray-600 dark:text-gray-300"
   const { t } = useTranslation()
   const location = useLocation()
-  const isHomeActive = location.pathname === "/customer"
+  const isHomeActive = location.pathname === "/customer/"
 
   return (
     <aside className="w-[220px] h-full border-r border-gray-200 bg-white dark:bg-gray-900 dark:border-gray-700 flex flex-col">
@@ -32,7 +32,7 @@ export function CustomerSidebar() {
 
       <nav className="flex-1 px-3 space-y-1">
         <NavLink
-          to="/customer"
+          to="/customer/"
           className={`${linkClass} ${isHomeActive ? activeClass : inactiveClass}`}
         >
           <Home className="h-4 w-4" />

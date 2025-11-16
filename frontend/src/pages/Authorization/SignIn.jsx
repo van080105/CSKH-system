@@ -10,6 +10,7 @@ export function SignIn() {
   const [showPassword, setShowPassword] = useState(false)
   const [formData, setFormData] = useState({ email: "", password: "" })
   const [submitStatus, setSubmitStatus] = useState(null) // null | "success" | "error"
+  const [loading, setLoading] = useState(false) // state to handle loading
 
   useEffect(() => {
     const users = JSON.parse(localStorage.getItem("users")) || []
@@ -25,24 +26,15 @@ export function SignIn() {
 
   const handleAutoFill = (role, autoLogin = false) => {
     const presets = {
-      admin: { email: "admin@example.com", password: "admin123" },
-      agent: { email: "agent@example.com", password: "agent123" },
-      customer: { email: "customer@example.com", password: "customer123" },
+      admin: { email: "tranthib@gmail.com", password: "tranthib1234" },
+      agent: { email: "nguyenthif@gmai.com", password: "nguyenthif123" },
+      customer: { email: "vuvanv@gmail.com", password: "vuvanv123" },
     }
     const selected = presets[role]
     setFormData(selected)
     if (autoLogin) {
       setTimeout(() => {
-        const users = JSON.parse(localStorage.getItem("users")) || []
-        const foundUser = users.find(
-          (u) => u.email === selected.email && u.password === selected.password
-        )
-        if (foundUser) {
-          localStorage.setItem("user", JSON.stringify(foundUser))
-          if (foundUser.role === "admin") navigate("/admin/")
-          else if (foundUser.role === "agent") navigate("/agent/inbox/")
-          else navigate("/customer/")
-        }
+        handleSubmit() // tự động gọi hàm submit khi có autoLogin
       }, 300)
     }
   }
@@ -53,22 +45,49 @@ export function SignIn() {
     setSubmitStatus(null)
   }
 
-  const handleSubmit = (e) => {
-    e.preventDefault()
-    const users = JSON.parse(localStorage.getItem("users")) || []
-    const foundUser = users.find(
-      (u) => u.email === formData.email && u.password === formData.password
-    )
-    if (foundUser) {
-      setSubmitStatus("success")
-      localStorage.setItem("user", JSON.stringify(foundUser))
-      setTimeout(() => {
-        if (foundUser.role === "admin") navigate("/admin/")
-        else if (foundUser.role === "agent") navigate("/agent/inbox")
-        else navigate("/customer/")
-      }, 800)
-    } else {
+  const handleSubmit = async (e) => {
+    if (e) e.preventDefault()
+
+    const { email, password } = formData
+
+    // Validate form data before submitting
+    if (!email || !password) {
       setSubmitStatus("error")
+      return
+    }
+
+    setLoading(true)
+    setSubmitStatus(null)
+
+    try {
+      const response = await fetch("http://localhost:8080/api/auth/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email, password }),
+      })
+
+      const data = await response.json()
+
+      if (response.ok && data.user) {
+        setSubmitStatus("success")
+        localStorage.setItem("user", JSON.stringify(data.user))
+        localStorage.setItem("token", data.token)
+        setTimeout(() => {
+          if (data.user.role.toLowerCase() === "admin") navigate("/admin/dashboard")
+          else if (data.user.role.toLowerCase() === "agent") navigate("/agent/inbox")
+          else navigate("/customer/")
+        }, 2100)
+      } else {
+        setSubmitStatus("error")
+        alert(data.message || "Đăng nhập thất bại!")
+      }
+    } catch (error) {
+      setSubmitStatus("error")
+      alert("Có lỗi khi kết nối đến máy chủ!")
+    } finally {
+      setLoading(false)
     }
   }
 
@@ -99,7 +118,6 @@ export function SignIn() {
         variants={gradientVariants}
         animate="animate"
       >
-
       </motion.div>
 
       {/* Right content */}
@@ -179,7 +197,7 @@ export function SignIn() {
                 placeholder="example@email.com"
                 value={formData.email}
                 onChange={handleChange}
-                className={`w-full border px-4 py-3 placeholder-gray-400 focus:outline-none rounded-lg transition-all ${
+                className={`w-full border px-4 py-3 placeholder-gray-400 focus:outline-none rounded-lg transition-all text-gray-600 dark:text-white ${
                   submitStatus === "error" ? "border-red-500 animate-shake" : "border-gray-300 focus:ring-2 focus:ring-blue-500"
                 }`}
               />
@@ -193,7 +211,7 @@ export function SignIn() {
                 placeholder="••••••••"
                 value={formData.password}
                 onChange={handleChange}
-                className={`w-full border px-4 py-3 placeholder-gray-400 focus:outline-none rounded-lg transition-all ${
+                className={`w-full border px-4 py-3 placeholder-gray-400 focus:outline-none rounded-lg transition-all text-gray-600 dark:text-white ${
                   submitStatus === "error" ? "border-red-500 animate-shake" : "border-gray-300 focus:ring-2 focus:ring-blue-500"
                 }`}
               />
@@ -224,7 +242,7 @@ export function SignIn() {
                     <Check size={20} /> Đăng nhập thành công!
                   </motion.span>
                 ) : (
-                  <span>Chuyển tới tài khoản của tôi →</span>
+                  <span>{loading ? "Đang đăng nhập..." : "Chuyển tới tài khoản của tôi →"}</span>
                 )}
               </AnimatePresence>
             </motion.button>

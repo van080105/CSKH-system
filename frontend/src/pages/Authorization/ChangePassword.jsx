@@ -6,6 +6,9 @@ import { Eye, EyeOff, CheckCircle } from "lucide-react"
 import { useTheme } from "../../hooks/useTheme"
 
 export function ChangePassword({ onClose, onSuccess }) {
+  const storedUser = JSON.parse(localStorage.getItem("user"))
+  const email = storedUser?.email
+  const id = storedUser?.id
   const { t } = useTranslation()
   const { theme } = useTheme()
 
@@ -101,29 +104,48 @@ export function ChangePassword({ onClose, onSuccess }) {
     return valid
   }
 
-  // Handle form submission
-  const handleSubmit = (e) => {
-    e.preventDefault()
+  const changePassword = async (email, id, oldPassword, newPassword) => {
+    const res = await fetch("http://localhost:8080/api/auth/change-password", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ email, id, oldPassword, newPassword }),
+    });
 
+    const data = await res.json();
+    if (!res.ok) throw new Error(data.message);
+    return data;
+  };
+  // Handle form submission
+  const handleSubmit = async (e) => {
+    e.preventDefault()
     // Validate form before submitting
     if (validateForm()) {
-      console.log("Changed password successfully")
-      
-      // Reset form
-      setFormData({
-        oldPassword: "",
-        newPassword: "",
-        confirmPassword: "",
-      })
-      setErrors({})
-      
-      // Show success notification
-      setShowSuccess(true)
-      
-      // Call onSuccess callback if provided
-      if (onSuccess) {
-        onSuccess()
+      try {
+        const res = await changePassword(
+          email,
+          id,
+          formData.oldPassword,
+          formData.newPassword
+        );
+
+        setShowSuccess(true);
+
+        // Reset form
+        setFormData({
+          oldPassword: "",
+          newPassword: "",
+          confirmPassword: "",
+        });
+
+        if (onSuccess) onSuccess();
+
+      } catch (err) {
+        setErrors((prev) => ({
+          ...prev,
+          oldPassword: err.message, // hoặc tùy bạn muốn hiển thị ở đâu
+        }));
       }
+
     }
   }
 

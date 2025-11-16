@@ -1,2 +1,4 @@
 node_modules/
 rag-app
+backend/
+backend-api.txt

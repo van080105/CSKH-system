@@ -1,187 +1,190 @@
 "use client"
 import { useState } from "react"
-import { Search, Plus, Star, Trash2, AlertCircle } from "lucide-react"
+import {
+  Search,
+  Plus,
+  MessageSquare,
+  Clock,
+  CheckCircle,
+  AlertCircle,
+  Filter,
+  ChevronRight,
+  ChevronDown,
+} from "lucide-react"
 import { useNavigate, Outlet } from "react-router-dom"
+import { motion, AnimatePresence } from "framer-motion"
 
-const emailFolders = [
-  { name: "Inbox", count: 1253, active: true },
-  { name: "Starred", count: 245 },
-  { name: "Sent", count: 24532 },
-  { name: "Draft", count: 9 },
-  { name: "Spam", count: 14 },
-  { name: "Important", count: 18 },
-  { name: "Bin", count: 9 },
-]
-
-const labels = [
-  { name: "Primary", color: "bg-blue-100 dark:bg-blue-800 border-blue-300 dark:border-blue-600" },
-  { name: "Social", color: "bg-cyan-100 dark:bg-cyan-800 border-cyan-300 dark:border-cyan-600" },
-  { name: "Work", color: "bg-orange-100 dark:bg-orange-800 border-orange-300 dark:border-orange-600" },
-  { name: "Friends", color: "bg-purple-100 dark:bg-purple-800 border-purple-300 dark:border-purple-600" },
-]
-
-const emailsData = [
-  { id: 1, sender: "Jullu Jalal", label: "Primary", labelColor: "bg-teal-100 text-teal-800", subject: "Our Bachelor of Commerce program is ACBSP-accredited.", time: "8:38 AM", starred: false },
-  { id: 2, sender: "Minerva Barnett", label: "Work", labelColor: "bg-orange-100 text-orange-800", subject: "Get Best Advertiser In Your Side Pocket", time: "8:13 AM", starred: false },
-  { id: 3, sender: "Peter Lewis", label: "Friends", labelColor: "bg-purple-100 text-purple-800", subject: "Vacation Home Rental Success", time: "7:52 PM", starred: false },
-  { id: 4, sender: "Anthony Briggs", label: null, labelColor: null, subject: "Free Classifieds Using Them To Promote Your Stuff Online", time: "7:52 PM", starred: true },
-  { id: 5, sender: "Clifford Morgan", label: "Social", labelColor: "bg-blue-100 text-blue-800", subject: "Enhance Your Brand Potential With Giant Advertising Blimps", time: "4:13 PM", starred: false },
-  { id: 6, sender: "Cecilia Webster", label: "Friends", labelColor: "bg-purple-100 text-purple-800", subject: "Always Look On The Bright Side Of Life", time: "3:52 PM", starred: false },
+const conversationData = [
+  { id: 1, customer: "Nguyễn Văn A", subject: "Vấn đề thanh toán iPhone 16", status: "Đang chờ nhân viên", time: "10:45 AM", type: "Chuyển từ AI" },
+  { id: 2, customer: "Trần Thị B", subject: "Hỏi về bảo hành", status: "Đã xử lý", time: "9:30 AM", type: "Trực tiếp" },
+  { id: 3, customer: "Lê Minh C", subject: "Chatbot không trả lời được", status: "Đang xử lý", time: "Hôm qua", type: "Chuyển từ AI" },
+  { id: 4, customer: "Phạm Thùy D", subject: "Tư vấn nâng cấp iPhone", status: "Đang chờ phản hồi", time: "3 ngày trước", type: "Trực tiếp" },
 ]
 
 export function Inbox() {
   const navigate = useNavigate()
-  const [selectedEmails, setSelectedEmails] = useState([])
   const [searchTerm, setSearchTerm] = useState("")
-  const [emails, setEmails] = useState(emailsData)
+  const [filterOpen, setFilterOpen] = useState(true)
+  const [conversations] = useState(conversationData)
 
-  const toggleEmailSelection = (id) => {
-    setSelectedEmails((prev) =>
-      prev.includes(id) ? prev.filter((e) => e !== id) : [...prev, id]
-    )
-  }
-
-  const handleEmailClick = (email) => {
-    navigate(`/agent/inbox/${email.id}`)
-  }
-
-  const toggleStar = (id) => {
-    setEmails((prev) =>
-      prev.map((e) => (e.id === id ? { ...e, starred: !e.starred } : e))
-    )
-  }
-
-  const filteredEmails = emails.filter(
-    (email) =>
-      email.sender.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      email.subject.toLowerCase().includes(searchTerm.toLowerCase())
+  const filteredConversations = conversations.filter(
+    (c) =>
+      c.customer.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      c.subject.toLowerCase().includes(searchTerm.toLowerCase())
   )
 
   return (
-    <div className="flex h-full bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100">
-      {/* Left Sidebar */}
-      <div className="w-80 bg-white dark:bg-gray-800 border-r border-gray-200 dark:border-gray-700 p-6 overflow-y-auto">
-        <button className="w-full bg-blue-500 hover:bg-blue-600 text-white font-semibold py-3 rounded-lg mb-8 flex items-center justify-center gap-2 transition">
-          <Plus size={20} /> Compose
-        </button>
+    <div className="flex h-full bg-gradient-to-br from-gray-50 via-gray-100 to-gray-200 dark:from-gray-950 dark:via-gray-900 dark:to-gray-950 text-gray-900 dark:text-gray-100 transition-colors duration-500">
+      {/* Sidebar */}
+      <motion.div
+        initial={{ x: -30, opacity: 0 }}
+        animate={{ x: 0, opacity: 1 }}
+        transition={{ duration: 0.4 }}
+        className="w-80 bg-white/80 dark:bg-gray-800/80 backdrop-blur-xl border-r border-gray-200 dark:border-gray-700 p-6 flex flex-col shadow-xl"
+      >
 
-        {/* My Email Section */}
-        <div className="mb-8">
-          <h3 className="text-sm font-semibold mb-4">My Email</h3>
-          <div className="space-y-2">
-            {emailFolders.map((folder) => (
-              <div
-                key={folder.name}
-                className={`flex items-center justify-between px-4 py-3 rounded-lg cursor-pointer transition ${
-                  folder.active
-                    ? "bg-blue-50 dark:bg-blue-900 text-blue-600 dark:text-blue-300"
-                    : "hover:bg-gray-100 dark:hover:bg-gray-700"
-                }`}
-              >
-                <span className="font-medium">{folder.name}</span>
-                <span>{folder.count}</span>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        {/* Labels Section */}
+        {/* Filters */}
         <div>
-          <h3 className="text-sm font-semibold mb-4">Label</h3>
-          <div className="space-y-2">
-            {labels.map((label) => (
-              <div key={label.name} className="flex items-center gap-3 px-4 py-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer">
-                <div className={`w-4 h-4 rounded border-2 ${label.color}`}></div>
-                <span>{label.name}</span>
-              </div>
-            ))}
-          </div>
-          <button className="mt-4 text-blue-500 hover:text-blue-600 flex items-center gap-2 text-sm font-medium">
-            <Plus size={16} /> Create New Label
+          <button
+            onClick={() => setFilterOpen(!filterOpen)}
+            className="w-full flex items-center justify-between text-sm font-semibold mb-3 text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition"
+          >
+            <span className="flex items-center gap-2">
+              <Filter size={16} /> Bộ lọc
+            </span>
+            {filterOpen ? <ChevronDown size={16} /> : <ChevronRight size={16} />}
           </button>
-        </div>
-      </div>
 
-      {/* Main Content */}
+          <AnimatePresence>
+            {filterOpen && (
+              <motion.div
+                initial={{ height: 0, opacity: 0 }}
+                animate={{ height: "auto", opacity: 1 }}
+                exit={{ height: 0, opacity: 0 }}
+                transition={{ duration: 0.25 }}
+                className="space-y-2 text-sm overflow-hidden"
+              >
+                {[
+                  { icon: <Clock size={16} />, label: "Đang chờ xử lý" },
+                  { icon: <CheckCircle size={16} />, label: "Đã hoàn tất" },
+                  { icon: <AlertCircle size={16} />, label: "Cần nhân viên" },
+                ].map((item, i) => (
+                  <motion.div
+                    key={i}
+                    whileHover={{ x: 4 }}
+                    className="flex items-center gap-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg px-3 py-2 cursor-pointer text-gray-700 dark:text-gray-300 transition"
+                  >
+                    {item.icon} <span>{item.label}</span>
+                  </motion.div>
+                ))}
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </div>
+
+        {/* Footer inside sidebar */}
+        <div className="mt-auto pt-8 text-xs text-gray-500 dark:text-gray-400 border-t border-gray-200 dark:border-gray-700">
+          <p>Hệ thống Chat CSKH • v1.0</p>
+          <p>© 2025 Mockstack AI Support</p>
+        </div>
+      </motion.div>
+
+      {/* Main */}
       <div className="flex-1 flex flex-col">
         {/* Top Bar */}
-        <div className="bg-white dark:bg-gray-800 border-b p-6 flex items-center justify-between gap-4">
-          <div className="flex-1 relative">
-            <Search className="absolute left-3 top-3 text-gray-400" size={20} />
+        <motion.div
+          initial={{ y: -20, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-lg border-b border-gray-200 dark:border-gray-700 p-5 flex items-center justify-between shadow-sm"
+        >
+          <div className="flex-1 relative max-w-xl">
+            <Search className="absolute left-3 top-2.5 text-gray-400" size={20} />
             <input
               type="text"
-              placeholder="Search mail"
+              placeholder="🔍 Tìm kiếm khách hàng, chủ đề hoặc tình trạng..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full pl-10 pr-4 py-2 bg-gray-100 dark:bg-gray-700 border rounded-full focus:ring-2 focus:ring-blue-500"
+              className="w-full pl-10 pr-4 py-2.5 bg-gray-100/70 dark:bg-gray-700/60 border border-gray-200 dark:border-gray-600 rounded-full focus:ring-2 focus:ring-blue-500 focus:outline-none transition-all text-sm"
             />
           </div>
-          <div className="flex items-center gap-4">
-            <button className="p-2 hover:bg-gray-100 rounded-lg">
-              <AlertCircle size={20} />
-            </button>
-            <button className="p-2 hover:bg-gray-100 rounded-lg">
-              <Trash2 size={20} />
-            </button>
-          </div>
-        </div>
+        </motion.div>
 
-        {/* Email List */}
-        <div className="flex-1 overflow-y-auto">
-          {filteredEmails.map((email) => (
-            <div
-              key={email.id}
-              onClick={() => handleEmailClick(email)}
-              className="border-b px-6 py-4 hover:bg-gray-100 dark:hover:bg-gray-800 cursor-pointer flex items-center gap-4 transition"
-            >
-              <input
-                type="checkbox"
-                checked={selectedEmails.includes(email.id)}
-                onChange={() => toggleEmailSelection(email.id)}
-                onClick={(e) => e.stopPropagation()}
-                className="w-5 h-5 text-blue-500 rounded cursor-pointer"
-              />
-              <button
-                onClick={(e) => {
-                  e.stopPropagation()
-                  toggleStar(email.id)
-                }}
-                className="text-gray-400 hover:text-yellow-500"
+        {/* Conversation List */}
+        <div className="flex-1 overflow-y-auto scrollbar-thin scrollbar-thumb-gray-300 dark:scrollbar-thumb-gray-700 scrollbar-track-transparent">
+          <AnimatePresence>
+            {filteredConversations.map((conv) => (
+              <motion.div
+                key={conv.id}
+                initial={{ opacity: 0, y: 15 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.25 }}
+                onClick={() => navigate(`/agent/inbox/${conv.id}`)}
+                className="border-b border-gray-100 dark:border-gray-800 px-6 py-4 hover:bg-blue-50/70 dark:hover:bg-gray-800 cursor-pointer flex items-center gap-4 transition-all"
               >
-                <Star size={20} fill={email.starred ? "currentColor" : "none"} />
-              </button>
-              <div className="flex-1 min-w-0">
-                <div className="flex items-center gap-3 mb-1">
-                  <span className="font-semibold">{email.sender}</span>
-                  {email.label && (
-                    <span className={`text-xs font-semibold px-2 py-1 rounded ${email.labelColor}`}>
-                      {email.label}
-                    </span>
+                <div className="relative">
+                  <MessageSquare
+                    size={28}
+                    className={`${
+                      conv.status.includes("chờ")
+                        ? "text-yellow-500"
+                        : conv.status.includes("xử lý")
+                        ? "text-blue-500"
+                        : "text-green-500"
+                    }`}
+                  />
+                  {conv.type === "Chuyển từ AI" && (
+                    <span className="absolute -top-1 -right-1 w-2 h-2 bg-gradient-to-r from-blue-400 to-indigo-500 rounded-full"></span>
                   )}
                 </div>
-                <p className="text-sm truncate text-gray-600 dark:text-gray-400">
-                  {email.subject}
-                </p>
-              </div>
-              <span className="text-sm whitespace-nowrap">{email.time}</span>
-            </div>
-          ))}
+
+                <div className="flex-1 min-w-0">
+                  <div className="flex justify-between items-center mb-1">
+                    <span className="font-semibold text-blue-600 dark:text-blue-400 truncate max-w-[60%]">
+                      {conv.customer}
+                    </span>
+                    <span className="text-xs text-gray-500 dark:text-gray-400">{conv.time}</span>
+                  </div>
+                  <p className="text-sm text-gray-700 dark:text-gray-300 truncate">
+                    {conv.subject}
+                  </p>
+
+                  <div className="text-xs mt-2 flex flex-wrap gap-2">
+                    <span
+                      className={`px-2 py-0.5 rounded-full ${
+                        conv.status.includes("chờ")
+                          ? "bg-yellow-100 text-yellow-800"
+                          : conv.status.includes("xử lý")
+                          ? "bg-blue-100 text-blue-800"
+                          : "bg-green-100 text-green-800"
+                      }`}
+                    >
+                      {conv.status}
+                    </span>
+                    <span className="bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 px-2 py-0.5 rounded-full">
+                      {conv.type}
+                    </span>
+                  </div>
+                </div>
+              </motion.div>
+            ))}
+          </AnimatePresence>
         </div>
 
-        {/* Pagination */}
-        <div className="bg-white dark:bg-gray-800 border-t px-6 py-4 flex items-center justify-between">
-          <span className="text-sm text-gray-600 dark:text-gray-400">
-            Showing 1–12 of 1,253
+        {/* Footer */}
+        <div className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-md border-t border-gray-200 dark:border-gray-700 px-6 py-3 flex items-center justify-between text-sm text-gray-600 dark:text-gray-400">
+          <span>
+            Hiển thị{" "}
+            <span className="font-semibold text-blue-600 dark:text-blue-400">
+              {filteredConversations.length}
+            </span>{" "}
+            cuộc hội thoại
           </span>
-          <div className="flex items-center gap-2">
-            <button className="p-2 hover:bg-gray-100 rounded-lg">{"<"}</button>
-            <button className="p-2 hover:bg-gray-100 rounded-lg">{">"}</button>
-          </div>
+          <span className="italic text-xs">Hỗ trợ nhanh – Chính xác – Chuyên nghiệp </span>
         </div>
       </div>
 
-      {/* Hiển thị chi tiết nếu có */}
-      <Outlet context={{ emails, setEmails }} />
+      {/* Outlet (Detail view) */}
+      <Outlet />
     </div>
   )
 }

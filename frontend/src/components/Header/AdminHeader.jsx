@@ -1,10 +1,12 @@
-import { Menu, Search } from "lucide-react";
+import { Menu, PlusCircle } from "lucide-react";
 import { LanguageSwitcher } from "../LanguageSwitcher";
 import NotificationDropdown from "../NotificationDropdown";
 import { useTranslation } from "react-i18next";
 import UserMenu from "../UserMenu";
-
+import CreateNotification from "../../pages/CreateNotification";
+import { useState } from "react";
 export function AdminHeader({ onToggleSidebar }) {
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const { t } = useTranslation();
 
   return (
@@ -40,25 +42,28 @@ export function AdminHeader({ onToggleSidebar }) {
         </span>
       </div>
 
-      {/* Search */}
-      <div className="relative flex-1 max-w-md">
-        <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-white dark:text-black" />
-        <input
-          type="text"
-          placeholder={t("search")}
-          className="w-full pl-9 pr-4 py-2 rounded-full 
-            bg-white/20 dark:bg-black/30 text-white dark:text-black 
-            border-2 border-transparent focus:border-white/70 dark:focus:border-cyan-400 
-            focus:ring-2 focus:ring-pink-400 dark:focus:ring-cyan-400 
-            placeholder-white/70 dark:placeholder-black/70 
-            shadow-lg transition-all duration-300 backdrop-blur-sm"
-        />
-      </div>
-
       {/* Right Controls */}
       <div className="flex items-center gap-4 ml-auto">
+
+        {/* Create Notification Button */}
+        <button
+          className="p-2 px-4 rounded-full flex items-center justify-center bg-gradient-to-r from-blue-500 to-teal-400 
+            text-white font-semibold text-sm shadow-md transition-all duration-300 
+            transform hover:scale-105 hover:shadow-lg hover:shadow-teal-400/50 
+            focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"
+          onClick={() => setIsModalOpen(true)}
+        >
+          <PlusCircle className="h-4 w-4 mr-2" />
+          {t('Thêm thông báo')}
+        </button>
+
+        {/* Notification Dropdown */}
         <NotificationDropdown className="hover:scale-110 hover:shadow-lg hover:shadow-pink-400/50 transition-all duration-300"/>
+
+        {/* Language Switcher */}
         <LanguageSwitcher className="hover:scale-110 hover:shadow-lg hover:shadow-indigo-400/50 transition-all duration-300"/>
+
+        {/* User Menu */}
         <UserMenu className="relative">
           <div className="absolute -top-1 -right-1 px-2 py-0.5 text-xs font-bold 
             bg-gradient-to-r from-cyan-400 via-purple-500 to-pink-500 
@@ -67,6 +72,12 @@ export function AdminHeader({ onToggleSidebar }) {
           </div>
         </UserMenu>
       </div>
+
+      {/* Modal Create Notification */}
+      <CreateNotification
+        open={isModalOpen} 
+        onClose={() => setIsModalOpen(false)} 
+      />
     </header>
   );
 }

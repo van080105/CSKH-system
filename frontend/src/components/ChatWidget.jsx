@@ -90,15 +90,20 @@ export function ChatWidget() {
     // Hiển thị tin nhắn người dùng
     // (thêm vào list message của bạn)
     
-    const res = await fetch("/api/chat", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ message: userMessage }),
-    })
-
-    const data = await res.json()
-    // Hiển thị phản hồi AI
-    console.log("AI:", data.reply)
+    try{
+      const res = await fetch("/api/chat", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ message: userMessage }),
+      })
+      if(!res.ok) throw new Error(res.statusText)
+      const data = await res.json()
+      // Hiển thị phản hồi AI
+      console.log("AI:", data.reply)
+    }
+    catch(err){
+      console.error(err)
+    }
   }
 
   return (

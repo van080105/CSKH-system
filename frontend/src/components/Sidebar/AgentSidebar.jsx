@@ -7,6 +7,7 @@ import {
   LogOut,
   ShoppingBag,
   Code,
+  User2Icon,
 } from "lucide-react"
 import { NavLink, useLocation } from "react-router-dom"
 import { useTranslation } from "react-i18next"
@@ -36,6 +37,16 @@ export function AgentSidebar() {
         >
           <MessageSquare className="h-4 w-4" />
           {t("inbox")}
+        </NavLink>
+
+        <NavLink
+          to="/agent/customers"
+          className={({ isActive }) =>
+            `${linkClass} ${isActive ? activeClass : "text-gray-600 dark:text-gray-300"}`
+          }
+        >
+          <User2Icon className="h-4 w-4" />
+          Customers
         </NavLink>
 
         <NavLink

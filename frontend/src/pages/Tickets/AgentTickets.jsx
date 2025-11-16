@@ -124,6 +124,7 @@ const statusStyles = {
 
 export function AgentTickets() {
   const [selectedTickets, setSelectedTickets] = useState([])
+  const [escalatedTickets, setEscalatedTickets] = useState([]);
   const [searchTerm, setSearchTerm] = useState("")
   const [statusFilter, setStatusFilter] = useState("")
   const [categoryFilter, setCategoryFilter] = useState("")
@@ -262,35 +263,49 @@ export function AgentTickets() {
             </thead>
 
             <tbody className="divide-y divide-gray-200 dark:divide-gray-700">
-              {paginatedTickets.map((ticket, index) => (
-                <tr
-                  key={index}
-                  className={`hover:bg-gray-50 dark:hover:bg-gray-800 ${
-                    index % 2 === 1
-                      ? "bg-gray-50 dark:bg-gray-800"
-                      : "bg-white dark:bg-gray-900"
-                  }`}
-                >
-                  <td className="px-4 py-3 text-sm text-gray-900 dark:text-gray-100">{ticket.id}</td>
-                  <td className="px-4 py-3 text-sm font-medium text-gray-900 dark:text-white">{ticket.name}</td>
-                  <td className="px-4 py-3 text-sm text-gray-600 dark:text-gray-300 max-w-xs truncate">{ticket.title}</td>
-                  <td className="px-4 py-3">
-                    <span className={`inline-flex px-2 py-1 text-xs font-medium rounded ${statusStyles[ticket.status]}`}>
-                      {ticket.status}
-                    </span>
-                  </td>
-                  <td className="px-4 py-3 text-sm text-gray-600 dark:text-gray-300">{ticket.role}</td>
-                  <td className="px-4 py-3 text-sm text-gray-600 dark:text-gray-300">{ticket.category}</td>
-                  <td className="px-4 py-3">
-                    <button
-                      onClick={() => setSelectedTicket(ticket)}
-                      className="text-sm text-indigo-600 dark:text-indigo-400 hover:underline"
-                    >
-                      {t("viewMore")}
-                    </button>
-                  </td>
-                </tr>
-              ))}
+              {paginatedTickets.map((ticket, index) => {
+                const isEscalated = escalatedTickets.some((t) => t.id === ticket.id);
+                return (
+                  <tr
+                    key={index}
+                    className={`
+                      ${isEscalated
+                        ? "bg-orange-50 dark:bg-orange-900/30" // màu cho ticket đã chuyển
+                        : index % 2 === 1
+                        ? "bg-gray-50 dark:bg-gray-800"
+                        : "bg-white dark:bg-gray-900"
+                      }
+                      hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors
+                    `}
+                  >
+                    <td className="px-4 py-3 text-sm text-gray-900 dark:text-gray-100">{ticket.id}</td>
+                    <td className="px-4 py-3 text-sm font-medium text-gray-900 dark:text-white">{ticket.name}</td>
+                    <td className="px-4 py-3 text-sm text-gray-600 dark:text-gray-300 max-w-xs truncate">{ticket.title}</td>
+                    <td className="px-4 py-3">
+                      <div className="flex flex-col">
+                        <span className={`inline-flex px-2 py-1 text-xs font-medium rounded ${statusStyles[ticket.status]}`}>
+                          {ticket.status}
+                        </span>
+                        {isEscalated && (
+                          <span className="mt-1 inline-flex px-2 py-0.5 text-[10px] font-semibold rounded bg-orange-200 text-orange-800 dark:bg-orange-700/40 dark:text-orange-300">
+                            {t("hasEscalatedToAdmin")}
+                          </span>
+                        )}
+                      </div>
+                    </td>
+                    <td className="px-4 py-3 text-sm text-gray-600 dark:text-gray-300">{ticket.role}</td>
+                    <td className="px-4 py-3 text-sm text-gray-600 dark:text-gray-300">{ticket.category}</td>
+                    <td className="px-4 py-3">
+                      <button
+                        onClick={() => setSelectedTicket(ticket)}
+                        className="text-sm text-indigo-600 dark:text-indigo-400 hover:underline"
+                      >
+                        {t("viewMore")}
+                      </button>
+                    </td>
+                  </tr>
+                );
+              })}
             </tbody>
           </table>
         </div>
@@ -332,6 +347,18 @@ export function AgentTickets() {
           </div>
         </div>
       </div>
+
+      {/* Tickets được chuyển lên Admin */}
+      {escalatedTickets.length > 0 && (
+        <div className="mt-4 p-4 border border-orange-300 bg-orange-50 rounded-lg text-sm text-orange-700 dark:bg-orange-900/30 dark:border-orange-700 dark:text-orange-300">
+          <p className="font-semibold mb-2">Ticket đã chuyển lên Admin:</p>
+          <ul className="list-disc ml-5 space-y-1">
+            {escalatedTickets.map((t) => (
+              <li key={t.id}>#{t.id} - {t.title}</li>
+            ))}
+          </ul>
+        </div>
+      )}
 
       {/* Overlay Modal */}
       {selectedTicket && (
@@ -450,6 +477,8 @@ export function AgentTickets() {
                   {t("responseContent")}
                 </label>
                 <textarea
+                  readOnly={escalatedTickets.some((t) => t.id === selectedTicket.id)}
+                  // disabled={escalatedTickets.some((t) => t.id === selectedTicket.id)}
                   defaultValue={selectedTicket.responseContent}
                   rows={3}
                   className="w-full rounded-lg border border-gray-300 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-gray-100 px-3 py-2 text-sm resize-none focus:ring-2 focus:ring-indigo-500 focus:outline-none"
@@ -466,13 +495,47 @@ export function AgentTickets() {
               >
                 {t("cancel")}
               </button>
+
+              {/* Nút Chuyển lên Admin */}
               <button
+                onClick={() => {
+                  const alreadyEscalated = escalatedTickets.some(
+                    (t) => t.id === selectedTicket.id
+                  );
+                  if (!alreadyEscalated) {
+                    setEscalatedTickets((prev) => [...prev, selectedTicket]);
+                    alert(`Ticket #${selectedTicket.id} đã được chuyển lên Admin để xử lý.`);
+                  } else {
+                    alert(`Ticket #${selectedTicket.id} đã được chuyển trước đó.`);
+                  }
+                  setSelectedTicket(null);
+                }}
+                disabled={escalatedTickets.some((t) => t.id === selectedTicket.id)} // nếu đã chuyển thì disable
+                className={`px-4 py-2 rounded-lg text-sm font-medium text-white transition-colors
+                  ${
+                    escalatedTickets.some((t) => t.id === selectedTicket.id)
+                      ? "bg-gray-400 cursor-not-allowed"
+                      : "bg-orange-500 hover:bg-orange-600"
+                  }`}
+              >
+                {t("escalateToAdmin")}
+              </button>
+
+              {/* Nút Lưu thay đổi */}
+              <button
+                disabled={escalatedTickets.some((t) => t.id === selectedTicket.id)} // disable nếu đã escalated
                 onClick={() => setSelectedTicket(null)}
-                className="px-4 py-2 rounded-lg text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 transition-colors"
+                className={`px-4 py-2 rounded-lg text-sm font-medium text-white transition-colors
+                  ${
+                    escalatedTickets.some((t) => t.id === selectedTicket.id)
+                      ? "bg-gray-400 cursor-not-allowed"
+                      : "bg-indigo-600 hover:bg-indigo-700"
+                  }`}
               >
                 {t("saveChanges")}
               </button>
             </div>
+
           </div>
         </div>
       )}

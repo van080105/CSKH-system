@@ -10,12 +10,58 @@ import MembershipDropdown from "../MembershipDropdown";
 export function CustomerHeader({ onToggleSidebar }) {
   const { t } = useTranslation();
 
-  // 🏅 Giả lập thông tin thành viên
-  // test: Bronze, Silver, Gold, Platinum, Diamond
-  const [membershipLevel, setMembershipLevel] = useState("Platinum"); 
+  const [membershipLevel, setMembershipLevel] = useState("Bronze"); 
   const points = 1840;
   const nextLevel = "Diamond";
   const requiredPoints = 2000;
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchMembershipData = async () => {
+      try {
+        const token = localStorage.getItem("token");
+        const res = await fetch("http://localhost:8080/api/accounts/my", {
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${token}`,
+          },
+        });
+
+        if (!res.ok) {
+          throw new Error("Lỗi fetch thông tin thành viên");
+        }
+
+        const data = await res.json();
+        setMembershipLevel(data.Membership);
+        setLoading(false);
+      } catch (error) {
+        console.error("Lỗi khi fetch thông tin thành viên:", error);
+        setLoading(false);
+      }
+    };
+
+    fetchMembershipData();
+  }, []);
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+  const membershipMap = {
+    Bronze: "Bronze",
+    "Đồng": "Bronze",
+
+    Silver: "Silver",
+    "Bạc": "Silver",
+
+    Gold: "Gold",
+    "Vàng": "Gold",
+
+    Platinum: "Platinum",
+    "Bạch Kim": "Platinum",
+
+    Diamond: "Diamond",
+    "Kim Cương": "Diamond",
+  };
 
   // 🌈 Theme cho từng hạng
   const levelThemes = {
@@ -55,8 +101,8 @@ export function CustomerHeader({ onToggleSidebar }) {
       innerGlow: "shadow-inner shadow-cyan-700/30",
     },
   };
-
-  const theme = levelThemes[membershipLevel] || levelThemes.Silver;
+  const normalizedLevel = membershipMap[membershipLevel] || "Bronze";
+  const theme = levelThemes[normalizedLevel] || levelThemes.Bronze;
 
   return (
     <header
@@ -70,18 +116,6 @@ export function CustomerHeader({ onToggleSidebar }) {
       >
         <Menu className={`h-5 w-5 ${theme.accent}`} />
       </button>
-
-      {/* Ô tìm kiếm */}
-      <div className="relative flex-1 max-w-md z-10">
-        <Search
-          className={`absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 opacity-60 ${theme.accent}`}
-        />
-        <input
-          type="text"
-          placeholder={t("search")}
-          className="w-full pl-9 pr-4 py-2 bg-white/60 dark:bg-gray-800/50 backdrop-blur-md border-0 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 text-sm text-gray-900 dark:text-gray-100"
-        />
-      </div>
 
       {/* Bên phải */}
       <div className="flex items-center gap-4 ml-auto z-10">

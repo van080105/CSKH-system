@@ -1,38 +1,42 @@
-import { useState, useRef } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import { Plus, Edit2, Trash2, X, Search } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
 import { motion } from 'framer-motion'
 
-const initialFAQs = [
-  {
-    question: 'iPhone ở đây là hàng chính hãng hay xách tay?',
-    answer:
-      'Tùy theo nhu cầu, cửa hàng có cung cấp cả hàng chính hãng (VN/A) và hàng xách tay quốc tế (LL/A, ZP/A...), đều là máy mới 100% và có đầy đủ bảo hành rõ ràng.',
-  },
-  {
-    question: 'Có chương trình khuyến mãi, giảm giá hoặc ưu đãi nào không?',
-    answer:
-      'Cửa hàng thường xuyên có các chương trình giảm giá, ưu đãi theo mùa, tặng phụ kiện, hoặc miễn phí cài đặt – giao hàng, v.v. Bạn có thể theo dõi tại mục Khuyến mãi.',
-  },
-  {
-    question: 'Nếu máy có vấn đề thì bảo hành tại cửa hàng hay trung tâm Apple?',
-    answer:
-      'Hàng chính hãng sẽ được bảo hành tại trung tâm ủy quyền Apple (AASP) trên toàn quốc. Hàng xách tay sẽ được bảo hành tại cửa hàng.',
-  },
-]
-
 export default function FAQ({ showModify = true }) {
-  const [faqs, setFaqs] = useState(initialFAQs)
+  const [faqs, setFaqs] = useState([])
   const [openIndexes, setOpenIndexes] = useState([])
   const [modalType, setModalType] = useState(null) // 'add' | 'edit' | 'delete'
   const [currentFAQIndex, setCurrentFAQIndex] = useState(null)
   const [searchQuery, setSearchQuery] = useState('')
-  const [form, setForm] = useState({ question: '', answer: '' })
+  const [form, setForm] = useState({category: '', question: '', answer: '' })
   const [error, setError] = useState('') //  cảnh báo trùng lặp
+  const [selectedCategory, setSelectedCategory] = useState('');
   const questionRef = useRef(null)
   const answerRef = useRef(null)   
 
   const { t } = useTranslation()
+  const fetchFAQs = async () => {
+    try {
+      const response = await fetch('http://localhost:8080/api/faq',{
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+      const data = await response.json();
+      return data.map(faq => ({
+        id: faq.ID,
+        category: faq.Category,
+        question: faq.Question,
+        answer: faq.Answer,
+      }));
+
+    } catch (error) {
+      console.error('Error fetching FAQs:', error);
+      return [];
+    }
+  };
 
   const handleToggle = (index) => {
     setOpenIndexes((prev) =>
@@ -40,11 +44,15 @@ export default function FAQ({ showModify = true }) {
     )
   }
   
-  const filteredFaqs = faqs.filter(
-    (faq) =>
+  const filteredFaqs = faqs.filter((faq) => {
+    const matchesSearch =
       faq.question.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      faq.answer.toLowerCase().includes(searchQuery.toLowerCase())
-  )
+      faq.answer.toLowerCase().includes(searchQuery.toLowerCase());
+    const matchesCategory =
+      selectedCategory === '' || faq.category === selectedCategory;
+    return matchesSearch && matchesCategory;
+  });
+
   const openAddModal = () => {
     setForm({ question: '', answer: '' })
     setModalType('add')
@@ -73,52 +81,77 @@ export default function FAQ({ showModify = true }) {
     setError('')
   }
 
-  const handleAdd = () => {
-    const questionEmpty = !form.question.trim()
-    const answerEmpty = !form.answer.trim()
+  const handleAdd = async () => {
+    const categoryEmpty = !form.category.trim();
+    const questionEmpty = !form.question.trim();
+    const answerEmpty = !form.answer.trim();
 
-    if (questionEmpty) {
-      questionRef.current?.focus()
-      setError('Vui lồng nhập câu hỏi!')
-      return
-    } 
-    
-    else if (answerEmpty) {
-      answerRef.current?.focus()
-      setError('Vui lồng nhập câu trả lời!')
-      return
+    if (categoryEmpty) {
+      setError('Vui lòng nhập danh mục!');
+      return;
+    } else if (questionEmpty) {
+      questionRef.current?.focus();
+      setError('Vui lòng nhập câu hỏi!');
+      return;
+    } else if (answerEmpty) {
+      answerRef.current?.focus();
+      setError('Vui lòng nhập câu trả lời!');
+      return;
     }
-    
-    if (form.question.trim() && form.answer.trim()) {
-      // Kiểm tra trùng lặp
-      const duplicateQuestion = faqs.some(
-        (faq) =>
-          faq.question.trim().toLowerCase() === form.question.trim().toLowerCase()
-      )
+    const duplicateQuestion = faqs.some(
+      (faq) =>
+        faq.question.trim().toLowerCase() === form.question.trim().toLowerCase()
+    );
+    const duplicateAnswer = faqs.some(
+      (faq) =>
+        faq.answer.trim().toLowerCase() === form.answer.trim().toLowerCase()
+    );
 
-      const duplicateAnswer = faqs.some(
-        (faq) =>
-          faq.answer.trim().toLowerCase() === form.answer.trim().toLowerCase()
-      )
-
-      if (duplicateQuestion) {
-        questionRef.current?.focus()
-        setError('Câu hỏi đã tồn tại!') 
-        return
-      }
-
-      else if (duplicateAnswer) {
-        answerRef.current?.focus()
-        setError('Câu trả lời đã tồn tại!')
-        return
-      }
-
-      setFaqs([...faqs, form])
-      closeModal()
+    if (duplicateQuestion) {
+      questionRef.current?.focus();
+      setError('Câu hỏi đã tồn tại!');
+      return;
     }
-  }
 
-  const handleEdit = () => {
+    if (duplicateAnswer) {
+      answerRef.current?.focus();
+      setError('Câu trả lời đã tồn tại!');
+      return;
+    }
+    // Gọi API POST
+    try {
+      const response = await fetch('http://localhost:8080/api/faq', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          category: form.category,
+          question: form.question,
+          answer: form.answer,
+        }),
+      });
+
+      if (response.ok) {
+        const newFAQ = await response.json();
+        // Thêm vào danh sách hiện tại (nếu API trả về bản ghi mới)
+        setFaqs([...faqs, {
+          id : newFAQ.newID,
+          category: newFAQ.Category || form.category,
+          question: newFAQ.Question || form.question,
+          answer: newFAQ.Answer || form.answer,
+        }]);
+
+        closeModal();
+      } else {
+        const err = await response.json();
+        setError(err.error || 'Không thể thêm FAQ!');
+      }
+    } catch (error) {
+      console.error('Error adding FAQ:', error);
+      setError('Lỗi khi kết nối đến máy chủ!');
+    }
+  };
+
+  const handleEdit = async () => {
     const questionEmpty = !form.question.trim()
     const answerEmpty = !form.answer.trim()
 
@@ -164,13 +197,59 @@ export default function FAQ({ showModify = true }) {
       setFaqs(updatedFaqs)
       closeModal()
     }
+  
+    try {
+      const response = await fetch(`http://localhost:8080/api/faq/${form.id}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          category: form.category,
+          question: form.question,
+          answer: form.answer,
+        }),
+      });
+
+      if (response.ok) {
+        // Cập nhật lại danh sách FAQ sau khi sửa
+        const updatedFaqs = [...faqs];
+        updatedFaqs[currentFAQIndex] = { ...form };
+        setFaqs(updatedFaqs);
+        closeModal();
+      } else {
+        const err = await response.json();
+        setError(err.error || 'Không thể cập nhật FAQ!');
+      }
+    } catch (error) {
+      console.error('Error updating FAQ:', error);
+      setError('Lỗi khi kết nối đến máy chủ!');
+    }
+  
   }
 
-  const handleDelete = () => {
-    const updatedFaqs = faqs.filter((_, i) => i !== currentFAQIndex)
-    setFaqs(updatedFaqs)
-    closeModal()
-  }
+  const handleDelete = async () => {
+    if (currentFAQIndex !== null) {
+      const faqToDelete = faqs[currentFAQIndex];
+      const idToDelete = faqToDelete?.id;  // Lấy ID từ FAQ đang chọn
+
+      if (idToDelete) {
+        try {
+          await fetch(`http://localhost:8080/api/faq/${idToDelete}`, {
+            method: 'DELETE',
+          });
+
+          // Cập nhật lại danh sách FAQ sau khi xóa
+          setFaqs((prevFaqs) => prevFaqs.filter((_, index) => index !== currentFAQIndex));
+
+          // Đóng modal
+          closeModal();
+        } catch (error) {
+          console.error('Error deleting FAQ:', error);
+        }
+      } else {
+        console.error('No valid FAQ ID to delete');
+      }
+    }
+  };
 
     // highlight search
   const highlightText = (text, query) => {
@@ -190,6 +269,16 @@ export default function FAQ({ showModify = true }) {
       )
     )
   }
+
+  useEffect(() => {
+    // Gọi API khi component mount
+    const fetchData = async () => {
+      const fetchedFAQs = await fetchFAQs();
+      setFaqs(fetchedFAQs);
+    };
+
+    fetchData();
+  }, []);
 
   return (
     <div className="relative max-w-6xl mx-auto p-6">
@@ -211,6 +300,20 @@ export default function FAQ({ showModify = true }) {
             className="w-full pl-12 pr-4 py-3 rounded-full bg-white/90 dark:bg-gray-800/90 border border-gray-300 dark:border-gray-700 text-gray-800 dark:text-gray-200 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition duration-300 shadow-sm"
           />
         </motion.div>
+
+        {/* Bộ lọc danh mục */}
+        <select
+          value={selectedCategory}
+          onChange={(e) => setSelectedCategory(e.target.value)}
+          className="w-full md:w-1/4 px-4 py-3 rounded-full bg-white/90 dark:bg-gray-800/90 border border-gray-300 dark:border-gray-700 text-gray-800 dark:text-gray-200 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition duration-300 shadow-sm"
+        >
+          <option value=""> Tất cả danh mục</option>
+          {[...new Set(faqs.map((faq) => faq.category))].map((cat) => (
+            <option key={cat} value={cat}>
+              {cat}
+            </option>
+          ))}
+        </select>
 
         {/* Nút thêm FAQ */}
         {showModify && (
@@ -247,6 +350,13 @@ export default function FAQ({ showModify = true }) {
                 animate={{ opacity: 1 }}
                 transition={{ duration: 0.6 }}
               >
+                {/* Category */}
+                <div className="mb-2">
+                  <span className="px-3 py-1 rounded-full bg-blue-200 text-blue-800 text-sm font-medium">
+                     {faq.category || 'Không có danh mục'}
+                  </span>
+                </div> 
+
                 {/* Question */}
                 <div
                   className="flex justify-between items-center px-6 py-5 cursor-pointer select-none"
@@ -315,11 +425,23 @@ export default function FAQ({ showModify = true }) {
               <>
                 <h3 className="text-2xl text-gray-900 dark:text-white font-bold mb-6">{t('addFAQ')}</h3>
                 <input
+                  type="text"
+                  name="category"
+                  placeholder={t('category')}
+                  value={form.category || ""}
+                  onChange={handleChange}
+                  className={`w-full mb-4 px-5 py-3 rounded-xl border 
+                    ${error && !form.category.trim() ? 'border-red-500 animate-shake' : 'border-gray-300 dark:border-gray-700'}
+                    dark:bg-gray-800 bg-gray-50 text-gray-900 dark:text-white placeholder-gray-400 
+                    focus:outline-none focus:ring-2 focus:ring-indigo-500 transition`}                
+                />
+                
+                <input
                   ref={questionRef}
                   type="text"
                   name="question"
                   placeholder={t('question')}
-                  value={form.question}
+                  value={form.question || ""}
                   onChange={handleChange}
                   className={`w-full mb-4 px-5 py-3 rounded-xl border 
                     ${error && !form.question.trim() ? 'border-red-500 animate-shake' : 'border-gray-300 dark:border-gray-700'}
@@ -330,7 +452,7 @@ export default function FAQ({ showModify = true }) {
                   ref={answerRef}
                   name="answer"
                   placeholder={t('answer')}
-                  value={form.answer}
+                  value={form.answer || ""}
                   onChange={handleChange}
                   className={`w-full mb-6 px-5 py-3 rounded-xl border 
                     ${error && !form.answer.trim() ? 'border-red-500 animate-shake' : 'border-gray-300 dark:border-gray-700'}

@@ -26,28 +26,28 @@ const UserMenu = () => {
     try {
       const user = JSON.parse(localStorage.getItem("user"));
       return {
-        name: user?.name || "User",
+        fullname: user?.fullname || "User Fullname",
         role: user?.role || "guest"
       };
-    } catch {
-      return { name: "User", role: "guest" };
+    } 
+    catch {
+      return { fullname: "User Fullname", role: "guest" };
     }
   };
 
   const userInfo = getUserInfo();
   const roleLabels = {
-    admin: "Admin",
-    agent: "Agent",
-    customer: "Customer",
+    Admin: "Admin",
+    Agent: "Agent",
+    Customer: "Customer",
     guest: "Guest"
   };
 
   // Get role-specific paths
   const getRolePath = (basePath) => {
     if (userRole === "guest") return basePath;
-    return `/${userRole}${basePath}`;
+    return `/${userRole.toLowerCase()}${basePath}`;
   };
-
   // Đóng menu khi click ra ngoài
   useEffect(() => {
     function handleClickOutside(event) {
@@ -75,14 +75,14 @@ const UserMenu = () => {
       >
         <img
           src="/diverse-woman-avatar.png"
-          alt={userInfo.name}
+          alt={userInfo.fullname}
           className="h-8 w-8 rounded-full object-cover"
           onError={(e) => {
             e.target.src = "/placeholder-user.jpg";
           }}
         />
         <div className="text-left hidden md:block">
-          <div className="text-sm font-medium text-gray-900 dark:text-gray-100">{userInfo.name}</div>
+          <div className="text-sm font-medium text-gray-900 dark:text-gray-100">{userInfo.fullname}</div>
           <div className="text-xs text-gray-500 dark:text-gray-200">{roleLabels[userInfo.role] || "User"}</div>
         </div>
         <ChevronDown className="h-4 w-4 text-gray-700 dark:text-gray-300" />

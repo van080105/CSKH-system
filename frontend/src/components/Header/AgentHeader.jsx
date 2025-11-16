@@ -38,21 +38,6 @@ export function AgentHeader({ onToggleSidebar }) {
         </span>
       </div>
 
-      {/* Search */}
-      <div className="relative flex-1 max-w-md">
-        <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-white dark:text-black" />
-        <input
-          type="text"
-          placeholder={t("search")}
-          className="w-full pl-9 pr-4 py-2 rounded-full
-            bg-white/20 dark:bg-black/30 text-white dark:text-black
-            border-2 border-transparent focus:border-white/70 dark:focus:border-pink-400
-            focus:ring-2 focus:ring-yellow-400 dark:focus:ring-pink-400
-            placeholder-white/70 dark:placeholder-black/70
-            shadow-md transition-all duration-300 backdrop-blur-sm"
-        />
-      </div>
-
       {/* Right Controls */}
       <div className="flex items-center gap-4 ml-auto">
         <NotificationDropdown className="hover:scale-110 hover:shadow-md hover:shadow-pink-400/50 transition-all duration-300"/>

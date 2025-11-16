@@ -13,16 +13,15 @@ import GuestLayout from "./layouts/GuestLayout"
 import ProtectedRoute from "./components/ProtectedRoute";
 import { MainContent } from "./components/MainContent";
 import { Dashboard } from "./pages/Statistics/Dashboard";
-import { ManageUsers } from "./pages/ManageUsers";
+import { ManageUsers } from "./pages/Users/ManageUsers";
+import { ManageCustomers } from "./pages/Users/ManageCustomers";
 import { ReportForm } from "./pages/Statistics/ReportForm";
 
 import { ManageTickets } from "./pages/Tickets/ManageTickets";
 import { AgentTickets } from "./pages/Tickets/AgentTickets";
 import { CustomerTickets } from "./pages/Tickets/CustomerTickets";
 
-import { AdminProfile } from "./pages/Profiles/AdminProfile";
-import { CustomerProfile } from "./pages/Profiles/CustomerProfile";
-import { AgentProfile } from "./pages/Profiles/AgentProfile";
+import { Profile } from "./pages/Profile";
 
 import FAQ from "./pages/FAQ";
 import Settings from "./pages/Settings";
@@ -59,6 +58,7 @@ function App() {
           <Route path="dev-team" element={<DevTeamPage />} />
           <Route path="products" element={<ProductPage />} />
           <Route path="contact" element={<Contact />} /> 
+          <Route path="*" element={<NotFoundPage />} />
         </Route>
 
         <Route path="/signup" element={<SignUp />} />
@@ -72,16 +72,16 @@ function App() {
           </ProtectedRoute>
         }>
           {/* Các trang của admin */}
-          <Route index element={<MainContent />} />
           <Route path="dashboard" element={<Dashboard />} />
           <Route path="users" element={<ManageUsers />} />
           <Route path="tickets" element={<ManageTickets />} />
-          <Route path="profile" element={<AdminProfile />} />
+          <Route path="profile" element={<Profile />} />
           <Route path="faq" element={<FAQ />} />
           <Route path="report" element={<ReportForm />} />
           <Route path="settings/*" element={<Settings />} > 
             <Route path="change-password" element={<ChangePassword />} />
           </Route>
+          <Route path="*" element={<NotFoundPage />} />
         </Route>
 
         {/* Route cho agent, với ProtectedRoute */}
@@ -93,14 +93,16 @@ function App() {
           <Route path="inbox" element={<Inbox />}>
             <Route path=":id" element={<InboxDetail />} /> 
           </Route>
+          <Route path="customers" element={<ManageCustomers />} />
           <Route path="tickets" element={<AgentTickets />} />
-          <Route path="profile" element={<AgentProfile />} />
+          <Route path="profile" element={<Profile />} />
           <Route path="faq" element={<FAQ showModify={false}/>} />
           <Route path="products" element={<ProductPage />} />
           <Route path="dev-team" element={<DevTeamPage />} />
           <Route path="settings/*" element={<Settings />} > 
             <Route path="change-password" element={<ChangePassword />} />
           </Route>
+          <Route path="*" element={<NotFoundPage />} />
         </Route>
 
         <Route path="/customer/*" element={
@@ -109,7 +111,7 @@ function App() {
           </ProtectedRoute>
         }>
           <Route index element={<MainContent />} />
-          <Route path="profile" element={<CustomerProfile />} />
+          <Route path="profile" element={<Profile />} />
           <Route path="faq" element={<FAQ showModify = {false} />} />
           <Route path="chatbot-feedback" element={<ChatbotFeedback />} />
           <Route path="service-feedback" element={<ServiceFeedback />} />
@@ -121,14 +123,12 @@ function App() {
           <Route path="settings/*" element={<Settings />} > 
             <Route path="change-password" element={<ChangePassword />} />
           </Route>
+          <Route path="*" element={<NotFoundPage />} />
         </Route>
 
         {/* Trang Unauthorized */}
         <Route path="/unauthorized" element={<Unauthorized />} />
         
-        {/* Trang 404 */}
-        <Route path="*" element={<NotFoundPage />} />  
-
       </Routes>
       
     </BrowserRouter>

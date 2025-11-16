@@ -10,7 +10,6 @@ export function ChatbotFeedback() {
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    console.log({ satisfaction, rating })
   }
 
   return (

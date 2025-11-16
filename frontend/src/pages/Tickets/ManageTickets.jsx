@@ -123,6 +123,7 @@ const ticketsData = [
     assignedTo: "Lê Văn L",
   }
 ];
+const escalatedTickets = [42321, 42323, 42328] // ID ticket nhân viên đã chuyển
 
 const statusStyles = {
   Open: "bg-blue-50 text-blue-700 dark:bg-blue-600/20 dark:text-blue-300",
@@ -138,6 +139,7 @@ export function ManageTickets() {
   const [statusFilter, setStatusFilter] = useState("")
   const [categoryFilter, setCategoryFilter] = useState("")
   const [nameFilter, setNameFilter] = useState("")
+  const [typeFilter, setTypeFilter] = useState("")
   const [linesPerPage, setLinesPerPage] = useState(10)
   const [page, setPage] = useState(1)
   const [selectedTicket, setSelectedTicket] = useState(null)
@@ -166,9 +168,15 @@ export function ManageTickets() {
       const matchesCategory = categoryFilter ? ticket.category === categoryFilter : true
       const matchesName = nameFilter ? ticket.name === nameFilter : true
 
-      return matchesSearch && matchesStatus && matchesName && matchesCategory
+      const isEscalated = escalatedTickets.includes(ticket.id)
+      const matchesType =
+        typeFilter === "escalated" ? isEscalated :
+        typeFilter === "normal" ? !isEscalated :
+        true
+
+      return matchesSearch && matchesStatus && matchesName && matchesCategory && matchesType
     })
-  }, [searchTerm, statusFilter, nameFilter, categoryFilter])
+  }, [searchTerm, statusFilter, nameFilter, categoryFilter, typeFilter])
 
 
   // --- Pagination ---
@@ -242,6 +250,17 @@ export function ManageTickets() {
             ))}
           </select>
 
+          {/* Type Filter (Escalated / Normal) */}
+          <select
+            value={typeFilter}
+            onChange={(e) => setTypeFilter(e.target.value)}
+            className="px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-lg text-sm bg-white dark:bg-gray-800 text-gray-800 dark:text-gray-200"
+          >
+            <option value="">{t("allTicketsType")}</option>
+            <option value="escalated">{t("escalatedFromAgent")}</option>
+            <option value="normal">{t("normalTickets")}</option>
+          </select>
+
           {/* Search Bar */}
           <div className="relative flex-1 max-w-md ml-auto">
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400 dark:text-gray-500" />
@@ -305,14 +324,18 @@ export function ManageTickets() {
 
             <tbody className="divide-y divide-gray-200 dark:divide-gray-700">
               {paginatedTickets.map((ticket, index) => (
-                <tr
-                  key={index}
-                  className={`hover:bg-gray-50 dark:hover:bg-gray-800 ${
-                    index % 2 === 1
+              <tr
+                key={index}
+                className={`
+                  ${escalatedTickets.includes(ticket.id)
+                    ? "bg-orange-300/30 dark:bg-orange-900/30" // màu đặc trưng ticket escalated
+                    : index % 2 === 1
                       ? "bg-gray-50 dark:bg-gray-800"
                       : "bg-white dark:bg-gray-900"
-                  }`}
-                >
+                  }
+                  hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors
+                `}
+              >
                   <td className="w-[40px] px-4 py-3">
                     <input
                       type="checkbox"
@@ -321,13 +344,19 @@ export function ManageTickets() {
                       className="rounded border-gray-300 dark:border-gray-600"
                     />
                   </td>
+
                   <td className="px-4 py-3 text-sm text-gray-900 dark:text-gray-100">{ticket.id}</td>
                   <td className="px-4 py-3 text-sm font-medium text-gray-900 dark:text-white">{ticket.name}</td>
                   <td className="px-4 py-3 text-sm text-gray-600 dark:text-gray-300 max-w-xs truncate">{ticket.title}</td>
                   <td className="px-4 py-3">
                     <span className={`inline-flex px-2 py-1 text-xs font-medium rounded ${statusStyles[ticket.status]}`}>
                       {ticket.status}
-                    </span>
+                    </span> <br/>
+                    {escalatedTickets.includes(ticket.id) && (
+                      <span className="mt-1 inline-flex px-2 py-0.5 text-[10px] font-semibold rounded bg-orange-200 text-orange-800 dark:bg-orange-700/40 dark:text-orange-300">
+                        {t("needToProcess")}
+                      </span>
+                    )}                  
                   </td>
                   <td className="px-4 py-3 text-sm text-gray-600 dark:text-gray-300">{ticket.role}</td>
                   <td className="px-4 py-3 text-sm text-gray-600 dark:text-gray-300">{ticket.category}</td>

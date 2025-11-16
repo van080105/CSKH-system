@@ -13,7 +13,6 @@ export function ServiceFeedback() {
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    console.log({ satisfaction, rating, feedback, ticketId })
   }
 
   return (

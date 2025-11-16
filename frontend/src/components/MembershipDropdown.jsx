@@ -29,6 +29,23 @@ export default function MembershipDropdown({ membershipLevel, points, nextLevel,
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
+    const membershipBenefitsMap = {
+    Bronze: "Bronze",
+    "Đồng": "Bronze",
+
+    Silver: "Silver",
+    "Bạc": "Silver",
+
+    Gold: "Gold",
+    "Vàng": "Gold",
+
+    Platinum: "Platinum",
+    "Bạch Kim": "Platinum",
+
+    Diamond: "Diamond",
+    "Kim Cương": "Diamond",
+  };
+
   // Quyền lợi theo hạng
   const benefitsByLevel = {
     Bronze: [
@@ -67,8 +84,8 @@ export default function MembershipDropdown({ membershipLevel, points, nextLevel,
       "Mời tham dự sự kiện ra mắt iPhone và workshop đặc quyền",
     ],
   };
-
-  const benefits = benefitsByLevel[membershipLevel] || benefitsByLevel.Silver;
+  const normalizedBenefitsLevel = membershipBenefitsMap[membershipLevel] || membershipBenefitsMap.Bronze;
+  const benefits = benefitsByLevel[normalizedBenefitsLevel];
 
   // Theme popup riêng theo hạng
   const popupThemes = {
@@ -99,7 +116,7 @@ export default function MembershipDropdown({ membershipLevel, points, nextLevel,
     },
   };
 
-  const popupTheme = popupThemes[membershipLevel] || popupThemes.Silver;
+  const popupTheme = popupThemes[normalizedBenefitsLevel];
 
   return (
     <div className="relative" ref={dropdownRef}>
@@ -133,19 +150,19 @@ export default function MembershipDropdown({ membershipLevel, points, nextLevel,
               <h4 className="font-semibold text-gray-900 dark:text-white text-sm">
                 {membershipLevel} Member
               </h4>
-              <p className="text-xs text-gray-500 dark:text-gray-400">
+              {/* <p className="text-xs text-gray-500 dark:text-gray-400">
                 {points} pts · {remainingPoints} pts to {nextLevel}
-              </p>
+              </p> */}
             </div>
           </div>
 
           {/* Progress bar */}
-          <div className="mt-3 w-full bg-gray-200 dark:bg-gray-700 h-2 rounded-full overflow-hidden">
+          {/* <div className="mt-3 w-full bg-gray-200 dark:bg-gray-700 h-2 rounded-full overflow-hidden">
             <div
               className={`h-2 rounded-full bg-gradient-to-r ${theme.bg}`}
               style={{ width: `${progress}%` }}
             />
-          </div>
+          </div> */}
 
           {/* Summary lợi ích */}
           <ul className="mt-3 text-xs text-gray-600 dark:text-gray-300 space-y-1">

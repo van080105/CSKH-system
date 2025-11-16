@@ -1,5 +1,4 @@
 import {
-  Home,
   LayoutDashboard,
   Users,
   Ticket,
@@ -22,7 +21,6 @@ export function AdminSidebar() {
 
   const { t } = useTranslation()
   const location = useLocation()
-  const isHomeActive = location.pathname === "/admin"
 
   return (
     <aside className="w-[220px] h-full border-r border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 flex flex-col">
@@ -36,14 +34,6 @@ export function AdminSidebar() {
 
       {/* Navigation */}
       <nav className="flex-1 px-3 space-y-1">
-        <NavLink
-          to="/admin"
-          className={`${linkClass} ${isHomeActive ? activeClass : inactiveClass}`}
-        >
-          <Home className="h-4 w-4" />
-          {t("homepage")}
-        </NavLink>
-
         <NavLink
           to="/admin/dashboard"
           className={({ isActive }) =>
