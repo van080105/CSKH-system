@@ -10,6 +10,10 @@ import faqRoutes from './routes/faqRoutes.js';
 import chatbotRoutes from "./routes/chatbotRoutes.js";
 import agentRoutes from "./routes/agentRoutes.js";
 import assignFormRoutes from "./routes/assignFormRoutes.js";
+import customerRoutes from './routes/customer/index.js';
+import adminRoute from './routes/admin/index.js';
+import guestRoutes from './routes/guest/index.js';
+import agentRoutes from './routes/agent/index.js';
 import cors  from ('cors');
 app.use(cors({
   origin: 'http://localhost:6660' 
@@ -17,7 +21,10 @@ app.use(cors({
 dotenv.config();
 const app = express();
 app.use(express.json());
-
+app.use('/customer', customerRoutes);
+app.use('/admin', adminRoute);
+app.use('/guest', guestRoutes);
+app.use('/agent', agentRoutes);
 app.use("/api/auth", authRoutes);
 app.use("/api", protectedRoutes); 
 app.use("/api/accounts", accountRoutes);
