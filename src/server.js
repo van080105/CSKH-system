@@ -10,6 +10,10 @@ import faqRoutes from './routes/faqRoutes.js';
 import chatbotRoutes from "./routes/chatbotRoutes.js";
 import agentRoutes from "./routes/agentRoutes.js";
 import assignFormRoutes from "./routes/assignFormRoutes.js";
+import cors  from ('cors');
+app.use(cors({
+  origin: 'http://localhost:6660' 
+}));
 dotenv.config();
 const app = express();
 app.use(express.json());
