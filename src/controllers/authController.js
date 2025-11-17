@@ -1,5 +1,4 @@
-import bcrypt from "bcrypt";
-import { registerService, loginService, forgotPasswordService, changePasswordService } from "../services/authService.js";
+import { registerService, loginService, forgotPasswordService, changePasswordService, logoutService } from "../services/authService.js";
 
 export const register = async (req, res) => {
   try {
@@ -41,5 +40,13 @@ export const changePassword = async (req, res) => {
     res.status(400).json({ error: error.message });
   }
 };
-
+export const logout = async (req, res) => {
+  try {
+    const token = req.header("Authorization")?.replace("Bearer ", "");
+    const result = await logoutService(token);
+    res.json(result);
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+};
 
