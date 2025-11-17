@@ -17,12 +17,12 @@ const get_form = async (req, res) =>
     {
       return res.status(404).json({message:'Agent not found'})
     }
-    res.json(result.recordset[0])
+    return res.json(result.recordset)
   }
   catch (err)
   {
     console.error('Error in get_form controller:', err.message);
-    res.status(500).json({ message:'Internal Server Error' })}
+    return res.status(500).json({ message:'Internal Server Error' })}
 }
 
 
