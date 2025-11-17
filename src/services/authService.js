@@ -201,4 +201,12 @@ export const changePasswordService = async (email, id, oldPassword, newPassword)
 
   return { message: "Mật khẩu đã được thay đổi thành công" };
 };
+export const logoutService = async (token) => {
+  if (!token) {
+    throw new Error("Không tìm thấy token để đăng xuất.");
+  }
+  global.tokenBlacklist = global.tokenBlacklist || new Set();
+  global.tokenBlacklist.add(token);
 
+  return { message: "Đăng xuất thành công." };
+};
