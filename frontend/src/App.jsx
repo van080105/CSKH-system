@@ -33,6 +33,9 @@ import { ChangePassword } from "./pages/Authorization/ChangePassword"
 
 import { ChatbotFeedback } from "./pages/Feedbacks/ChatbotFeedback"
 import { ServiceFeedback } from "./pages/Feedbacks/ServiceFeedback"
+import ManageFeedbackForm from "./pages/Feedbacks/ManageFeedbacks/ManageServiceFeedbacks";
+// import ManageChatbotFeedbacks from "./pages/Feedbacks/ManageFeedbacks/ManageChatbotFeedbacks";
+
 import Contact from "./pages/Feedbacks/Contact"
 
 import { OrderLists } from "./pages/OrderLists"
@@ -55,6 +58,7 @@ function App() {
           <Route index element={<MainContent />} />
           <Route path="faq" element={<FAQ showModify={false}/>}/>
           <Route path="settings" element={<Settings showElement={false}/>} />
+          <Route path="service-feedback" element={<ServiceFeedback showCustomerInfo={false} />} />
           <Route path="dev-team" element={<DevTeamPage />} />
           <Route path="products" element={<ProductPage />} />
           <Route path="contact" element={<Contact />} /> 
@@ -75,6 +79,7 @@ function App() {
           <Route path="dashboard" element={<Dashboard />} />
           <Route path="users" element={<ManageUsers />} />
           <Route path="tickets" element={<ManageTickets />} />
+          <Route path="manage-service-feedback" element={<ManageFeedbackForm />} />
           <Route path="profile" element={<Profile />} />
           <Route path="faq" element={<FAQ />} />
           <Route path="report" element={<ReportForm />} />

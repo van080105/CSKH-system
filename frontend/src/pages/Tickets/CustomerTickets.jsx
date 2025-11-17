@@ -1,87 +1,94 @@
-"use client"
-
-import {
-  Search,
-  Filter,
-  ChevronLeft,
-  ChevronRight,
-  X,
-} from "lucide-react"
-import { useState, useMemo } from "react"
-import { useTranslation } from "react-i18next"
-
-const ticketsData = [
-  { id: 42321, title: "Không thể đăng nhập vào tài khoản", status: "Open", content: "Tôi không thể đăng nhập vào tài khoản của mình sau khi reset mật khẩu."},
-  { id: 42322, title: "Yêu cầu hoàn tiền đơn hàng #1234", status: "Pending", content: "Tôi yêu cầu hoàn tiền cho đơn hàng vì sản phẩm không đúng như mô tả."},
-  { id: 42323, title: "Lỗi khi thanh toán bằng thẻ VISA", status: "In progress",content: "Tôi không thể thanh toán đơn hàng sử dụng thẻ VISA. Lỗi xảy ra khi nhập thông tin thẻ."},
-  { id: 42324, title: "Không nhận được email xác nhận", status: "Completed", content: "Tôi đã đăng ký tài khoản nhưng không nhận được email xác nhận."},
-  { id: 42325, title: "Đề xuất tính năng mới", status: "Closed", content: "Tôi đề xuất tính năng hỗ trợ thanh toán qua ví điện tử."},
-]
-
-const statusStyles = {
-  Open: "bg-blue-50 text-blue-700 dark:bg-blue-600/20 dark:text-blue-300",
-  Pending: "bg-orange-50 text-orange-700 dark:bg-orange-600/20 dark:text-orange-300",
-  Completed: "bg-emerald-50 text-emerald-700 dark:bg-emerald-600/20 dark:text-emerald-300",
-  Closed: "bg-red-50 text-red-700 dark:bg-red-600/20 dark:text-red-300",
-  "In progress": "bg-blue-50 text-blue-700 dark:bg-blue-600/20 dark:text-blue-300",
-}
+import { useState, useEffect, useMemo } from "react";
+import { Search, Filter, ChevronLeft, ChevronRight, X } from "lucide-react";
+import { useTranslation } from "react-i18next";
 
 export function CustomerTickets() {
-  const [selectedTickets, setSelectedTickets] = useState([])
-  const [searchTerm, setSearchTerm] = useState("")
-  const [statusFilter, setStatusFilter] = useState("")
-  const [linesPerPage, setLinesPerPage] = useState(10)
-  const [page, setPage] = useState(1)
-  const [selectedTicket, setSelectedTicket] = useState(null)
-  const { t } = useTranslation()
+  const [ticketsData, setTicketsData] = useState([]);
+  const [selectedTickets, setSelectedTickets] = useState([]);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [statusFilter, setStatusFilter] = useState("");
+  const [linesPerPage, setLinesPerPage] = useState(10);
+  const [page, setPage] = useState(1);
+  const [selectedTicket, setSelectedTicket] = useState(null);
+  const [isOverlayVisible, setIsOverlayVisible] = useState(false);
+  const { t } = useTranslation();
+
+  const fetchTicketsData = async () => {
+    try {
+      const token = localStorage.getItem("token");
+      const response = await fetch("http://localhost:8080/customer/form", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      if (!response.ok) {
+        throw new Error("Failed to fetch tickets data");
+      }
+      const data = await response.json();
+      console.log(data);
+      setTicketsData(data);
+    } catch (error) {
+      console.error("Error fetching tickets:", error);
+    }
+  };
+  // Fetch dữ liệu API
+  useEffect(() => {
+    fetchTicketsData();
+  }, []);
 
   // --- Filtering & Searching ---
   const filteredTickets = useMemo(() => {
     const normalize = (str) =>
-      str
+      (str || "")
         .toLowerCase()
         .normalize("NFD")
         .replace(/[\u0300-\u036f]/g, "") // loại bỏ dấu
-        .trim()
+        .trim();
 
-    const search = normalize(searchTerm)
+    const search = normalize(searchTerm);
 
     return ticketsData.filter((ticket) => {
-      const idMatch = ticket.id.toString().includes(search)
-      const titleMatch = normalize(ticket.title).includes(search)
-      const statusMatch = normalize(ticket.status).includes(search)
+      const idMatch = ticket.CustomerID.toString().includes(search);
+      const titleMatch = normalize(ticket.Title).includes(search);
+      const statusMatch = normalize(ticket.Stt).includes(search);
 
-      const matchesSearch = idMatch || nameMatch || titleMatch || statusMatch
-      const matchesStatus = statusFilter ? ticket.status === statusFilter : true
+      const matchesSearch = idMatch || titleMatch || statusMatch;
+      const matchesStatus = statusFilter ? ticket.Stt === statusFilter : true;
 
-      return matchesSearch && matchesStatus 
-    })
-  }, [searchTerm, statusFilter])
-
+      return matchesSearch && matchesStatus;
+    });
+  }, [searchTerm, statusFilter, ticketsData]);
 
   // --- Pagination ---
-  const totalPages = Math.ceil(filteredTickets.length / linesPerPage)
-  const startIdx = (page - 1) * linesPerPage
-  const endIdx = Math.min(startIdx + linesPerPage, filteredTickets.length)
-  const paginatedTickets = filteredTickets.slice(startIdx, endIdx)
+  const totalPages = Math.ceil(filteredTickets.length / linesPerPage);
+  const startIdx = (page - 1) * linesPerPage;
+  const endIdx = Math.min(startIdx + linesPerPage, filteredTickets.length);
+  const paginatedTickets = filteredTickets.slice(startIdx, endIdx);
 
   const toggleSelectAll = () => {
     if (selectedTickets.length === paginatedTickets.length) {
-      setSelectedTickets([])
+      setSelectedTickets([]);
     } else {
-      setSelectedTickets(paginatedTickets.map((_, i) => i))
+      setSelectedTickets(paginatedTickets.map((_, i) => i));
     }
-  }
+  };
 
   const toggleSelect = (index) => {
     if (selectedTickets.includes(index)) {
-      setSelectedTickets(selectedTickets.filter((i) => i !== index))
+      setSelectedTickets(selectedTickets.filter((i) => i !== index));
     } else {
-      setSelectedTickets([...selectedTickets, index])
+      setSelectedTickets([...selectedTickets, index]);
     }
-  }
+  };
 
-  const uniqueStatuses = [...new Set(ticketsData.map((t) => t.status))]
+  const uniqueStatuses = [...new Set(ticketsData.map((t) => t.Stt))];
+
+  const handleTicketClick = (ticket) => {
+    setSelectedTicket(ticket);
+    setIsOverlayVisible(true);
+  };
 
   return (
     <div className="p-6 relative">
@@ -100,7 +107,9 @@ export function CustomerTickets() {
           >
             <option value="">{t("allStatuses")}</option>
             {uniqueStatuses.map((s) => (
-              <option key={s} value={s}>{s}</option>
+              <option key={s} value={s}>
+                {s}
+              </option>
             ))}
           </select>
 
@@ -112,13 +121,12 @@ export function CustomerTickets() {
               placeholder={t("searchForTicket")}
               value={searchTerm}
               onChange={(e) => {
-                setSearchTerm(e.target.value)
-                setPage(1)
+                setSearchTerm(e.target.value);
+                setPage(1);
               }}
               className="w-full pl-9 pr-4 py-2 border border-gray-300 dark:border-gray-700 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-indigo-500"
             />
           </div>
-
         </div>
 
         {/* Table */}
@@ -134,10 +142,10 @@ export function CustomerTickets() {
                     className="rounded border-gray-300 dark:border-gray-600"
                   />
                 </th>
-                <th className="px-4 py-3 text-left text-xs font-semibold text-gray-600 dark:text-gray-300 uppercase">
-                  ID
-                </th>
 
+                <th className="px-4 py-3 text-left text-xs font-semibold text-gray-600 dark:text-gray-300 uppercase">
+                  Form ID
+                </th>
                 <th className="px-4 py-3 text-left text-xs font-semibold text-gray-600 dark:text-gray-300 uppercase">
                   {t("title")}
                 </th>
@@ -145,7 +153,10 @@ export function CustomerTickets() {
                   {t("status")}
                 </th>
                 <th className="px-4 py-3 text-left text-xs font-semibold text-gray-600 dark:text-gray-300 uppercase">
-                  {t("action")}
+                  {t("sentDate")}
+                </th>
+                <th className="px-4 py-3 text-left text-xs font-semibold text-gray-600 dark:text-gray-300 uppercase">
+                  {t("content")}
                 </th>
               </tr>
             </thead>
@@ -154,6 +165,7 @@ export function CustomerTickets() {
               {paginatedTickets.map((ticket, index) => (
                 <tr
                   key={index}
+                  onClick={() => handleTicketClick(ticket)}
                   className={`hover:bg-gray-50 dark:hover:bg-gray-800 ${
                     index % 2 === 1
                       ? "bg-gray-50 dark:bg-gray-800"
@@ -169,21 +181,28 @@ export function CustomerTickets() {
                     />
                   </td>
 
-                  <td className="px-4 py-3 text-sm text-gray-900 dark:text-gray-100">{ticket.id}</td>
-                  <td className="px-4 py-3 text-sm text-gray-600 dark:text-gray-300 max-w-xs truncate">{ticket.title}</td>
-                  <td className="px-4 py-3">
-                    <span className={`inline-flex px-2 py-1 text-xs font-medium rounded ${statusStyles[ticket.status]}`}>
-                      {ticket.status}
+                  <td className="px-4 py-3 text-sm text-gray-900 dark:text-gray-100">
+                    {ticket.FormID[0]}
+                  </td>
+                  <td className="px-4 py-3 text-sm text-gray-600 dark:text-gray-300 max-w-xs truncate">
+                    {ticket.Title}
+                  </td>
+                  <td className="px-4 py-3 text-sm">
+                    <span
+                      className={`inline-flex px-2 py-1 text-xs font-medium rounded ${
+                        ticket.Stt === "Chưa trả lời"
+                          ? "bg-orange-50 text-orange-700 dark:bg-orange-600/20 dark:text-orange-300"
+                          : "bg-emerald-50 text-emerald-700 dark:bg-emerald-600/20 dark:text-emerald-300"
+                      }`}
+                    >
+                      {ticket.Stt}
                     </span>
                   </td>
-
-                  <td className="px-4 py-3">
-                    <button
-                      onClick={() => setSelectedTicket(ticket)}
-                      className="text-sm text-indigo-600 dark:text-indigo-400 hover:underline"
-                    >
-                      {t("viewMore")}
-                    </button>
+                  <td className="px-4 py-3 text-sm text-gray-500 dark:text-gray-400">
+                    {new Date(ticket.SentDate).toLocaleDateString()}
+                  </td>
+                  <td className="px-4 py-3 text-sm text-gray-500 dark:text-gray-400 max-w-xs truncate">
+                    {ticket.Content}
                   </td>
                 </tr>
               ))}
@@ -191,139 +210,63 @@ export function CustomerTickets() {
           </table>
         </div>
 
-
         {/* Pagination */}
-        <div className="px-4 py-3 border-t border-gray-200 dark:border-gray-700 flex items-center justify-between">
-          <p className="text-sm text-gray-600 dark:text-gray-400">
-            {`${startIdx + 1}-${endIdx} ${t("of") || "of"} ${filteredTickets.length}`}
-          </p>
+        <div className="flex items-center justify-between p-4">
           <div className="flex items-center gap-2">
-            <select
-              value={linesPerPage}
-              onChange={(e) => {
-                setLinesPerPage(Number(e.target.value))
-                setPage(1)
-              }}
-              className="px-3 py-1.5 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-sm text-gray-700 dark:text-gray-200 rounded-lg"
-            >
-              {[10, 25, 50].map((num) => (
-                <option key={num} value={num}>{`${t("linesPerPage") || "Lines per page"} ${num}`}</option>
-              ))}
-            </select>
             <button
+              onClick={() => setPage(Math.max(1, page - 1))}
               disabled={page === 1}
-              onClick={() => setPage((p) => Math.max(1, p - 1))}
-              className="p-1.5 hover:bg-gray-100 dark:hover:bg-gray-800 rounded disabled:opacity-50"
+              className="p-2 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg disabled:opacity-50"
             >
-              <ChevronLeft className="h-4 w-4 text-gray-600 dark:text-gray-300" />
+              <ChevronLeft className="h-5 w-5 text-gray-600 dark:text-gray-300" />
             </button>
-            <span className="text-sm text-gray-600 dark:text-gray-300">{`${page}/${totalPages || 1}`}</span>
+            <span className="text-sm text-gray-600 dark:text-gray-300">
+              {page} / {totalPages}
+            </span>
             <button
+              onClick={() => setPage(Math.min(totalPages, page + 1))}
               disabled={page === totalPages}
-              onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
-              className="p-1.5 hover:bg-gray-100 dark:hover:bg-gray-800 rounded disabled:opacity-50"
+              className="p-2 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg disabled:opacity-50"
             >
-              <ChevronRight className="h-4 w-4 text-gray-600 dark:text-gray-300" />
+              <ChevronRight className="h-5 w-5 text-gray-600 dark:text-gray-300" />
             </button>
           </div>
+
+          {/* Lines Per Page */}
+          <select
+            value={linesPerPage}
+            onChange={(e) => setLinesPerPage(Number(e.target.value))}
+            className="px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-lg text-sm bg-white dark:bg-gray-800 text-gray-800 dark:text-gray-200"
+          >
+            <option value={5}>5</option>
+            <option value={10}>10</option>
+            <option value={15}>15</option>
+            <option value={20}>20</option>
+          </select>
+
+          {isOverlayVisible && selectedTicket && (
+            <div className="fixed inset-0 flex justify-center items-center z-50 backdrop-blur-sm">
+              <div className="bg-white dark:bg-gray-800 p-6 rounded-lg max-w-lg w-full">
+                <div className="flex justify-between items-center mb-4">
+                  <h3 className="text-xl font-semibold text-gray-900 dark:text-white">{selectedTicket.Title}</h3>
+                  <button
+                    onClick={() => setIsOverlayVisible(false)}
+                    className="text-gray-500 dark:text-gray-400"
+                  >
+                    <X className="h-5 w-5" />
+                  </button>
+                </div>
+                <div className="text-gray-600 dark:text-white">
+                  <p><strong>{t("formID")}:</strong> {selectedTicket.FormID[0]}</p>
+                  <p><strong>{t("status")}:</strong> {selectedTicket.Stt}</p>
+                  <p><strong>{t("sentDate")}:</strong> {new Date(selectedTicket.SentDate).toLocaleDateString()}</p>
+                  <p><strong>{t("content")}:</strong> {selectedTicket.Content}</p>
+                </div>
+              </div>
+            </div>
+          )}
         </div>
       </div>
-
-      {/* Overlay Modal */}
-      {selectedTicket && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 dark:bg-black/60 backdrop-blur-sm transition-all">
-          <div
-            className="relative w-full max-w-lg rounded-2xl border border-gray-200 dark:border-gray-700
-            bg-white dark:bg-gray-900 shadow-2xl overflow-hidden animate-fadeInUp"
-          >
-            {/* Header */}
-            <div className="flex items-center justify-between px-6 py-4 border-b border-gray-200 dark:border-gray-700">
-              <h2 className="text-lg font-semibold text-gray-900 dark:text-gray-100">
-                🧾 {t("ticketDetails")}
-              </h2>
-              <button
-                onClick={() => setSelectedTicket(null)}
-                className="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
-              >
-                <X className="h-5 w-5 text-gray-600 dark:text-gray-300" />
-              </button>
-            </div>
-
-            {/* Body */}
-            <div className="px-6 py-5 space-y-4 max-h-[70vh] overflow-y-auto">
-              <div className="grid grid-cols-2 gap-4">
-                <div>
-                  <label className="block text-sm font-medium text-gray-600 dark:text-gray-400 mb-1">
-                    ID
-                  </label>
-                  <input
-                    type="text"
-                    value={selectedTicket.id}
-                    readOnly
-                    className="w-full rounded-lg border border-gray-300 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-gray-100 px-3 py-2 text-sm focus:outline-none"
-                  />
-                </div>
-                <div>
-                  <label className="block text-sm font-medium text-gray-600 dark:text-gray-400 mb-1">
-                    {t("status")}
-                  </label>
-                  <select
-                    disabled
-                    defaultValue={selectedTicket.status}
-                    className="w-full rounded-lg border border-gray-300 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-gray-100 px-3 py-2 text-sm focus:ring-2 focus:ring-indigo-500 focus:outline-none"
-                  >
-                    <option>Open</option>
-                    <option>Pending</option>
-                    <option>In progress</option>
-                    <option>Completed</option>
-                    <option>Closed</option>
-                  </select>
-                </div>
-              </div>
-
-              <div>
-                <label className="block text-sm font-medium text-gray-600 dark:text-gray-400 mb-1">
-                  {t("title")}
-                </label>
-                <textarea
-                  defaultValue={selectedTicket.title}
-                  rows={3}
-                  className="w-full rounded-lg border border-gray-300 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-gray-100 px-3 py-2 text-sm resize-none focus:ring-2 focus:ring-indigo-500 focus:outline-none"
-                ></textarea>
-              </div>
-
-              <div>
-                <label className="block text-sm font-medium text-gray-600 dark:text-gray-400 mb-1">
-                  {t("content")}
-                </label>
-                <textarea
-                  defaultValue={selectedTicket.content}
-                  rows={3}
-                  className="w-full rounded-lg border border-gray-300 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-gray-100 px-3 py-2 text-sm resize-none focus:ring-2 focus:ring-indigo-500 focus:outline-none"
-                ></textarea>
-              </div>
-
-            </div>
-
-            {/* Footer */}
-            <div className="flex justify-end gap-3 px-6 py-4 border-t border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800/60">
-              <button
-                onClick={() => setSelectedTicket(null)}
-                className="px-4 py-2 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
-              >
-                {t("cancel")}
-              </button>
-              <button
-                onClick={() => setSelectedTicket(null)}
-                className="px-4 py-2 rounded-lg text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 transition-colors"
-              >
-                {t("saveChanges")}
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
-
     </div>
-  )
+  );
 }

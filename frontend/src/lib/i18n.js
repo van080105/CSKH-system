@@ -248,6 +248,7 @@ i18n.use(LanguageDetector).use(initReactI18next).init({
         receiverID : "ID người nhận",
         responsibleField : "Lĩnh vực phụ trách",
         editProfile : "Chỉnh sửa thông tin cá nhân",
+        serviceFeedback : "Phản hồi dịch vụ",
         // Thêm các key khác...
       },
     },
@@ -497,6 +498,7 @@ i18n.use(LanguageDetector).use(initReactI18next).init({
         receiverID : "Receiver ID",
         responsibleField : "Responsible field",
         editProfile : "Edit Profile",
+        serviceFeedback : "Service Feedback",
         // Add more keys...
       },
     },

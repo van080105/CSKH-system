@@ -5,6 +5,7 @@ import {
   LogIn,
   ShoppingBag,
   Code,
+  MessageCircleMore
 } from "lucide-react"
 import { NavLink } from "react-router-dom"
 import { useTranslation } from "react-i18next"
@@ -73,6 +74,18 @@ export function GuestSidebar() {
         >
           <Code className="h-4 w-4" />
           {t("devTeam")}
+        </NavLink>
+
+        <NavLink
+          to="/service-feedback"
+          className={({ isActive }) =>
+            `${linkClass} ${
+              isActive ? activeClass : "text-gray-600 dark:text-gray-300"
+            }`
+          }
+        >
+          <MessageCircleMore className="h-4 w-4" />
+          {t("serviceFeedback")}
         </NavLink>
       </nav>
 

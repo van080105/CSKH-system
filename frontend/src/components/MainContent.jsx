@@ -45,7 +45,7 @@ export function MainContent() {
           transition={{ duration: 1 }}
           className="text-5xl md:text-6xl font-extrabold mb-4 text-gray-900 dark:text-white leading-tight tracking-tight"
         >
-          {t("homeTitle")} <span className="text-indigo-600 bg-gradient-to-r from-indigo-400 via-pink-500 to-purple-500 bg-clip-text text-transparent animate-gradient-x">Mockstack!</span>
+          {t("homeTitle")} <span className="bg-gradient-to-r from-indigo-500 via-blue-600 to-blue-800 bg-clip-text text-transparent animate-gradient-x">Mockstack!</span>
         </motion.h1>
         <motion.p 
           initial={{ opacity: 0 }}
@@ -195,33 +195,35 @@ export function MainContent() {
         variants={sectionVariants}
         initial="offscreen"
         whileInView="onscreen"
-        className="bg-gradient-to-r from-indigo-600 via-indigo-500 to-purple-600 dark:bg-gradient-to-r dark:from-indigo-700 dark:via-indigo-600 dark:to-purple-700 text-white py-12 mt-16"
+        className="bg-gradient-to-r from-indigo-500 via-blue-600 to-blue-800 
+                  dark:bg-gradient-to-r dark:from-indigo-600 dark:via-blue-700 dark:to-blue-900 
+                  text-white py-12 mt-16"
       >
         <div className="container max-w-6xl mx-auto text-center">
           <div className="flex justify-center space-x-6 mb-6">
             <button
-              onClick={() => openModal(t("privacyPolicyContent"))}
-              className="text-lg font-semibold hover:text-indigo-300 dark:hover:text-indigo-400 transition duration-300"
+              onClick={() => openModal(t('privacyPolicyContent'))}
+              className="text-lg font-semibold hover:text-blue-300 dark:hover:text-blue-400 transition duration-300"
             >
-              {t("privacyPolicy")}
+              {t('privacyPolicy')}
             </button>
 
             <button
-              onClick={() => openModal(t("termsOfServiceContent"))}
-              className="text-lg font-semibold hover:text-indigo-300 dark:hover:text-indigo-400 transition duration-300"
+              onClick={() => openModal(t('termsOfServiceContent'))}
+              className="text-lg font-semibold hover:text-blue-300 dark:hover:text-blue-400 transition duration-300"
             >
-              {t("termsOfService")}
+              {t('termsOfService')}
             </button>
 
             <button
-              onClick={() => openModal(t("contactUsContent"))}
-              className="text-lg font-semibold hover:text-indigo-300 dark:hover:text-indigo-400 transition duration-300"
+              onClick={() => openModal(t('contactUsContent'))}
+              className="text-lg font-semibold hover:text-blue-300 dark:hover:text-blue-400 transition duration-300"
             >
-              {t("contactUs")}
+              {t('contactUs')}
             </button>
           </div>
 
-          <p className="text-gray-300 text-sm">&copy; 2025 Mockstack. {t("allRightsReserved")}</p>
+          <p className="text-gray-200 text-sm">&copy; 2025 Mockstack. {t('allRightsReserved')}</p>
         </div>
       </motion.footer>
 

@@ -24,21 +24,6 @@ export function SignIn() {
     }
   }, [])
 
-  const handleAutoFill = (role, autoLogin = false) => {
-    const presets = {
-      admin: { email: "tranthib@gmail.com", password: "tranthib1234" },
-      agent: { email: "nguyenthif@gmai.com", password: "nguyenthif123" },
-      customer: { email: "vuvanv@gmail.com", password: "vuvanv123" },
-    }
-    const selected = presets[role]
-    setFormData(selected)
-    if (autoLogin) {
-      setTimeout(() => {
-        handleSubmit() // tự động gọi hàm submit khi có autoLogin
-      }, 300)
-    }
-  }
-
   const handleChange = (e) => {
     const { name, value } = e.target
     setFormData((prev) => ({ ...prev, [name]: value }))
@@ -74,6 +59,7 @@ export function SignIn() {
         setSubmitStatus("success")
         localStorage.setItem("user", JSON.stringify(data.user))
         localStorage.setItem("token", data.token)
+        // console.log(data.token)
         setTimeout(() => {
           if (data.user.role.toLowerCase() === "admin") navigate("/admin/dashboard")
           else if (data.user.role.toLowerCase() === "agent") navigate("/agent/inbox")
@@ -153,34 +139,6 @@ export function SignIn() {
           >
             CHÀO MỪNG <br /> ĐĂNG NHẬP NGAY
           </motion.h1>
-
-          {/* Debug tools with ripple effect */}
-          <div className="flex flex-wrap justify-center gap-3 mb-6">
-            {["admin", "agent", "customer"].map((role) => (
-              <motion.button
-                key={role}
-                type="button"
-                onClick={() => handleAutoFill(role, true)}
-                className={`px-3 py-1 text-xs rounded-md bg-gradient-to-r ${
-                  role === "admin"
-                    ? "from-gray-900 to-gray-700"
-                    : role === "agent"
-                    ? "from-indigo-600 to-indigo-400"
-                    : "from-emerald-600 to-emerald-400"
-                } text-white relative overflow-hidden`}
-                whileTap={{ scale: 0.95 }}
-              >
-                {`Auto ${role.charAt(0).toUpperCase() + role.slice(1)}`}
-                <span className="absolute inset-0 bg-white opacity-10 rounded-md scale-0 group-hover:scale-100 transition-transform"></span>
-              </motion.button>
-            ))}
-            <button
-              onClick={handleResetData}
-              className="px-3 py-1 text-xs rounded-md bg-red-100 hover:bg-red-200 text-red-700 border border-red-300 transition-transform hover:scale-105"
-            >
-              Reset Data
-            </button>
-          </div>
 
           {/* Form */}
           <motion.form

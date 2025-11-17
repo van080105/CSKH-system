@@ -65,6 +65,32 @@ const UserMenu = () => {
     if (path) navigate(path);
   };
 
+  const handleLogout = async () => {
+    try{
+      const token = localStorage.getItem("token");
+      const res = await fetch("http://localhost:8080/api/auth/logout", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      localStorage.removeItem("token");
+      localStorage.removeItem("user");
+      if(!res.ok){
+        throw new Error("Logout failed:")
+      }
+      navigate("/", {
+        replace: true,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+    finally {
+      setOpen(false);
+    }
+  }
+
   return (
     <div className="relative" ref={menuRef}>
       {/* Nút avatar */}
@@ -111,10 +137,7 @@ const UserMenu = () => {
             label="Đăng xuất"
             danger
             onClick={() => {
-              // Xử lý logout ở đây
-              console.log("Logging out...");
-              localStorage.removeItem("user");
-              navigate("/");
+              handleLogout();
             }}
           />
         </div>

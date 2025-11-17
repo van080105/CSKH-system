@@ -16,7 +16,7 @@ export function DevTeamPage() {
     { id: 4, name: "Nguyễn Thị Cẩm Vân", role: "Admin", email: "vannguyen@gmail.com", image: "/woman-red.jpg" },
   ]
 
-  // Particle config
+  // Particle config (đổi sang tone xanh dương)
   const particlesInit = async (engine) => {
     await loadFull(engine)
   }
@@ -26,7 +26,7 @@ export function DevTeamPage() {
     fpsLimit: 60,
     interactivity: { events: { onHover: { enable: true, mode: "repulse" } } },
     particles: {
-      color: { value: ["#a78bfa", "#818cf8", "#f472b6"] },
+      color: { value: ["#818cf8", "#3b82f6", "#1e40af"] }, // indigo → blue
       links: { enable: false },
       move: { enable: true, speed: 0.8 },
       number: { value: 80, density: { enable: true, area: 800 } },
@@ -37,40 +37,23 @@ export function DevTeamPage() {
     detectRetina: true,
   }
 
-  // Sound function
   const playHoverSound = () => {
     const context = new (window.AudioContext || window.webkitAudioContext)()
-    
-    // Tạo một oscillator để tạo âm thanh
     const oscillator = context.createOscillator()
-    
-    // Tạo một gain node để điều chỉnh âm lượng
     const gainNode = context.createGain()
 
-    // Chọn kiểu sóng (sine - mượt mà)
     oscillator.type = "sine"
-
-    // Lấy một tần số ngẫu nhiên trong phạm vi từ 400Hz đến 800Hz (âm thanh dễ chịu hơn)
     const frequency = 400 + Math.random() * 400
     oscillator.frequency.setValueAtTime(frequency, context.currentTime)
 
-    // Đặt âm lượng ban đầu nhỏ
     gainNode.gain.setValueAtTime(0, context.currentTime)
+    gainNode.gain.linearRampToValueAtTime(0.1, context.currentTime + 0.05)
 
-    // Tăng âm lượng từ từ (fade-in)
-    gainNode.gain.linearRampToValueAtTime(0.1, context.currentTime + 0.05) // Tăng nhẹ
-
-    // Kết nối oscillator tới gain node và kết nối gain node với đầu ra (speaker)
     oscillator.connect(gainNode)
     gainNode.connect(context.destination)
-
-    // Bắt đầu phát âm thanh
     oscillator.start()
-
-    // Dừng âm thanh sau 0.2 giây (fade out nhẹ)
     oscillator.stop(context.currentTime + 0.2)
   }
-
 
   const containerVariants = {
     hidden: {},
@@ -83,15 +66,12 @@ export function DevTeamPage() {
   }
 
   return (
-    <div className="relative min-h-screen bg-gradient-to-br from-indigo-50 via-white to-purple-50 dark:from-gray-950 dark:via-gray-900 dark:to-gray-950 transition-colors duration-500 p-6 overflow-hidden">
-      
-      {/* Particles background */}
-      <Particles
-        id="tsparticles"
-        init={particlesInit}
-        options={particlesOptions}
-        className="absolute inset-0 z-0"
-      />
+    <div className="relative min-h-screen bg-gradient-to-br from-blue-50 via-white to-indigo-50 
+                    dark:from-gray-950 dark:via-gray-900 dark:to-gray-950 
+                    transition-colors duration-500 p-6 overflow-hidden">
+
+      {/* Particles */}
+      <Particles id="tsparticles" init={particlesInit} options={particlesOptions} className="absolute inset-0 z-0" />
 
       {/* Header */}
       <motion.div
@@ -100,9 +80,12 @@ export function DevTeamPage() {
         transition={{ duration: 0.8, ease: "easeOut" }}
         className="text-center mb-12 relative z-10"
       >
-        <h1 className="text-4xl md:text-5xl font-extrabold bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 to-purple-600 dark:from-indigo-400 dark:to-purple-400">
+        <h1 className="text-4xl md:text-5xl font-extrabold bg-clip-text text-transparent 
+                       bg-gradient-to-r from-indigo-500 via-blue-600 to-blue-800
+                       dark:from-indigo-400 dark:via-blue-500 dark:to-blue-700">
           {t("teamMembers")}
         </h1>
+
         <p className="mt-3 text-gray-600 dark:text-gray-400 text-lg">
           {t("meetOurAwesomeTeam") || "Meet the minds behind our innovation ✨"}
         </p>
@@ -113,7 +96,8 @@ export function DevTeamPage() {
         variants={containerVariants}
         initial="hidden"
         animate="visible"
-        className="relative z-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 max-w-6xl mx-auto"
+        className="relative z-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 
+                   gap-8 max-w-6xl mx-auto"
       >
         {teamMembers.map((member) => (
           <motion.div key={member.id} variants={cardVariants}>
@@ -126,29 +110,40 @@ export function DevTeamPage() {
               transitionSpeed={2500}
               tiltMaxAngleX={10}
               tiltMaxAngleY={10}
-              className="group relative rounded-2xl overflow-hidden border border-gray-200 dark:border-gray-700 bg-white/70 dark:bg-gray-900/70 shadow-md backdrop-blur-sm hover:shadow-2xl hover:border-indigo-400/40 dark:hover:border-indigo-500/50 transition-all duration-300"
               onEnter={playHoverSound}
+              className="group relative rounded-2xl overflow-hidden 
+                         border border-blue-200 dark:border-blue-900 
+                         bg-white/70 dark:bg-gray-900/70 shadow-md backdrop-blur-sm
+                         hover:shadow-2xl 
+                         hover:border-blue-400/40 dark:hover:border-blue-500/50
+                         transition-all duration-300"
             >
-              {/* Glow border effect */}
-              <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 bg-gradient-to-r from-indigo-400/20 via-purple-400/20 to-pink-400/20 blur-xl"></div>
+              {/* Glow effect */}
+              <div className="absolute inset-0 opacity-0 group-hover:opacity-100 
+                              transition-opacity duration-500 
+                              bg-gradient-to-r from-indigo-400/20 via-blue-400/20 to-blue-600/20 
+                              blur-xl"></div>
 
               <div className="relative p-6 text-center flex flex-col items-center">
                 <div className="mb-4 relative">
                   <img
                     src={member.image || "/placeholder.svg"}
                     alt={member.name}
-                    className="w-24 h-24 rounded-full object-cover border-4 border-indigo-100 dark:border-indigo-700 transition-transform duration-500 group-hover:scale-105"
+                    className="w-24 h-24 rounded-full object-cover 
+                               border-4 border-blue-100 dark:border-blue-700
+                               transition-transform duration-500 group-hover:scale-105"
                   />
                 </div>
 
                 <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
                   {member.name}
                 </h3>
+
                 <p className="text-sm text-gray-600 dark:text-gray-400 mb-3">
                   {member.role}
                 </p>
 
-                {/* Email reveal on hover */}
+                {/* Email reveal */}
                 <motion.div
                   initial={{ opacity: 0, y: 10 }}
                   whileHover={{ opacity: 1, y: 0 }}
@@ -157,7 +152,8 @@ export function DevTeamPage() {
                 >
                   <a
                     href={`mailto:${member.email}`}
-                    className="inline-flex items-center gap-2 text-indigo-600 dark:text-indigo-400 hover:underline"
+                    className="inline-flex items-center gap-2 
+                               text-blue-600 dark:text-blue-400 hover:underline"
                   >
                     <Mail className="w-4 h-4" />
                     {member.email}

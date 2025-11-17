@@ -4,7 +4,7 @@ import {
   Ticket,
   HelpCircle,
   FileText,
-  MessageSquare,
+  LucideMessagesSquare,
   Settings,
   LogOut,
 } from "lucide-react"
@@ -85,13 +85,13 @@ export function AdminSidebar() {
         </NavLink>
 
         <NavLink
-          to="/admin/chatbot"
+          to="/admin/manage-service-feedback"
           className={({ isActive }) =>
             `${linkClass} ${isActive ? activeClass : inactiveClass}`
           }
         >
-          <MessageSquare className="h-4 w-4" />
-          Chatbot
+          <LucideMessagesSquare className="h-4 w-4" />
+          Feedback Forms
         </NavLink>
       </nav>
 

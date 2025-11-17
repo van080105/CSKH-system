@@ -1,11 +1,11 @@
 "use client"
 
 import { useState } from "react"
-import { ChevronLeft, Paperclip, Smile, Link2, AtSign, Hash } from "lucide-react"
+import { Paperclip, Smile, Link2, AtSign, Hash } from "lucide-react"
 import { MoodSlider } from "../../components/MoodSlider"
 import { StarRating } from "../../components/StarRating"
 
-export function ServiceFeedback() {
+export function ServiceFeedback({ showCustomerInfo = true}) {
   const [satisfaction, setSatisfaction] = useState(3)
   const [rating, setRating] = useState(3)
   const [feedback, setFeedback] = useState("")
@@ -19,7 +19,6 @@ export function ServiceFeedback() {
     <div className="min-h-screen bg-white dark:bg-gray-900 p-8 text-gray-900 dark:text-gray-100">
       {/* Breadcrumb */}
       <div className="mb-8 flex items-center gap-2 text-blue-600 dark:text-blue-400">
-        <ChevronLeft size={20} />
         <span>Đánh giá dịch vụ của chúng tôi</span>
       </div>
 
@@ -57,20 +56,20 @@ export function ServiceFeedback() {
             </div>
 
             {/* ID */}
-            <div>
+            {showCustomerInfo && (<div>
               <label className="block text-sm font-semibold mb-2">ID</label>
               <select className="w-full border border-gray-300 dark:border-gray-700 bg-gray-100 dark:bg-gray-800 px-4 py-3 focus:border-blue-500 focus:outline-none text-gray-900 dark:text-gray-100">
                 <option>523233</option>
               </select>
-            </div>
+            </div>)}
 
             {/* Role */}
-            <div>
+            {showCustomerInfo && (<div>
               <label className="block text-sm font-semibold mb-2">Vai trò</label>
               <select className="w-full border border-gray-300 dark:border-gray-700 bg-gray-100 dark:bg-gray-800 px-4 py-3 focus:border-blue-500 focus:outline-none text-gray-900 dark:text-gray-100">
                 <option>Khách hàng</option>
               </select>
-            </div>
+            </div>)}
 
             {/* Phone */}
             <div>
@@ -93,7 +92,7 @@ export function ServiceFeedback() {
             </div>
 
             {/* Ticket ID */}
-            <div>
+            {showCustomerInfo && (<div>
               <label className="block text-sm font-semibold mb-2">Ticket ID cần đánh giá</label>
               <input
                 type="text"
@@ -102,7 +101,8 @@ export function ServiceFeedback() {
                 onChange={(e) => setTicketId(e.target.value)}
                 className="w-full border border-gray-300 dark:border-gray-700 px-4 py-3 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:border-blue-500 focus:outline-none"
               />
-            </div>
+            </div>)}
+
           </div>
         </div>
 
