@@ -1,29 +1,29 @@
-import { getPool } from '../../config/database.js';
-import fs from 'fs';
-import sql from 'mssql';
-const update_order = async (req, res) =>
+const sql = require('mssql')
+const { getPool } = require('../../config/database.js')
+const fs = require('fs')
+const get_form = async (req, res) =>
 {
-  const orderId = req.params.orderId
-  const { Status } = req.body
-  if(!Status)
+  try {
+    const agentID = req.user.id;
+    if (!agentID)
+    {
+      return res.status(400).json({message:'AgentID is missing'})
+    }
+    const pool = await getPool();
+    const result = await pool.request()
+      .input('AgentID',sql.Int,agentID)
+      .query('select * from ReceiveForm r join Form f on r.FormID = f.FormID where r.AgentID = @AgentID')
+    if (result.recordset.length === 0)
+    {
+      return res.status(404).json({message:'Agent not found'})
+    }
+    res.json(result.recordset[0])
+  }
+  catch (err)
   {
-    return res.status(400).json({message : 'Status is required'})
-  }
-  const pool = await getPool()
-  if (!pool)
-  {
-    return res.status(503).json({message : 'Database connection error'})
-  }
-  try{
-    await pool.request()
-      .input('OrderID',sql.Int,orderId)
-      .input('Status',sql.NVarChar,Status)
-      .query('update [Orders] set Stt = @Status where OrderID = @OrderID')
-    res.status(200).json({message:'Order updated successfully'})
-  }
-  catch (err) {
-    console.error('Error updating order:', err.message);
-    res.status(500).json({message: 'Internal Server Error'});
-  }
+    console.error('Error in get_form controller:', err.message);
+    res.status(500).json({ message:'Internal Server Error' })}
 }
-module.exports ={update_order}
+
+
+module.exports ={get_form}
