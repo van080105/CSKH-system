@@ -9,7 +9,7 @@ const get_order = async(req,res) =>
     return res.status(400).json({message:'CustomerID is required'});
   }
   const pool = await getPool()
-  const result = await pool.request().input('CustomerID',sql.Int,customerID).query(`select o.OrderID, o.OrderDate, o.Stt, o.DeliveryAddress, oi.OrderItemID, oi.quantity, oi.ProductName, oi.UnitPrice
+  const result = await pool.request().input('CustomerID',sql.Int,customerID).query(`select o.OrderID, o.OrderDate, o.Stt, o.DeliveryAddress, oi.OrderItemID, oi.quantity, oi.ProductName, oi.UnitPrice, sum(quantity*UnitPrice) as OrderPrice
 from Orders o join Belong b on o.OrderID = b.OrderID join OrderItem oi on b.OrderItemID = oi.OrderItemID
 where CustomerID = @CustomerID
 group by o.OrderID, o.OrderDate, o.Stt, o.DeliveryAddress, oi.OrderItemID, oi.quantity, oi.ProductName, oi.UnitPrice`)
