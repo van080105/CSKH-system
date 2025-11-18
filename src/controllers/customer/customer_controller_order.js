@@ -73,4 +73,4 @@ const post_order = async(req, res) =>
   }
 
 }
-module.exports ={get_order, post_order}
+export default {get_order, post_order}

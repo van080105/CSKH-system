@@ -9,4 +9,5 @@ import controller_classTb  from '../../controllers/admin/admin_controller_classT
 router.get('/class_table', verifyToken, authorizeRole('Admin'), controller_classTb.getClassTb)
 router.get('/forms', verifyToken, authorizeRole('Admin'), controller.get_all_forms)
 router.get('/fb_form', verifyToken, authorizeRole('Admin'), controller_fb.GetFB)
+router.get('/fb_chatbot', verifyToken, authorizeRole('Admin'), controller_fb.GET_CB_FB)
 export default router

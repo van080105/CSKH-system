@@ -23,4 +23,4 @@ join Account b on cc.CustomerID = b.ID`);
   }
 };
 
-module.exports = { get_all_forms };
+export default { get_all_forms };

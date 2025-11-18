@@ -26,4 +26,4 @@ const get_form = async (req, res) =>
 }
 
 
-module.exports ={get_form}
+export default {get_form}

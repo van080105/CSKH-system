@@ -63,4 +63,4 @@ const post_form = async (req,res) =>
     res.status(500).json({ message:'Internal Server Error' })
 }
 }
-module.exports ={ get_form, post_form }
+export default { get_form, post_form }

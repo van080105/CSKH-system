@@ -60,4 +60,4 @@ const MakeChatbotFB = async (req, res) => {
   }
 };
 
-module.exports = {MakeFBform, MakeChatbotFB}
+export default {MakeFBform, MakeChatbotFB}

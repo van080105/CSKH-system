@@ -87,4 +87,4 @@ const DeleteTable = async (req, res) => {
   }
 };
 
-module.exports = {CreateTable,UpdateTable,DeleteTable}
+export default {CreateTable,UpdateTable,DeleteTable}

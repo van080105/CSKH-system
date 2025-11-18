@@ -45,4 +45,4 @@ const GET_CB_FB = async (req,res) =>
     res.status(500).json({message: 'Internal Server Error'})
    }
 }
-module.exports = {GetFB, GET_CB_FB}
+export default {GetFB,GET_CB_FB}

@@ -26,4 +26,4 @@ const update_order = async (req, res) =>
     res.status(500).json({message: 'Internal Server Error'});
   }
 }
-module.exports ={update_order}
+export default {update_order}
