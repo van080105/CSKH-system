@@ -11,7 +11,8 @@ const get_order = async(req,res) =>
   const pool = await getPool()
   const result = await pool.request().input('CustomerID',sql.Int,customerID).query(`select o.OrderID, o.OrderDate, o.Stt, o.DeliveryAddress, oi.OrderItemID, oi.quantity, oi.ProductName, oi.UnitPrice
 from Orders o join Belong b on o.OrderID = b.OrderID join OrderItem oi on b.OrderItemID = oi.OrderItemID
-where CustomerID = @CustomerID`)
+where CustomerID = @CustomerID
+group by o.OrderID, o.OrderDate, o.Stt, o.DeliveryAddress, oi.OrderItemID, oi.quantity, oi.ProductName, oi.UnitPrice`)
   if (result.recordset.length === 0)
   {
     return res.status(404).json({message:'Customer not found'});
