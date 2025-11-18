@@ -9,7 +9,12 @@ const get_all_forms = async (req, res) => {
       return res.status(503).json({ message: 'Database service unavailable.' });
     }
 
-    const result = await pool.request().query('SELECT * FROM Form');
+    const result = await pool.request().query(`select a.ID as Agent_ID,a.Email as Agent_email, a.Fullname as Agent_name, a.AddressAcc as Agent_addr,
+f.FormID,Title,Content,Stt,Typ,SentDate,
+b.ID as Cus_ID,b.Email as Cus_email, b.Fullname as Cus_name,b.AddressAcc as Cus_addr
+from Account a join ReceiveForm r on a.ID = r.AgentID 
+join Form f on f.FormID = r.FormID join CustomerCreate cc on cc.FormID = r.FormID
+join Account b on cc.CustomerID = b.ID`);
 
     return res.status(200).json(result.recordset);
   } catch (error) {
