@@ -201,7 +201,14 @@ export const changePasswordService = async (email, id, oldPassword, newPassword)
 
   return { message: "Mật khẩu đã được thay đổi thành công" };
 };
+export const logoutService = async (token) => {
+  if (!token) {
+    throw new Error("Không tìm thấy token để đăng xuất.");
+  }
+  global.tokenBlacklist = global.tokenBlacklist || new Set();
+  global.tokenBlacklist.add(token);
 
+<<<<<<< HEAD
 export const logoutService = async (token) => {
   if (!token) {
     throw new Error("Không tìm thấy token để đăng xuất.");
@@ -211,3 +218,7 @@ export const logoutService = async (token) => {
 
   return { message: "Đăng xuất thành công." };
 };
+=======
+  return { message: "Đăng xuất thành công." };
+};
+>>>>>>> 72f3f522718a99850218f338bf6aab0d715df8d9

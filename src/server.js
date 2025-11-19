@@ -13,6 +13,7 @@ import faqRoutes from "./routes/faqRoutes.js";
 import chatbotRoutes from "./routes/chatbotRoutes.js";
 import agentRoutes from "./routes/agentRoutes.js";
 import assignFormRoutes from "./routes/assignFormRoutes.js";
+<<<<<<< HEAD
 import chatRoutes from "./routes/chatRoutes.js";
 import agentSuggestionRoutes from "./routes/agentSuggestionRoutes.js";
 import realtimeRoutes from "./routes/realtimeRoutes.js"; 
@@ -26,6 +27,32 @@ dotenv.config();
 async function startServer() {
   const app = express();
   app.use(express.json());
+=======
+import customerRoutes from './routes/customer/index.js';
+import adminRoute from './routes/admin/index.js';
+import guestRoutes from './routes/guest/index.js';
+import agentRoutes from './routes/agent/index.js';
+import cors  from ('cors');
+app.use(cors({
+  origin: 'http://localhost:6660' 
+}));
+dotenv.config();
+const app = express();
+app.use(express.json());
+app.use('/customer', customerRoutes);
+app.use('/admin', adminRoute);
+app.use('/guest', guestRoutes);
+app.use('/agent', agentRoutes);
+app.use("/api/auth", authRoutes);
+app.use("/api", protectedRoutes); 
+app.use("/api/accounts", accountRoutes);
+app.use('/api/notifications', notificationRoutes);
+app.use('/api/faq', faqRoutes);
+app.use("/api/chatbots", chatbotRoutes);
+app.use("/api", agentRoutes);
+app.use("/api/forms", assignFormRoutes);
+app.use(errorHandler);
+>>>>>>> 72f3f522718a99850218f338bf6aab0d715df8d9
 
   app.use(cors({
     origin: 'http://localhost:6660',
