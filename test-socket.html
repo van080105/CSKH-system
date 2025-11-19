@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>REALTIME CHAT TEST</title>
+  <script src="https://cdn.socket.io/4.7.5/socket.io.min.js"></script>
+  <style>
+    body { font-family: Arial; }
+    textarea { width: 100%; height: 200px; }
+  </style>
+</head>
+<body>
+
+<h2>Test Realtime Chat: User ↔ Agent</h2>
+
+<label>Session ID:</label>
+<input id="sessionId" value="session123" style="width:200px;">
+<br><br>
+
+<button onclick="joinUser()">Join as USER</button>
+<button onclick="joinAgent()">Join as AGENT</button>
+
+<hr>
+
+<textarea id="log" readonly></textarea>
+<br>
+
+<input id="msg" placeholder="Nhập tin nhắn..." style="width:300px;">
+<button onclick="sendUser()">User Send</button>
+<button onclick="sendAgent()">Agent Send</button>
+
+<script>
+const socket = io("http://localhost:8080");
+
+let agentId = 1;
+
+function log(msg) {
+  document.getElementById("log").value += msg + "\n";
+}
+
+function joinUser() {
+  const sessionId = document.getElementById("sessionId").value;
+  socket.emit("user_join", { sessionId });
+  log("Joined as USER → session_" + sessionId);
+}
+
+function joinAgent() {
+  const sessionId = document.getElementById("sessionId").value;
+  agentId = prompt("Nhập Agent ID:", "1");
+  socket.emit("agent_join", { agentId: Number(agentId), sessionId });
+  log("Joined as AGENT → session_" + sessionId);
+}
+
+
+function sendUser() {
+  const sessionId = document.getElementById("sessionId").value;
+  const msg = document.getElementById("msg").value;
+  socket.emit("user_message", { sessionId, msg });
+  log("USER: " + msg);
+}
+
+function sendAgent() {
+  const sessionId = document.getElementById("sessionId").value;
+  const msg = document.getElementById("msg").value;
+  socket.emit("agent_message", { sessionId, agentId: Number(agentId), msg });
+  log("AGENT " + agentId + ": " + msg);
+}
+
+// Nhận tin từ server
+socket.on("receive_message", (data) => {
+  log("[RECEIVED] " + data.from + ": " + data.msg);
+});
+
+
+// Nhận thông báo timeout
+socket.on("session_closed", () => {
+  log("⚠ SESSION CLOSED after 10 minutes inactivity");
+});
+</script>
+
+</body>
+</html>
