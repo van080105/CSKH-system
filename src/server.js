@@ -22,20 +22,13 @@ import { chatSocket } from "./sockets/chatSocket.js";
 import { errorHandler } from "./middlewares/errorMiddleware.js";
 import { loadVectorStore } from "./rag/ragCore.js";
 
-dotenv.config();
-
-async function startServer() {
-  const app = express();
-  app.use(express.json());
-=======
 import customerRoutes from './routes/customer/index.js';
 import adminRoute from './routes/admin/index.js';
 import guestRoutes from './routes/guest/index.js';
 import agentRoutes from './routes/agent/index.js';
-import cors  from ('cors');
-app.use(cors({
-  origin: 'http://localhost:6660' 
-}));
+
+async function startServer() {
+
 dotenv.config();
 const app = express();
 app.use(express.json());
@@ -51,22 +44,10 @@ app.use('/api/faq', faqRoutes);
 app.use("/api/chatbots", chatbotRoutes);
 app.use("/api", agentRoutes);
 app.use("/api/forms", assignFormRoutes);
-app.use(errorHandler);
->>>>>>> 72f3f522718a99850218f338bf6aab0d715df8d9
-
   app.use(cors({
     origin: 'http://localhost:6660',
   }));
-  app.use("/api/chat", chatRoutes);
   app.use("/api/realtime", realtimeRoutes);
-  app.use("/api/auth", authRoutes);
-  app.use("/api", protectedRoutes);
-  app.use("/api/accounts", accountRoutes);
-  app.use("/api/notifications", notificationRoutes);
-  app.use("/api/faq", faqRoutes);
-  app.use("/api/chatbots", chatbotRoutes);
-  app.use("/api", agentRoutes);
-  app.use("/api/forms", assignFormRoutes);
   app.use("/api/chat", chatRoutes);
   app.use("/api", agentSuggestionRoutes);
 
