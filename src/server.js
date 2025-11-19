@@ -14,6 +14,7 @@ import customerRoutes from './routes/customer/index.js';
 import adminRoute from './routes/admin/index.js';
 import guestRoutes from './routes/guest/index.js';
 import agentRoutes from './routes/agent/index.js';
+import classifyTableRoutes from './routes/class_Tb_routes.js'
 import cors  from ('cors');
 app.use(cors({
   origin: 'http://localhost:6660' 
@@ -21,6 +22,7 @@ app.use(cors({
 dotenv.config();
 const app = express();
 app.use(express.json());
+app.use('/classifyTable',classifyTableRoutes)
 app.use('/customer', customerRoutes);
 app.use('/admin', adminRoute);
 app.use('/guest', guestRoutes);

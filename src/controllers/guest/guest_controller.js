@@ -2,7 +2,7 @@
 import { getPool } from '../../config/database.js';
 import fs from 'fs';
 import sql from 'mssql';
-const post_form = async (req,res) =>{
+const post_FB_form = async (req,res) =>{
   try {
     const {rating,content} = req.body;
     if (!rating || !content)
@@ -26,4 +26,33 @@ const post_form = async (req,res) =>{
     res.status(500).json({ message:'Internal Server Error' })
   }
 }
-export default {post_form}
+const post_form = async (req,res) =>{
+  const {title,content,type} = req.body;
+  if(!title || !content || !type)
+  {
+    return res.status(400).json({message:'Some fields are missing'})
+  }
+  try {
+    const pool = await getPool();
+    if (!pool)
+    {
+      return res.status(500).json({message:'Database connection error'});
+    }
+    let no_of_rows = await pool.request().query('SELECT COUNT(*) AS count FROM Form');
+    const formID = no_of_rows.recordset[0].count + 1;
+    await pool.request()
+      .input('title', sql.NVarChar, title)
+      .input('content',sql.NVarChar,content)
+      .input('type',sql.NVarChar,type)
+      .input('FormID',sql.Int,formID)
+      .query(`insert into Form(FormID,Title,Content,Stt,Typ,SentDate)
+        values(@FormID,@title,@content,'Chưa trả lời',@type,GETDATE())`)
+    return res.status(200).json({message:'Insert Successfully'})
+  }
+  catch (err)
+  {
+    console.error('Insertion Failed:',err.message)
+    return res.status(503).json({message:'Internal Server Error'})
+  }
+}
+export default {post_form, post_FB_form}
