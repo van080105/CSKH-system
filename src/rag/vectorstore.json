@@ -1,0 +1,570 @@
+[
+  {
+    "id": "FAQ_1",
+    "type": "FAQ",
+    "source": "FAQ (iphone 15 Series)",
+    "text": "Danh mục: iphone 15 Series\nCâu hỏi: iPhone 15 Pro Max có mấy màu?\nTrả lời: Hiện có 4 màu: Titan tự nhiên, Titan xanh, Titan trắng và Titan đen.",
+    "embedding": [],
+    "updatedAt": "2025-11-19T02:50:21.143Z"
+  },
+  {
+    "id": "FAQ_2",
+    "type": "FAQ",
+    "source": "FAQ (iphone 15 Series)",
+    "text": "Danh mục: iphone 15 Series\nCâu hỏi: iPhone 15 thường khác gì iPhone 15 Pro?\nTrả lời: iPhone 15 Pro dùng khung titan, chip A17 Pro và có camera tele; iPhone 15 thường dùng chip A16 và khung nhôm.",
+    "embedding": [],
+    "updatedAt": "2025-11-19T02:50:21.162Z"
+  },
+  {
+    "id": "FAQ_3",
+    "type": "FAQ",
+    "source": "FAQ (iphone 14 Series)",
+    "text": "Danh mục: iphone 14 Series\nCâu hỏi: iPhone 14 có hỗ trợ 5G không?\nTrả lời: Có, toàn bộ dòng iPhone 14 đều hỗ trợ 5G tại Việt Nam.",
+    "embedding": [],
+    "updatedAt": "2025-11-19T02:50:21.178Z"
+  },
+  {
+    "id": "FAQ_4",
+    "type": "FAQ",
+    "source": "FAQ (iphone 16 Series)",
+    "text": "Danh mục: iphone 16 Series\nCâu hỏi: iPhone 16 có chống nước không?\nTrả lời: Có, đạt chuẩn IP68, chịu được độ sâu 6m trong 30 phút.",
+    "embedding": [],
+    "updatedAt": "2025-11-19T02:50:21.195Z"
+  },
+  {
+    "id": "FAQ_5",
+    "type": "FAQ",
+    "source": "FAQ (iphone 17 Series)",
+    "text": "Danh mục: iphone 17 Series\nCâu hỏi: iPhone 17 có tín năng gì mới so với các series khác?\nTrả lời: Có, camera có thể zoom tới 8x, màn hình 120Hz, thiết kế bằng khung nhôm với các màu sắc tươi mới.",
+    "embedding": [],
+    "updatedAt": "2025-11-19T02:50:21.215Z"
+  },
+  {
+    "id": "FAQ_6",
+    "type": "FAQ",
+    "source": "FAQ (Bảo hành)",
+    "text": "Danh mục: Bảo hành\nCâu hỏi: iPhone được bảo hành bao lâu?\nTrả lời: Tất cả sản phẩm iPhone chính hãng được bảo hành 12 tháng theo chính sách của Apple Việt Nam.",
+    "embedding": [],
+    "updatedAt": "2025-11-19T02:50:21.232Z"
+  },
+  {
+    "id": "FAQ_7",
+    "type": "FAQ",
+    "source": "FAQ (Bảo hành)",
+    "text": "Danh mục: Bảo hành\nCâu hỏi: Tôi có thể kiểm tra thời hạn bảo hành ở đâu?\nTrả lời: Bạn có thể kiểm tra tại trang web https://checkcoverage.apple.com bằng số serial của máy.",
+    "embedding": [],
+    "updatedAt": "2025-11-19T02:50:21.254Z"
+  },
+  {
+    "id": "FAQ_8",
+    "type": "FAQ",
+    "source": "FAQ (Bảo hành)",
+    "text": "Danh mục: Bảo hành\nCâu hỏi: Nếu máy bị vào nước có được bảo hành không?\nTrả lời: Không, Apple không bảo hành cho hư hại do nước hoặc rơi vỡ.",
+    "embedding": [],
+    "updatedAt": "2025-11-19T02:50:21.272Z"
+  },
+  {
+    "id": "FAQ_9",
+    "type": "FAQ",
+    "source": "FAQ (Sửa chữa)",
+    "text": "Danh mục: Sửa chữa\nCâu hỏi: Thay pin chính hãng mất bao lâu?\nTrả lời: Thông thường từ 1-2 giờ nếu có sẵn linh kiện tại trung tâm bảo hành.",
+    "embedding": [],
+    "updatedAt": "2025-11-19T02:50:21.288Z"
+  },
+  {
+    "id": "FAQ_10",
+    "type": "FAQ",
+    "source": "FAQ (Sửa chữa)",
+    "text": "Danh mục: Sửa chữa\nCâu hỏi: Điện thoại không lên nguồn?\nTrả lời: Vui lòng đưa đến chi nhánh gần nhất để được hỗ trợ sữa chữa hoặc bạn có thể thực hiện bấm tổ hợp phím tắt (nút nguồn + nút giảm âm lượng) để thử cài đặt lại điện thoại",
+    "embedding": [],
+    "updatedAt": "2025-11-19T02:50:21.300Z"
+  },
+  {
+    "id": "FAQ_11",
+    "type": "FAQ",
+    "source": "FAQ (Hỗ trợ thanh toán)",
+    "text": "Danh mục: Hỗ trợ thanh toán\nCâu hỏi: Cửa hàng có hỗ trợ trả góp không?\nTrả lời: Có, hỗ trợ trả góp 0% qua thẻ tín dụng của nhiều ngân hàng.",
+    "embedding": [],
+    "updatedAt": "2025-11-19T02:50:21.309Z"
+  },
+  {
+    "id": "FAQ_12",
+    "type": "FAQ",
+    "source": "FAQ (Hỗ trợ thanh toán)",
+    "text": "Danh mục: Hỗ trợ thanh toán\nCâu hỏi: Tôi có thể thanh toán khi nhận hàng không?\nTrả lời: Có, hỗ trợ thanh toán COD (nhận hàng rồi trả tiền).",
+    "embedding": [],
+    "updatedAt": "2025-11-19T02:50:21.318Z"
+  },
+  {
+    "id": "FAQ_13",
+    "type": "FAQ",
+    "source": "FAQ (Chính sách đổi trả)",
+    "text": "Danh mục: Chính sách đổi trả\nCâu hỏi: Tôi có thể đổi trả hàng trong bao lâu?\nTrả lời: Bạn có thể đổi trả trong 15 ngày nếu sản phẩm lỗi do nhà sản xuất.",
+    "embedding": [],
+    "updatedAt": "2025-11-19T02:50:21.327Z"
+  },
+  {
+    "id": "FAQ_14",
+    "type": "FAQ",
+    "source": "FAQ (Chính sách đổi trả)",
+    "text": "Danh mục: Chính sách đổi trả\nCâu hỏi: Hàng lỗi do người dùng có được đổi không?\nTrả lời: Không, chỉ sản phẩm lỗi kỹ thuật mới được đổi theo quy định.",
+    "embedding": [],
+    "updatedAt": "2025-11-19T02:50:21.336Z"
+  },
+  {
+    "id": "FAQ_15",
+    "type": "FAQ",
+    "source": "FAQ (Hỗ trợ đặt hàng)",
+    "text": "Danh mục: Hỗ trợ đặt hàng\nCâu hỏi: Làm sao để liên hệ trung tâm chăm sóc khách hàng?\nTrả lời: Bạn có thể gọi hotline 1800-1122 (miễn phí) hoặc chat trực tiếp trên website.",
+    "embedding": [],
+    "updatedAt": "2025-11-19T02:50:21.344Z"
+  },
+  {
+    "id": "FAQ_16",
+    "type": "FAQ",
+    "source": "FAQ (Hỗ trợ thanh toán)",
+    "text": "Danh mục: Hỗ trợ thanh toán\nCâu hỏi: Tôi muốn nhận hóa đơn điện tử thì làm sao?\nTrả lời: Hóa đơn điện tử sẽ được gửi qua email sau khi đơn hàng được giao thành công.",
+    "embedding": [],
+    "updatedAt": "2025-11-19T02:50:21.354Z"
+  },
+  {
+    "id": "FORM_1",
+    "type": "Form",
+    "source": "Form (iPhone 14 Series)",
+    "text": "Loại form: iPhone 14 Series\nTiêu đề: iPhone 14 có những màu nào?\nNội dung: Tôi muốn hỏi iPhone 14 hiện có bao nhiêu màu và màu nào đang được bán chạy nhất?",
+    "embedding": [],
+    "updatedAt": "2025-11-19T02:50:21.363Z"
+  },
+  {
+    "id": "FORM_2",
+    "type": "Form",
+    "source": "Form (iPhone 14 Series)",
+    "text": "Loại form: iPhone 14 Series\nTiêu đề: iPhone 14 Pro Max có hỗ trợ eSIM không?\nNội dung: Tôi đang dùng eSIM, không biết iPhone 14 Pro Max có hỗ trợ dùng eSIM không?",
+    "embedding": [],
+    "updatedAt": "2025-11-19T02:50:21.371Z"
+  },
+  {
+    "id": "FORM_3",
+    "type": "Form",
+    "source": "Form (iPhone 14 Series)",
+    "text": "Loại form: iPhone 14 Series\nTiêu đề: iPhone 14 và 14 Plus khác nhau điểm nào?\nNội dung: Tôi phân vân giữa iPhone 14 và iPhone 14 Plus, cho tôi hỏi sự khác biệt chính giữa hai máy?",
+    "embedding": [],
+    "updatedAt": "2025-11-19T02:50:21.384Z"
+  },
+  {
+    "id": "FORM_4",
+    "type": "Form",
+    "source": "Form (iPhone 14 Series)",
+    "text": "Loại form: iPhone 14 Series\nTiêu đề: iPhone 14 Pro quay video 4K có giới hạn thời gian không?\nNội dung: Tôi muốn quay video 4K để làm vlog, cho tôi hỏi iPhone 14 Pro có bị giới hạn thời gian quay không?",
+    "embedding": [],
+    "updatedAt": "2025-11-19T02:50:21.394Z"
+  },
+  {
+    "id": "FORM_5",
+    "type": "Form",
+    "source": "Form (iPhone 14 Series)",
+    "text": "Loại form: iPhone 14 Series\nTiêu đề: Dung lượng pin iPhone 14 Pro Max bao nhiêu mAh?\nNội dung: Tôi cần biết thông số pin của iPhone 14 Pro Max để so sánh với mẫu máy đang dùng.",
+    "embedding": [],
+    "updatedAt": "2025-11-19T02:50:21.402Z"
+  },
+  {
+    "id": "FORM_6",
+    "type": "Form",
+    "source": "Form (iPhone 15 Series)",
+    "text": "Loại form: iPhone 15 Series\nTiêu đề: iPhone 15 có cổng USB-C chưa?\nNội dung: Tôi nghe nói iPhone 15 đã chuyển sang cổng USB-C, thông tin này có đúng không?",
+    "embedding": [],
+    "updatedAt": "2025-11-19T02:50:21.411Z"
+  },
+  {
+    "id": "FORM_7",
+    "type": "Form",
+    "source": "Form (iPhone 15 Series)",
+    "text": "Loại form: iPhone 15 Series\nTiêu đề: iPhone 15 Pro có hỗ trợ quay video ProRes không?\nNội dung: Tôi muốn quay phim chất lượng cao nên muốn hỏi iPhone 15 Pro có quay được ProRes không?",
+    "embedding": [],
+    "updatedAt": "2025-11-19T02:50:21.421Z"
+  },
+  {
+    "id": "FORM_8",
+    "type": "Form",
+    "source": "Form (iPhone 15 Series)",
+    "text": "Loại form: iPhone 15 Series\nTiêu đề: Sự khác nhau giữa iPhone 15 và iPhone 15 Pro là gì?\nNội dung: Tôi đang phân vân giữa 2 mẫu này. Nhờ cửa hàng giải thích giúp khác biệt chính về hiệu năng và camera.",
+    "embedding": [],
+    "updatedAt": "2025-11-19T02:50:21.432Z"
+  },
+  {
+    "id": "FORM_9",
+    "type": "Form",
+    "source": "Form (iPhone 15 Series)",
+    "text": "Loại form: iPhone 15 Series\nTiêu đề: Titanium trên iPhone 15 Pro có dễ trầy không?\nNội dung: Chất liệu titanium mới trên iPhone 15 Pro có bền không và có dễ bị trầy xước không?",
+    "embedding": [],
+    "updatedAt": "2025-11-19T02:50:21.441Z"
+  },
+  {
+    "id": "FORM_10",
+    "type": "Form",
+    "source": "Form (iPhone 15 Series)",
+    "text": "Loại form: iPhone 15 Series\nTiêu đề: iPhone 15 Pro Max có Zoom quang học bao nhiêu lần?\nNội dung: Tôi hay chụp ảnh du lịch, muốn hỏi iPhone 15 Pro Max có zoom quang học tối đa bao nhiêu lần?",
+    "embedding": [],
+    "updatedAt": "2025-11-19T02:50:21.450Z"
+  },
+  {
+    "id": "FORM_11",
+    "type": "Form",
+    "source": "Form (iPhone 16 Series)",
+    "text": "Loại form: iPhone 16 Series\nTiêu đề: iPhone 16 có hỗ trợ sạc không dây nhanh?\nNội dung: Cho tôi hỏi iPhone 16 có công nghệ sạc không dây nhanh và công suất tối đa là bao nhiêu?",
+    "embedding": [],
+    "updatedAt": "2025-11-19T02:50:21.459Z"
+  },
+  {
+    "id": "FORM_12",
+    "type": "Form",
+    "source": "Form (iPhone 16 Series)",
+    "text": "Loại form: iPhone 16 Series\nTiêu đề: iPhone 16 pin có dung lượng bao nhiêu?\nNội dung: Tôi muốn biết thông số pin của iPhone 16 để cân nhắc nâng cấp.",
+    "embedding": [],
+    "updatedAt": "2025-11-19T02:50:21.466Z"
+  },
+  {
+    "id": "FORM_13",
+    "type": "Form",
+    "source": "Form (iPhone 16 Series)",
+    "text": "Loại form: iPhone 16 Series\nTiêu đề: iPhone 16 Pro có quay video 8K được không?\nNội dung: Camera của iPhone 16 Pro có hỗ trợ quay video 8K hay không và chất lượng ra sao?",
+    "embedding": [],
+    "updatedAt": "2025-11-19T02:50:21.474Z"
+  },
+  {
+    "id": "FORM_14",
+    "type": "Form",
+    "source": "Form (iPhone 16 Series)",
+    "text": "Loại form: iPhone 16 Series\nTiêu đề: Hiệu năng iPhone 16 mạnh hơn iPhone 15 nhiều không?\nNội dung: Tôi đang dùng iPhone 15, muốn biết iPhone 16 có nâng cấp nhiều về hiệu năng không?",
+    "embedding": [],
+    "updatedAt": "2025-11-19T02:50:21.482Z"
+  },
+  {
+    "id": "FORM_15",
+    "type": "Form",
+    "source": "Form (iPhone 16 Series)",
+    "text": "Loại form: iPhone 16 Series\nTiêu đề: iPhone 16 Pro Max có thay đổi thiết kế gì mới?\nNội dung: Tôi muốn tìm hiểu xem mẫu iPhone 16 Pro Max có nâng cấp đặc biệt về thiết kế không?",
+    "embedding": [],
+    "updatedAt": "2025-11-19T02:50:21.491Z"
+  },
+  {
+    "id": "FORM_16",
+    "type": "Form",
+    "source": "Form (iPhone 17 Series)",
+    "text": "Loại form: iPhone 17 Series\nTiêu đề: iPhone 17 có thay đổi camera trước không?\nNội dung: Camera selfie của iPhone 17 có được nâng cấp gì về độ phân giải và góc nhìn không?",
+    "embedding": [],
+    "updatedAt": "2025-11-19T02:50:21.499Z"
+  },
+  {
+    "id": "FORM_17",
+    "type": "Form",
+    "source": "Form (Dòng sản phẩm)",
+    "text": "Loại form: Dòng sản phẩm\nTiêu đề: iPhone 17 dùng chip gì?\nNội dung: Cho tôi hỏi cấu hình chip xử lý của iPhone 17 có mạnh hơn đời trước nhiều không?",
+    "embedding": [],
+    "updatedAt": "2025-11-19T02:50:21.507Z"
+  },
+  {
+    "id": "FORM_18",
+    "type": "Form",
+    "source": "Form (iPhone 17 Series)",
+    "text": "Loại form: iPhone 17 Series\nTiêu đề: iPhone 17 Pro có tính năng quay không gian (Spatial Video) mới không?\nNội dung: Tôi quan tâm tính năng quay video 3D trên mẫu mới, cửa hàng có thông tin chi tiết không?",
+    "embedding": [],
+    "updatedAt": "2025-11-19T02:50:21.515Z"
+  },
+  {
+    "id": "FORM_19",
+    "type": "Form",
+    "source": "Form (Dòng sản phẩm)",
+    "text": "Loại form: Dòng sản phẩm\nTiêu đề: iPhone 17 có mấy phiên bản dung lượng?\nNội dung: Tôi muốn hỏi iPhone 17 có các phiên bản dung lượng bao nhiêu GB?",
+    "embedding": [],
+    "updatedAt": "2025-11-19T02:50:21.523Z"
+  },
+  {
+    "id": "FORM_20",
+    "type": "Form",
+    "source": "Form (iPhone 17 Series)",
+    "text": "Loại form: iPhone 17 Series\nTiêu đề: Màn hình iPhone 17 Pro Max sáng tối đa bao nhiêu nits?\nNội dung: Tôi cần biết độ sáng tối đa của màn hình để đánh giá khả năng hiển thị ngoài trời.",
+    "embedding": [],
+    "updatedAt": "2025-11-19T02:50:21.532Z"
+  },
+  {
+    "id": "FORM_21",
+    "type": "Form",
+    "source": "Form (Phụ kiện)",
+    "text": "Loại form: Phụ kiện\nTiêu đề: Ốp lưng cho iPhone 15 có kháng khuẩn không?\nNội dung: Cho tôi hỏi cửa hàng có bán loại ốp lưng kháng khuẩn dành cho iPhone 15 không?",
+    "embedding": [],
+    "updatedAt": "2025-11-19T02:50:21.540Z"
+  },
+  {
+    "id": "FORM_22",
+    "type": "Form",
+    "source": "Form (Phụ kiện)",
+    "text": "Loại form: Phụ kiện\nTiêu đề: AirPods Pro 2 có chống ồn tốt không?\nNội dung: Tôi muốn tìm tai nghe chống ồn tốt để đi máy bay, AirPods Pro 2 có phù hợp không?",
+    "embedding": [],
+    "updatedAt": "2025-11-19T02:50:21.547Z"
+  },
+  {
+    "id": "FORM_23",
+    "type": "Form",
+    "source": "Form (Phụ kiện)",
+    "text": "Loại form: Phụ kiện\nTiêu đề: Cáp sạc USB-C cho iPhone có bền không?\nNội dung: Tôi cần mua cáp sạc USB-C chính hãng cho iPhone, độ bền có cao không?",
+    "embedding": [],
+    "updatedAt": "2025-11-19T02:50:21.555Z"
+  },
+  {
+    "id": "FORM_24",
+    "type": "Form",
+    "source": "Form (Phụ kiện)",
+    "text": "Loại form: Phụ kiện\nTiêu đề: Cường lực nào tốt nhất cho iPhone 16 Pro Max?\nNội dung: Tôi đang tìm miếng dán cường lực bảo vệ màn hình, loại nào tốt và khó vỡ?",
+    "embedding": [],
+    "updatedAt": "2025-11-19T02:50:21.562Z"
+  },
+  {
+    "id": "FORM_25",
+    "type": "Form",
+    "source": "Form (Phụ kiện)",
+    "text": "Loại form: Phụ kiện\nTiêu đề: Tôi có thể mua sạc 30W cho iPhone 14 ở đây không?\nNội dung: Điện thoại tôi hỗ trợ sạc nhanh, không biết cửa hàng có bán sạc 30W chính hãng không?",
+    "embedding": [],
+    "updatedAt": "2025-11-19T02:50:21.571Z"
+  },
+  {
+    "id": "FORM_26",
+    "type": "Form",
+    "source": "Form (Bảo hành)",
+    "text": "Loại form: Bảo hành\nTiêu đề: iPhone mua tại cửa hàng được bảo hành bao lâu?\nNội dung: Tôi muốn hỏi chính sách bảo hành của iPhone mua tại hệ thống là bao nhiêu tháng?",
+    "embedding": [],
+    "updatedAt": "2025-11-19T02:50:21.579Z"
+  },
+  {
+    "id": "FORM_27",
+    "type": "Form",
+    "source": "Form (Bảo hành)",
+    "text": "Loại form: Bảo hành\nTiêu đề: Bảo hành pin iPhone có bao gồm chai pin không?\nNội dung: Pin iPhone sau một thời gian bị chai liệu có được bảo hành không?",
+    "embedding": [],
+    "updatedAt": "2025-11-19T02:50:21.587Z"
+  },
+  {
+    "id": "FORM_28",
+    "type": "Form",
+    "source": "Form (Bảo hành)",
+    "text": "Loại form: Bảo hành\nTiêu đề: Tôi bị rơi iPhone, có được bảo hành không?\nNội dung: Máy tôi bị rơi vỡ kính sau. Trường hợp này có được hỗ trợ bảo hành không?",
+    "embedding": [],
+    "updatedAt": "2025-11-19T02:50:21.596Z"
+  },
+  {
+    "id": "FORM_29",
+    "type": "Form",
+    "source": "Form (Bảo hành)",
+    "text": "Loại form: Bảo hành\nTiêu đề: Bảo hành có cần giữ hóa đơn không?\nNội dung: Nếu tôi làm mất hóa đơn bán hàng thì có được bảo hành hay không?",
+    "embedding": [],
+    "updatedAt": "2025-11-19T02:50:21.604Z"
+  },
+  {
+    "id": "FORM_30",
+    "type": "Form",
+    "source": "Form (Bảo hành)",
+    "text": "Loại form: Bảo hành\nTiêu đề: iPhone lỗi nguồn có được đổi máy mới không?\nNội dung: Nếu máy bị lỗi nguồn do nhà sản xuất trong thời gian bảo hành thì tôi có được đổi máy mới không?",
+    "embedding": [],
+    "updatedAt": "2025-11-19T02:50:21.615Z"
+  },
+  {
+    "id": "FORM_31",
+    "type": "Form",
+    "source": "Form (Sửa chữa)",
+    "text": "Loại form: Sửa chữa\nTiêu đề: Thay màn hình iPhone 14 giá bao nhiêu?\nNội dung: Màn hình iPhone 14 của tôi bị nứt, không biết chi phí thay thế khoảng bao nhiêu?",
+    "embedding": [],
+    "updatedAt": "2025-11-19T02:50:21.626Z"
+  },
+  {
+    "id": "FORM_32",
+    "type": "Form",
+    "source": "Form (Sửa chữa)",
+    "text": "Loại form: Sửa chữa\nTiêu đề: Sửa Face ID iPhone 15 Pro có đảm bảo không?\nNội dung: Face ID máy tôi bị lỗi, nếu sửa có ảnh hưởng đến khả năng bảo mật không?",
+    "embedding": [],
+    "updatedAt": "2025-11-19T02:50:21.635Z"
+  },
+  {
+    "id": "FORM_33",
+    "type": "Form",
+    "source": "Form (Sửa chữa)",
+    "text": "Loại form: Sửa chữa\nTiêu đề: Thay pin iPhone 16 có mất chống nước không?\nNội dung: Nếu thay pin tại cửa hàng thì máy có còn chống nước như ban đầu không?",
+    "embedding": [],
+    "updatedAt": "2025-11-19T02:50:21.643Z"
+  },
+  {
+    "id": "FORM_34",
+    "type": "Form",
+    "source": "Form (Sửa chữa)",
+    "text": "Loại form: Sửa chữa\nTiêu đề: Loa iPhone 15 nghe bị rè có sửa được không?\nNội dung: Loa trong khi gọi bị rè, không biết đây có phải lỗi phần cứng và chi phí sửa thế nào?",
+    "embedding": [],
+    "updatedAt": "2025-11-19T02:50:21.658Z"
+  },
+  {
+    "id": "FORM_35",
+    "type": "Form",
+    "source": "Form (Sửa chữa)",
+    "text": "Loại form: Sửa chữa\nTiêu đề: Camera iPhone 17 Pro bị mờ sau khi rơi\nNội dung: Camera sau bị mờ như có hơi nước bên trong, trường hợp này có sửa được không?",
+    "embedding": [],
+    "updatedAt": "2025-11-19T02:50:21.666Z"
+  },
+  {
+    "id": "FORM_36",
+    "type": "Form",
+    "source": "Form (Chính sách đổi trả)",
+    "text": "Loại form: Chính sách đổi trả\nTiêu đề: iPhone 14 thu cũ đổi mới được bao nhiêu?\nNội dung: Tôi có iPhone 14 còn tốt, cửa hàng thu lại giá bao nhiêu nếu tôi đổi lên iPhone mới?",
+    "embedding": [],
+    "updatedAt": "2025-11-19T02:50:21.676Z"
+  },
+  {
+    "id": "FORM_37",
+    "type": "Form",
+    "source": "Form (Chính sách đổi trả)",
+    "text": "Loại form: Chính sách đổi trả\nTiêu đề: Thu cũ đổi mới có cần hộp và phụ kiện không?\nNội dung: Điện thoại của tôi không còn hộp và phụ kiện, có được tham gia chương trình thu cũ đổi mới không?",
+    "embedding": [],
+    "updatedAt": "2025-11-19T02:50:21.687Z"
+  },
+  {
+    "id": "FORM_38",
+    "type": "Form",
+    "source": "Form (Chính sách đổi trả)",
+    "text": "Loại form: Chính sách đổi trả\nTiêu đề: Máy bị trầy có được thu cũ không?\nNội dung: iPhone của tôi có vài vết trầy xước nhẹ, trường hợp này có được tham gia thu cũ đổi mới không?",
+    "embedding": [],
+    "updatedAt": "2025-11-19T02:50:21.697Z"
+  },
+  {
+    "id": "FORM_39",
+    "type": "Form",
+    "source": "Form (Chính sách đổi trả)",
+    "text": "Loại form: Chính sách đổi trả\nTiêu đề: Thu cũ đổi mới có áp dụng cho mua trả góp không?\nNội dung: Tôi muốn đổi lên iPhone mới nhưng dùng trả góp, chương trình có hỗ trợ không?",
+    "embedding": [],
+    "updatedAt": "2025-11-19T02:50:21.707Z"
+  },
+  {
+    "id": "FORM_40",
+    "type": "Form",
+    "source": "Form (Chính sách đổi trả)",
+    "text": "Loại form: Chính sách đổi trả\nTiêu đề: Thu cũ đổi mới có cần kiểm tra máy trước không?\nNội dung: Khi mang máy đến đổi thì có phải kiểm tra chất lượng trước khi định giá không?",
+    "embedding": [],
+    "updatedAt": "2025-11-19T02:50:21.718Z"
+  },
+  {
+    "id": "FORM_41",
+    "type": "Form",
+    "source": "Form (Chính sách đổi trả)",
+    "text": "Loại form: Chính sách đổi trả\nTiêu đề: Điện thoại bị lỗi trong 7 ngày có được đổi mới không?\nNội dung: Nếu iPhone tôi mua bị lỗi nhà sản xuất trong 7 ngày thì có được đổi mới 1:1 không?",
+    "embedding": [],
+    "updatedAt": "2025-11-19T02:50:21.731Z"
+  },
+  {
+    "id": "FORM_42",
+    "type": "Form",
+    "source": "Form (Chính sách đổi trả)",
+    "text": "Loại form: Chính sách đổi trả\nTiêu đề: Đổi trả khi không thích sản phẩm có được không?\nNội dung: Tôi mua máy nhưng không còn nhu cầu sử dụng nữa, không biết có thể trả lại không?",
+    "embedding": [],
+    "updatedAt": "2025-11-19T02:50:21.740Z"
+  },
+  {
+    "id": "FORM_43",
+    "type": "Form",
+    "source": "Form (Chính sách đổi trả)",
+    "text": "Loại form: Chính sách đổi trả\nTiêu đề: Đổi trả có cần đầy đủ phụ kiện không?\nNội dung: Tôi làm mất khay sim thì có được đổi trả sản phẩm hay không?",
+    "embedding": [],
+    "updatedAt": "2025-11-19T02:50:21.749Z"
+  },
+  {
+    "id": "FORM_44",
+    "type": "Form",
+    "source": "Form (Chính sách đổi trả)",
+    "text": "Loại form: Chính sách đổi trả\nTiêu đề: Thời gian đổi trả tối đa là bao lâu?\nNội dung: Cửa hàng cho phép đổi trả trong bao nhiêu ngày kể từ khi mua?",
+    "embedding": [],
+    "updatedAt": "2025-11-19T02:50:21.758Z"
+  },
+  {
+    "id": "FORM_45",
+    "type": "Form",
+    "source": "Form (Chính sách đổi trả)",
+    "text": "Loại form: Chính sách đổi trả\nTiêu đề: Hóa đơn điện tử có dùng để đổi trả được không?\nNội dung: Tôi chỉ có hóa đơn điện tử, vậy có hợp lệ để đổi trả không?",
+    "embedding": [],
+    "updatedAt": "2025-11-19T02:50:21.767Z"
+  },
+  {
+    "id": "FORM_46",
+    "type": "Form",
+    "source": "Form (Hỗ trợ thanh toán)",
+    "text": "Loại form: Hỗ trợ thanh toán\nTiêu đề: Cửa hàng hỗ trợ thanh toán bằng thẻ tín dụng không?\nNội dung: Tôi muốn thanh toán bằng thẻ Visa, không biết cửa hàng có hỗ trợ không?",
+    "embedding": [],
+    "updatedAt": "2025-11-19T02:50:21.777Z"
+  },
+  {
+    "id": "FORM_47",
+    "type": "Form",
+    "source": "Form (Hỗ trợ thanh toán)",
+    "text": "Loại form: Hỗ trợ thanh toán\nTiêu đề: Có thể thanh toán trả góp qua ngân hàng nào?\nNội dung: Nếu tôi muốn mua trả góp thì có những ngân hàng nào liên kết?",
+    "embedding": [],
+    "updatedAt": "2025-11-19T02:50:21.786Z"
+  },
+  {
+    "id": "FORM_48",
+    "type": "Form",
+    "source": "Form (Hỗ trợ thanh toán)",
+    "text": "Loại form: Hỗ trợ thanh toán\nTiêu đề: Thanh toán qua ví điện tử có khuyến mãi không?\nNội dung: Nếu tôi thanh toán qua Momo hoặc ZaloPay thì có ưu đãi gì không?",
+    "embedding": [],
+    "updatedAt": "2025-11-19T02:50:21.794Z"
+  },
+  {
+    "id": "FORM_49",
+    "type": "Form",
+    "source": "Form (Hỗ trợ thanh toán)",
+    "text": "Loại form: Hỗ trợ thanh toán\nTiêu đề: Thanh toán khi nhận hàng có được kiểm tra máy trước không?\nNội dung: Khi thanh toán COD, tôi có được mở hộp kiểm tra sản phẩm trước khi trả tiền không?",
+    "embedding": [],
+    "updatedAt": "2025-11-19T02:50:21.804Z"
+  },
+  {
+    "id": "FORM_50",
+    "type": "Form",
+    "source": "Form (Hỗ trợ thanh toán)",
+    "text": "Loại form: Hỗ trợ thanh toán\nTiêu đề: Tôi có thể xuất hóa đơn công ty khi mua iPhone không?\nNội dung: Công ty tôi cần hóa đơn đỏ, không biết cửa hàng có thể xuất hóa đơn VAT không?",
+    "embedding": [],
+    "updatedAt": "2025-11-19T02:50:21.813Z"
+  },
+  {
+    "id": "FORM_51",
+    "type": "Form",
+    "source": "Form (Hỗ trợ đặt hàng)",
+    "text": "Loại form: Hỗ trợ đặt hàng\nTiêu đề: Làm sao để đặt hàng online trên website?\nNội dung: Tôi lần đầu mua online, bạn có thể hướng dẫn tôi cách đặt hàng trên website không?",
+    "embedding": [],
+    "updatedAt": "2025-11-19T02:50:21.821Z"
+  },
+  {
+    "id": "FORM_52",
+    "type": "Form",
+    "source": "Form (Hỗ trợ đặt hàng)",
+    "text": "Loại form: Hỗ trợ đặt hàng\nTiêu đề: Đặt hàng online có cần đặt cọc không?\nNội dung: Nếu tôi đặt hàng iPhone thì có phải thanh toán trước hay đặt cọc gì không?",
+    "embedding": [],
+    "updatedAt": "2025-11-19T02:50:21.828Z"
+  },
+  {
+    "id": "FORM_53",
+    "type": "Form",
+    "source": "Form (Hỗ trợ đặt hàng)",
+    "text": "Loại form: Hỗ trợ đặt hàng\nTiêu đề: Bao lâu thì giao hàng sau khi đặt?\nNội dung: Tôi muốn biết thời gian giao hàng dự kiến sau khi đặt mua iPhone.",
+    "embedding": [],
+    "updatedAt": "2025-11-19T02:50:21.835Z"
+  },
+  {
+    "id": "FORM_54",
+    "type": "Form",
+    "source": "Form (Hỗ trợ đặt hàng)",
+    "text": "Loại form: Hỗ trợ đặt hàng\nTiêu đề: Có thể đặt giữ máy và ra cửa hàng nhận không?\nNội dung: Tôi muốn đặt giữ máy online rồi ra cửa hàng trải nghiệm và thanh toán trực tiếp được chứ?",
+    "embedding": [],
+    "updatedAt": "2025-11-19T02:50:21.846Z"
+  },
+  {
+    "id": "FORM_55",
+    "type": "Form",
+    "source": "Form (Hỗ trợ đặt hàng)",
+    "text": "Loại form: Hỗ trợ đặt hàng\nTiêu đề: Tôi có thể hủy đơn hàng đã đặt không?\nNội dung: Nếu tôi đổi ý sau khi đặt hàng thì có thể hủy đơn không và có mất phí gì không?",
+    "embedding": [],
+    "updatedAt": "2025-11-19T02:50:21.855Z"
+  }
+]
