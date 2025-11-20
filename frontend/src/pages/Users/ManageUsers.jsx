@@ -2,6 +2,7 @@ import { Search, Filter } from "lucide-react"
 import { useState, useEffect } from "react"
 import { useTranslation } from "react-i18next"
 import UserDetail from "./UserDetail"
+import ModernTabs from "../../components/ModernTabs"   
 
 export function ManageUsers() {
   const [activeTab, setActiveTab] = useState("admin")
@@ -18,7 +19,6 @@ export function ManageUsers() {
 
   const { t } = useTranslation()
 
-  
   useEffect(() => {
     const fetchUsers = async () => {
       setLoading(true)
@@ -44,7 +44,7 @@ export function ManageUsers() {
     }
 
     fetchUsers()
-  }, []) 
+  }, [])
 
   const normalize = (str) =>
     (str || "")
@@ -66,7 +66,6 @@ export function ManageUsers() {
       normalize(u.Email).includes(search);
 
     const matchesName = nameFilter ? normalize(u.Fullname).includes(normalize(nameFilter)) : true;
-
     const matchesEmail = emailFilter ? normalize(u.Email).includes(normalize(emailFilter)) : true;
 
     const matchesStatus = activeTab === "agent" && statusFilter 
@@ -98,28 +97,16 @@ export function ManageUsers() {
 
   return (
     <div className="p-6 space-y-6">
-      <div className="flex gap-3 transition-all duration-200">
-        <button
-          onClick={() => setActiveTab("admin")}
-          className={`px-6 py-2 rounded-lg font-medium transition-colors ${activeTab === "admin" ? "bg-indigo-600 text-white" : "bg-gray-300 text-gray-700 hover:bg-gray-400 dark:bg-gray-700 dark:text-gray-200 dark:hover:bg-gray-600"}`}
-        >
-          {t("admin")}
-        </button>
 
-        <button
-          onClick={() => setActiveTab("agent")}
-          className={`px-6 py-2 rounded-lg font-medium transition-colors ${activeTab === "agent" ? "bg-indigo-600 text-white" : "bg-gray-300 text-gray-700 hover:bg-gray-400 dark:bg-gray-700 dark:text-gray-200 dark:hover:bg-gray-600"}`}
-        >
-          {t("agent")}
-        </button>
-        
-        <button
-          onClick={() => setActiveTab("customer")}
-          className={`px-6 py-2 rounded-lg font-medium transition-colors ${activeTab === "customer" ? "bg-indigo-600 text-white" : "bg-gray-300 text-gray-700 hover:bg-gray-400 dark:bg-gray-700 dark:text-gray-200 dark:hover:bg-gray-600"}`}
-        >
-          {t("customer")}
-        </button>
-      </div>
+      <ModernTabs
+        tabs={[
+          { key: "admin", label: t("admin") },
+          { key: "agent", label: t("agent") },
+          { key: "customer", label: t("customer") },
+        ]}
+        initialKey="admin"
+        onChange={(key) => setActiveTab(key)}
+      />
 
       <div className="bg-white dark:bg-gray-900 rounded-xl border border-gray-200 dark:border-gray-700">
         <div className="p-4 flex items-center gap-3">
@@ -155,7 +142,7 @@ export function ManageUsers() {
             ))}
           </select>
 
-          {/* Dropdown lọc theo trạng thái - Chỉ hiển thị khi tab là "agent" */}
+          {/* Dropdown lọc theo trạng thái (Agent only) */}
           {activeTab === "agent" && (
             <select
               value={statusFilter}
@@ -163,15 +150,15 @@ export function ManageUsers() {
               className="px-2 py-1.5 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-800 dark:text-gray-200 text-sm"
             >
               <option value="">{t("filterByStatus")}</option>
-            {[...new Set(users.map((u) => u.AgentStatus))].map((agentStatus, idx) => (
-              <option key={idx} value={agentStatus}>
-                {agentStatus}
-              </option>
-            ))}              
+              {[...new Set(users.map((u) => u.AgentStatus))].map((status, idx) => (
+                <option key={idx} value={status}>
+                  {status}
+                </option>
+              ))}
             </select>
           )}
 
-          {/* Dropdown lọc theo Membership - Chỉ hiển thị khi tab là "customer" */}
+          {/* Dropdown lọc theo Membership (Customer only) */}
           {activeTab === "customer" && (
             <select
               value={membershipFilter}
@@ -179,14 +166,15 @@ export function ManageUsers() {
               className="px-2 py-1.5 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-800 dark:text-gray-200 text-sm"
             >
               <option value="">{t("filterByMembership")}</option>
-              {[...new Set(users.map((u) => u.Membership))].map((membership, idx) => (
-                <option key={idx} value={membership}>
-                  {membership}
+              {[...new Set(users.map((u) => u.Membership))].map((m, idx) => (
+                <option key={idx} value={m}>
+                  {m}
                 </option>
               ))}
             </select>
           )}
 
+          {/* Search bar */}
           <div className="relative flex-1 max-w-md">
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400 dark:text-gray-500" />
             <input
@@ -199,64 +187,54 @@ export function ManageUsers() {
           </div>
         </div>
 
+        {/* Bảng dữ liệu */}
         <div className="overflow-x-auto">
           <table className="w-full">
             <thead className="bg-gray-50 dark:bg-gray-800 border-y border-gray-200 dark:border-gray-700">
-              <tr>
-                <th className="px-4 py-3 text-left">
-                  <input
-                    type="checkbox"
-                    checked={selectedUsers.length === users.length}
-                    onChange={toggleSelectAll}
-                    className="rounded border-gray-300 dark:border-gray-600"
-                  />
-                </th>
-                <th className="px-4 py-3 text-left text-xs font-semibold text-gray-600 dark:text-gray-300 uppercase">
-                  {t("id")}
-                </th>
-                <th className="px-4 py-3 text-left text-xs font-semibold text-gray-600 dark:text-gray-300 uppercase">
-                  {t("name")}
-                </th>
-                <th className="px-4 py-3 text-left text-xs font-semibold text-gray-600 dark:text-gray-300 uppercase">
-                  {t("email")}
-                </th>
-                <th className="px-4 py-3 text-left text-xs font-semibold text-gray-600 dark:text-gray-300 uppercase">
-                  {t("role")}
-                </th>
-                {activeTab === "agent" && (
-                  <th className="px-4 py-3 text-left text-xs font-semibold text-gray-600 dark:text-gray-300 uppercase">
-                    {t("status")}
-                  </th>
-                )}
-                {activeTab === "customer" && (
-                  <th className="px-4 py-3 text-left text-xs font-semibold text-gray-600 dark:text-gray-300 uppercase">
-                    {t("membership")}
-                  </th>
-                )}
-                {activeTab === "admin" && (
-                  <th className="px-4 py-3 text-left text-xs font-semibold text-gray-600 dark:text-gray-300 uppercase">
-                    {t("privilege")}
-                  </th>
-                )}
-              </tr>
+            <tr>
+              <th className="px-4 py-3 text-left">
+                <input
+                  type="checkbox"
+                  checked={selectedUsers.length === users.length}
+                  onChange={toggleSelectAll}
+                  className="rounded border-gray-300 dark:border-gray-600"
+                />
+              </th>
+              <th className="px-4 py-3 text-left text-xs font-semibold text-gray-600 dark:text-gray-300 uppercase">{t("id")}</th>
+              <th className="px-4 py-3 text-left text-xs font-semibold text-gray-600 dark:text-gray-300 uppercase">{t("name")}</th>
+              <th className="px-4 py-3 text-left text-xs font-semibold text-gray-600 dark:text-gray-300 uppercase">{t("email")}</th>
+              <th className="px-4 py-3 text-left text-xs font-semibold text-gray-600 dark:text-gray-300 uppercase">{t("role")}</th>
+
+              {activeTab === "agent" && (
+                <th className="px-4 py-3 text-left text-xs font-semibold text-gray-600 dark:text-gray-300 uppercase">{t("status")}</th>
+              )}
+
+              {activeTab === "customer" && (
+                <th className="px-4 py-3 text-left text-xs font-semibold text-gray-600 dark:text-gray-300 uppercase">{t("membership")}</th>
+              )}
+
+              {activeTab === "admin" && (
+                <th className="px-4 py-3 text-left text-xs font-semibold text-gray-600 dark:text-gray-300 uppercase">{t("privilege")}</th>
+              )}
+            </tr>
             </thead>
+
             <tbody>
               {loading ? (
                 <tr>
-                  <td colSpan="8" className="text-center py-3">
-                    Loading...
-                  </td>
+                  <td colSpan="8" className="text-center py-3">Loading...</td>
                 </tr>
               ) : (
                 filteredUsers.map((user, index) => (
                   <tr
+                    key={user.ID}
                     onClick={() => {
                       setSelectedUser(user)
                       setShowOverlay(true)
                     }}
-                    key={user.ID}
-                    className={`${
-                      selectedUsers.includes(index) ? "bg-indigo-50 dark:bg-indigo-900" : "hover:bg-gray-50 dark:hover:bg-gray-800"
+                    className={`${selectedUsers.includes(index) 
+                      ? "bg-indigo-50 dark:bg-indigo-900" 
+                      : "hover:bg-gray-50 dark:hover:bg-gray-800"
                     }`}
                   >
                     <td className="px-4 py-3">
@@ -275,9 +253,11 @@ export function ManageUsers() {
                     {activeTab === "agent" && (
                       <td className="px-4 py-3 text-sm text-gray-600 dark:text-gray-200">{user.AgentStatus}</td>
                     )}
+
                     {activeTab === "customer" && (
                       <td className="px-4 py-3 text-sm text-gray-600 dark:text-gray-200">{user.Membership}</td>
                     )}
+
                     {activeTab === "admin" && (
                       <td className="px-4 py-3 text-sm text-gray-600 dark:text-gray-200">{user.Privilege}</td>
                     )}
@@ -287,7 +267,9 @@ export function ManageUsers() {
             </tbody>
           </table>
         </div>
+
       </div>
+
       <UserDetail
         open={showOverlay}
         user={selectedUser}
@@ -296,4 +278,3 @@ export function ManageUsers() {
     </div>
   )
 }
-

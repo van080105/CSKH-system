@@ -59,7 +59,6 @@ export function SignIn() {
         setSubmitStatus("success")
         localStorage.setItem("user", JSON.stringify(data.user))
         localStorage.setItem("token", data.token)
-        // console.log(data.token)
         setTimeout(() => {
           if (data.user.role.toLowerCase() === "admin") navigate("/admin/dashboard")
           else if (data.user.role.toLowerCase() === "agent") navigate("/agent/inbox")

@@ -20,7 +20,28 @@ export function AgentSidebar() {
   const { t } = useTranslation()
   const location = useLocation()
   const isHomeActive = location.pathname === "/agent/inbox"
-
+  const handleLogout = async () => {
+    try{
+      const token = localStorage.getItem("token");
+      const res = await fetch("http://localhost:8080/api/auth/logout", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      localStorage.removeItem("token");
+      localStorage.removeItem("user");
+      if(!res.ok){
+        throw new Error("Logout failed:")
+      }
+      navigate("/", {
+        replace: true,
+      });
+    } catch (error) {
+      console.error(error);
+    }
+  }
   return (
     <aside className="w-[220px] h-full border-r border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 flex flex-col">
       <div className="p-6">
@@ -117,6 +138,7 @@ export function AgentSidebar() {
         </NavLink>
 
         <NavLink
+          onClick={handleLogout}
           to="/"
           className={({ isActive }) =>
             `${linkClass} ${isActive ? activeClass : "text-gray-600 dark:text-gray-300"}`

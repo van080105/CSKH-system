@@ -2,16 +2,40 @@
 
 import { MoodSlider } from "../../components/MoodSlider"
 import { StarRating } from "../../components/StarRating"
-import { useState } from "react"
+import { useState, useEffect } from "react"
 
 export function ChatbotFeedback() {
   const [satisfaction, setSatisfaction] = useState(3)
   const [rating, setRating] = useState(0)
 
-  const handleSubmit = (e) => {
-    e.preventDefault()
+  const handleSubmit = async () => {
+    try{
+      const token = localStorage.getItem("token");
+      const res = await fetch("http://localhost:8000/customer/chatbotfb", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" , "Authorization": `Bearer ${token}` },
+        body: JSON.stringify({ rating }),
+      })
+    } catch(error){
+      console.error("Error submitting feedback:", error)
+    }
   }
 
+  const [provinces, setProvinces] = useState([]);
+
+  const fetchProvinces = async () => {
+    try {
+      const res = await fetch("https://provinces.open-api.vn/api/v2/");
+      const data = await res.json();
+      setProvinces(data);
+    } catch (error) {
+      console.error("Lỗi tải danh sách tỉnh/thành:", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchProvinces();
+  }, []);
   return (
     <div className="min-h-screen bg-white dark:bg-gray-900 p-8">
       {/* Breadcrumb */}
@@ -80,13 +104,19 @@ export function ChatbotFeedback() {
 
             {/* Address */}
             <div>
-              <label className="block text-sm font-semibold text-gray-900 dark:text-gray-100 mb-2">Địa chỉ</label>
-              <input
-                type="text"
-                placeholder="Khu 1, phường 2, TP.HCM"
-                className="w-full border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 px-4 py-3 focus:border-blue-500 focus:outline-none"
-              />
+              <label className="block text-sm font-semibold mb-2">Tỉnh / Thành phố</label>
+              <select
+                className="w-full border border-gray-300 dark:border-gray-700 px-4 py-3 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:border-blue-500 focus:outline-none"
+              >
+                <option value="">-- Chọn tỉnh/thành --</option>
+                {provinces.map((p) => (
+                  <option key={p.code} value={p.name}>
+                    {p.name}
+                  </option>
+                ))}
+              </select>
             </div>
+
           </div>
         </div>
 

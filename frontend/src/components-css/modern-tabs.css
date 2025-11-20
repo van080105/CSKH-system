@@ -1,0 +1,21 @@
+/* Slide underline animation */
+@keyframes slideX {
+  0% { transform: translateX(-50%) scaleX(0.5); opacity: 0.3; }
+  50% { transform: translateX(-50%) scaleX(1.2); opacity: 1; }
+  100% { transform: translateX(-50%) scaleX(1); opacity: 1; }
+}
+
+.animate-slideX {
+  animation: slideX 0.4s ease-out forwards;
+}
+
+/* Gradient text animation */
+@keyframes gradient-x {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+.animate-gradient-x {
+  background-size: 200% 200%;
+  animation: gradient-x 3s ease infinite;
+}

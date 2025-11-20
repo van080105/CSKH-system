@@ -1,6 +1,6 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { useState, useEffect } from "react";
-import ToastOverlay from "../../components/ToastOverlay";
+import ToastOverlay from "../../components/Overlay/ToastOverlay";
 
 export default function DeleteConfirm({ open, onClose, user }) {
   if (!open || !user) return null;

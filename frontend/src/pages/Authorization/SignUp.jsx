@@ -4,7 +4,7 @@ import { useState, useEffect } from "react"
 import { useNavigate } from "react-router-dom"
 import { Eye, EyeOff, Check, AlertCircle } from "lucide-react"
 import { motion, AnimatePresence } from "framer-motion"
-import ToastOverlay from "../../components/ToastOverlay"
+import ToastOverlay from "../../components/Overlay/ToastOverlay"
 
 export function SignUp() {
   const navigate = useNavigate()

@@ -143,7 +143,6 @@ export function ManageTickets() {
   const [page, setPage] = useState(1)
   const [selectedTicket, setSelectedTicket] = useState(null)
   const { t } = useTranslation()
-
   // --- Filtering & Searching ---
   const filteredTickets = useMemo(() => {
     const normalize = (str) =>

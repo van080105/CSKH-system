@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import FloatingInput from "../../components/FloatingInput";
-import FloatingSelect from "../../components/FloatingSelect";
+import FloatingInput from "../../components/Form/FloatingInput";
+import FloatingSelect from "../../components/Form/FloatingSelect";
 import DeleteConfirm from "./DeleteConfirm";
 
 export default function UserDetail({ open, user, onClose }) {

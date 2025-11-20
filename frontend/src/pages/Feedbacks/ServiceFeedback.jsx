@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { Paperclip, Smile, Link2, AtSign, Hash } from "lucide-react"
 import { MoodSlider } from "../../components/MoodSlider"
 import { StarRating } from "../../components/StarRating"
@@ -11,9 +11,36 @@ export function ServiceFeedback({ showCustomerInfo = true}) {
   const [feedback, setFeedback] = useState("")
   const [ticketId, setTicketId] = useState("")
 
-  const handleSubmit = (e) => {
-    e.preventDefault()
+  const handleSubmit = async (formId) => {
+    try{
+      const token = localStorage.getItem("token");
+      const customerID = JSON.parse(localStorage.getItem("user")).id
+      const res = await fetch(`http://localhost:8000/customer/feedbackform/${formId}`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" , "Authorization": `Bearer ${token}` },
+        body: JSON.stringify({ feedback, rating }),
+        query: JSON.stringify({ customerID, formId })
+      })
+    } catch(error){
+      console.error("Error submitting feedback:", error)
+    }
   }
+
+  const [provinces, setProvinces] = useState([]);
+
+  const fetchProvinces = async () => {
+    try {
+      const res = await fetch("https://provinces.open-api.vn/api/v2/");
+      const data = await res.json();
+      setProvinces(data);
+    } catch (error) {
+      console.error("Lỗi tải danh sách tỉnh/thành:", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchProvinces();
+  }, []);
 
   return (
     <div className="min-h-screen bg-white dark:bg-gray-900 p-8 text-gray-900 dark:text-gray-100">
@@ -83,12 +110,17 @@ export function ServiceFeedback({ showCustomerInfo = true}) {
 
             {/* Address */}
             <div>
-              <label className="block text-sm font-semibold mb-2">Địa chỉ</label>
-              <input
-                type="text"
-                placeholder="Khu 1, phường 2, TP.HCM"
+              <label className="block text-sm font-semibold mb-2">Tỉnh / Thành phố</label>
+              <select
                 className="w-full border border-gray-300 dark:border-gray-700 px-4 py-3 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:border-blue-500 focus:outline-none"
-              />
+              >
+                <option value="">-- Chọn tỉnh/thành --</option>
+                {provinces.map((p) => (
+                  <option key={p.code} value={p.name}>
+                    {p.name}
+                  </option>
+                ))}
+              </select>
             </div>
 
             {/* Ticket ID */}

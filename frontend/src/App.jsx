@@ -33,8 +33,7 @@ import { ChangePassword } from "./pages/Authorization/ChangePassword"
 
 import { ChatbotFeedback } from "./pages/Feedbacks/ChatbotFeedback"
 import { ServiceFeedback } from "./pages/Feedbacks/ServiceFeedback"
-import ManageFeedbackForm from "./pages/Feedbacks/ManageFeedbacks/ManageServiceFeedbacks";
-// import ManageChatbotFeedbacks from "./pages/Feedbacks/ManageFeedbacks/ManageChatbotFeedbacks";
+import ManageFeedbacks from "./pages/Feedbacks/ManageFeedbacks";
 
 import Contact from "./pages/Feedbacks/Contact"
 
@@ -79,7 +78,7 @@ function App() {
           <Route path="dashboard" element={<Dashboard />} />
           <Route path="users" element={<ManageUsers />} />
           <Route path="tickets" element={<ManageTickets />} />
-          <Route path="manage-service-feedback" element={<ManageFeedbackForm />} />
+          <Route path="manage-service-feedback" element={<ManageFeedbacks />} />
           <Route path="profile" element={<Profile />} />
           <Route path="faq" element={<FAQ />} />
           <Route path="report" element={<ReportForm />} />

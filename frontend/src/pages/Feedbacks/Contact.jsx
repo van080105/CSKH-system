@@ -2,25 +2,130 @@
 
 import { useState, useEffect } from "react"
 import { motion, AnimatePresence } from "framer-motion"
-import { Loader2, CheckCircle, Mail, Sparkles } from "lucide-react"
-import { Smartphone, ShoppingBag, CreditCard, ShieldCheck, Headphones, MessageSquare } from "lucide-react"
-import Particles from "react-tsparticles"
-import { loadFull } from "tsparticles"
+import { Loader2, CheckCircle, Mail, Sparkles} from "lucide-react"
+
+import Particles from "react-tsparticles";
+import { loadFull } from "tsparticles";
+
 import { useTranslation } from "react-i18next"
+import CategoryDropdown from "../../components/CategoryDropdown"
+import { buildTree, getChildrenByPath } from "../../utils/workWithTree"
+import playSound from "../../utils/playSound"
 
 export default function Contact() {
-  const { t } = useTranslation() // 🔑 Hook dịch
+  const { t } = useTranslation()
+  const user = JSON.parse(localStorage.getItem("user"))
+  const userRole = user?.role || "guest"
   const [formData, setFormData] = useState({
-    fullName: "",
-    email: "",
+    fullName: userRole === "Customer" ? user.fullname : "", 
+    email: userRole === "Customer" ? user.email : "",
+    province: "",
     title: "",
     category: "",
     message: "",
-  })
+  });
+
+  const [errors, setErrors] = useState({
+    title: "",
+    message: "",
+    category: "",
+  });
+
+  const validateForm = () => {
+    const newErrors = {};
+
+    if (!formData.title || formData.title.trim().length < 3) {
+      newErrors.title = "Tiêu đề không được để trống hoặc ít hơn 3 kí tự"; 
+    }
+
+    if (!formData.message || formData.message.trim().length < 5) {
+      newErrors.message = "Nội dung không được để trống hoặc ít hơn 5 kí tự";
+    }
+
+    if (!formData.category) {
+      newErrors.category = "Vui lòng chọn danh mục";
+    }
+
+    setErrors(newErrors);
+
+    // Nếu object errors rỗng → form hợp lệ
+    return Object.keys(newErrors).length === 0;
+};
+
+  const [categoriesAPI, setCategoriesAPI] = useState([]);
+  const [categoryPath, setCategoryPath] = useState([]); 
+
+  const guestCreateForm = async () => {
+    try{
+      const res = await fetch("http://localhost:8080/guest/make_form", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          title : formData.title,
+          content : formData.message,
+          type : formData.category
+        }),
+      })
+      if (!res.ok) {
+        console.log("Cannot create form", res.statusText)
+      }
+    }
+    catch(err){
+      console.error("Error when guest create form:",err)
+    }
+  }
+
+  const customerCreateForm = async () => {
+    try{
+      const token = localStorage.getItem("token")
+      const res = await fetch(`http://localhost:8080/customer/make_form/${user.id}`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json,", "Authorization": `Bearer ${token}` },
+        body: JSON.stringify({
+          title : formData.title,
+          content : formData.message,
+          type : formData.category
+        }),
+      })
+      if (!res.ok) throw new Error(res.statusText)
+    }
+    catch(err){
+      console.error("Error when customer create form:",err)
+    }
+  }
+
+  const fetchClassifyTables = async () => {
+    try {
+      const res = await fetch("http://localhost:8080/class_Tb");
+      const data = await res.json();
+      const tree = buildTree(data); // <--- tạo cây đa cấp
+      
+      setCategoriesAPI(tree);
+    } catch (err) {
+      console.error("Error:", err);
+    }
+  };
+
+
   const [status, setStatus] = useState("idle")
   const [hint, setHint] = useState("")
+  const [provinces, setProvinces] = useState([]);
 
-  // --- SMART HINT SYSTEM ---
+  const fetchProvinces = async () => {
+    try {
+      const res = await fetch("https://provinces.open-api.vn/api/v2/");
+      const data = await res.json();
+      setProvinces(data);
+    } catch (error) {
+      console.error("Lỗi tải danh sách tỉnh/thành:", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchProvinces();
+    fetchClassifyTables();
+  }, []);
+
   useEffect(() => {
     const { message } = formData
     if (!message) return setHint("")
@@ -33,42 +138,8 @@ export default function Contact() {
     else setHint("")
   }, [formData.message, t])
 
-  // --- PARTICLES SETUP ---
   const particlesInit = async (main) => {
     await loadFull(main)
-  }
-
-  // --- SOUND FEEDBACK ---
-  const playSound = (success = true) => {
-    const ctx = new (window.AudioContext || window.webkitAudioContext)()
-    const now = ctx.currentTime
-
-    const osc1 = ctx.createOscillator()
-    const osc2 = ctx.createOscillator()
-    const gain = ctx.createGain()
-
-    osc1.connect(gain)
-    osc2.connect(gain)
-    gain.connect(ctx.destination)
-
-    if (success) {
-      osc1.frequency.setValueAtTime(660, now)
-      osc2.frequency.setValueAtTime(880, now + 0.05)
-    } else {
-      osc1.frequency.setValueAtTime(180, now)
-      osc2.frequency.setValueAtTime(160, now + 0.05)
-    }
-
-    gain.gain.setValueAtTime(0.15, now)
-    gain.gain.exponentialRampToValueAtTime(0.001, now + 0.6)
-
-    osc1.type = "sine"
-    osc2.type = "triangle"
-
-    osc1.start(now)
-    osc2.start(now + 0.05)
-    osc1.stop(now + 0.6)
-    osc2.stop(now + 0.6)
   }
 
   const handleChange = (e) => {
@@ -79,31 +150,33 @@ export default function Contact() {
   const handleSubmit = async (e) => {
     e.preventDefault()
     setStatus("sending")
+
+    if (!validateForm()) {
+      setStatus("idle")
+      return;
+    }
+
     try {
-      await new Promise((res) => setTimeout(res, 1500))
+      if(userRole === "customer"){
+        await customerCreateForm()
+      }
+      else{
+        await guestCreateForm()
+      }
       playSound(true)
       setStatus("success")
       setFormData({ fullName: "", email: "", title: "", message: "" })
+      setErrors({});
     } catch {
       playSound(false)
-      setStatus("error")
+      setStatus("idle")
     }
   }
 
   const resetForm = () => setStatus("idle")
 
-  const categories = [
-    { id: "general", icon: Smartphone, label: t("categories.general") },
-    { id: "order", icon: ShoppingBag, label: t("categories.order") },
-    { id: "payment", icon: CreditCard, label: t("categories.payment") },
-    { id: "warranty", icon: ShieldCheck, label: t("categories.warranty") },
-    { id: "support", icon: Headphones, label: t("categories.support") },
-    { id: "feedback", icon: MessageSquare, label: t("categories.feedback") },
-  ]
-
   return (
-    <div className="relative min-h-screen flex items-center justify-center bg-gradient-to-br from-indigo-50 via-white to-purple-50 dark:from-gray-900 dark:via-gray-950 dark:to-black overflow-hidden px-6 py-16">
-      {/* 🌌 Animated Star Particles Background */}
+    <div className="relative min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 via-white to-cyan-50 dark:from-gray-900 dark:via-gray-950 dark:to-black overflow-hidden px-6 py-16">
       <Particles
         id="tsparticles"
         init={particlesInit}
@@ -131,14 +204,12 @@ export default function Contact() {
         className="absolute inset-0 z-0"
       />
 
-      {/* 🌈 Background Glow */}
       <motion.div
-        className="absolute w-[700px] h-[700px] bg-gradient-to-r from-indigo-400/20 to-purple-500/20 rounded-full blur-3xl"
+        className="absolute w-[700px] h-[700px] bg-gradient-to-r from-blue-400/20 to-cyan-500/20 rounded-full blur-3xl"
         animate={{ rotate: 360 }}
         transition={{ repeat: Infinity, duration: 35, ease: "linear" }}
       />
 
-      {/* 🪄 Main Form Card */}
       <motion.div
         initial={{ opacity: 0, y: 30, scale: 0.98 }}
         animate={{ opacity: 1, y: 0, scale: 1 }}
@@ -164,7 +235,6 @@ export default function Contact() {
           </p>
         </div>
 
-        {/* 🎭 Dynamic Form / Success States */}
         <AnimatePresence mode="wait">
           {status === "success" ? (
             <motion.div
@@ -186,7 +256,7 @@ export default function Contact() {
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
                 onClick={resetForm}
-                className="px-5 py-2.5 rounded-lg text-sm font-medium text-white bg-gradient-to-r from-indigo-500 to-purple-600 hover:opacity-90 transition"
+                className="px-5 py-2.5 rounded-lg text-sm font-medium text-white bg-gradient-to-r from-blue-500 to-cyan-600 hover:opacity-90 transition"
               >
                 {t("send_another")}
               </motion.button>
@@ -215,6 +285,12 @@ export default function Contact() {
                   placeholder: "you@example.com",
                 },
                 {
+                  label: t("address"),
+                  name: "province",
+                  type: "select",        
+                  options: provinces, 
+                },                
+                {
                   label: t("subject"),
                   name: "title",
                   type: "text",
@@ -230,15 +306,37 @@ export default function Contact() {
                   <label className="block text-sm font-medium text-gray-600 dark:text-gray-400 mb-1">
                     {f.label}
                   </label>
-                  <input
-                    type={f.type}
-                    name={f.name}
-                    value={formData[f.name]}
-                    onChange={handleChange}
-                    placeholder={f.placeholder}
-                    required
-                    className="w-full rounded-xl border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 px-4 py-2.5 text-sm focus:ring-2 focus:ring-indigo-500 focus:outline-none transition-all duration-300 hover:shadow-[0_0_0_2px_rgba(99,102,241,0.1)]"
-                  />
+
+                  {f.type === "select" ? (
+                    <select
+                      name={f.name}
+                      value={formData[f.name]}
+                      onChange={handleChange}
+                      className="w-full rounded-xl border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 px-4 py-2.5 text-sm focus:ring-2 focus:ring-indigo-500 focus:outline-none transition-all"
+                    >
+                      <option disabled>{">--- Chọn Tỉnh/Thành ---<"}</option>
+                      {f.options.map((p) => (
+                        <option key={p.code} value={p.name} className="text-gray-600 dark:text-gray-400">
+                          {p.name}
+                        </option>
+                      ))}
+                    </select>
+                  ) : (
+                    <input
+                      type={f.type}
+                      name={f.name}
+                      value={formData[f.name]}
+                      onChange={handleChange}
+                      placeholder={f.placeholder}
+                      required
+                      readOnly={(userRole === "Customer" && f.name !== "title")}
+                      className="w-full rounded-xl border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 px-4 py-2.5 text-sm focus:ring-2 focus:ring-indigo-500 focus:outline-none transition-all"
+                    />
+                  )}
+
+                  {errors[f.name] && (
+                    <p className="mt-1 text-sm text-red-500">{errors[f.name]}</p>
+                  )}                  
                 </motion.div>
               ))}
 
@@ -248,34 +346,39 @@ export default function Contact() {
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: 0.25 }}
               >
-                <label className="block text-sm font-medium text-gray-600 dark:text-gray-400 mb-2">
+                <label className="block text-sm font-medium text-gray-600 dark:text-gray-400 mb-2 justify-center">
                   {t("category")}
                 </label>
 
-                <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
-                  {categories.map(({ id, icon: Icon, label }) => (
-                    <motion.button
-                      key={id}
-                      type="button"
-                      onClick={() => setFormData((prev) => ({ ...prev, category: id }))}
-                      whileHover={{ scale: 1.05 }}
-                      whileTap={{ scale: 0.97 }}
-                      className={`flex flex-col items-center justify-center p-4 rounded-xl border transition-all text-sm font-medium
-                        ${
-                          formData.category === id
-                            ? "bg-gradient-to-r from-indigo-500 to-purple-600 text-white border-transparent shadow-lg shadow-indigo-500/20 animate-shimmer"
-                            : "bg-white dark:bg-gray-800 border-gray-300 dark:border-gray-700 text-gray-700 dark:text-gray-300 hover:border-indigo-400 dark:hover:border-indigo-500 animate-shimmer"
-                        }`}
-                    >
-                      <Icon
-                        className={`w-6 h-6 mb-2 ${
-                          formData.category === id ? "text-white" : "text-indigo-500 dark:text-indigo-400"
-                        }`}
+                <div className="space-y-4">
+                  {/* Dropdown cấp 1 */}
+                  <CategoryDropdown
+                    level={0}
+                    options={getChildrenByPath(categoriesAPI)}
+                    path={categoryPath}
+                    setPath={setCategoryPath}
+                    setFormData={setFormData}
+                  />
+                  {errors.category && (
+                    <p className="mt-1 text-sm text-red-500">{errors.category}</p>
+                  )}
+
+                  {/* Dropdown cấp 2, 3, 4... hiển thị theo path đã chọn */}
+                  {categoryPath.map((_, level) => {
+                    const children = getChildrenByPath(categoriesAPI, categoryPath.slice(0, level + 1));
+                    return children.length > 0 ? (
+                      <CategoryDropdown
+                        key={level + 1}
+                        level={level + 1}
+                        options={children}
+                        path={categoryPath}
+                        setPath={setCategoryPath}
+                        setFormData={setFormData}
                       />
-                      <span>{label}</span>
-                    </motion.button>
-                  ))}
+                    ) : null;
+                  })}
                 </div>
+
               </motion.div>
 
               {/* Nội dung */}
@@ -308,6 +411,10 @@ export default function Contact() {
                     {hint}
                   </motion.div>
                 )}
+
+                {errors.message && (
+                  <p className="mt-1 text-sm text-red-500">{errors.message}</p>
+                )}               
               </motion.div>
 
               {/* Buttons */}
@@ -318,7 +425,12 @@ export default function Contact() {
                   whileTap={{ scale: 0.97 }}
                   disabled={status === "sending"}
                   onClick={() =>
-                    setFormData({ fullName: "", email: "", title: "", message: "" })
+                    setFormData({ 
+                      fullName: (userRole === "Customer" ? user.fullname : ""), 
+                      email: userRole === "Customer" ? user.email : "", 
+                      title: "", 
+                      message: "" 
+                    })
                   }
                   className="px-4 py-2 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 transition"
                 >
@@ -329,7 +441,7 @@ export default function Contact() {
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.97 }}
                   disabled={status === "sending"}
-                  className="flex items-center justify-center gap-2 px-5 py-2.5 rounded-lg text-sm font-medium text-white bg-gradient-to-r from-indigo-500 to-purple-600 hover:opacity-90 transition disabled:opacity-70"
+                  className="flex items-center justify-center gap-2 px-5 py-2.5 rounded-lg text-sm font-medium text-white bg-gradient-to-r from-blue-500 to-cyan-600 hover:opacity-90 transition disabled:opacity-70"
                 >
                   {status === "sending" ? (
                     <>

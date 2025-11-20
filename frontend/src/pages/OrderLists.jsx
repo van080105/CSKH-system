@@ -125,6 +125,7 @@ export function OrderLists() {
           <thead className="bg-gray-50 dark:bg-gray-800 text-gray-700 dark:text-gray-200">
             <tr>
               <th className="px-4 py-3 text-left text-xs font-semibold border-b border-gray-300 dark:border-gray-700">Mã Đơn</th>
+              <th className="px-4 py-3 text-left text-xs font-semibold border-b border-gray-300 dark:border-gray-700">Tên sản phẩm</th>
               <th className="px-4 py-3 text-left text-xs font-semibold border-b border-gray-300 dark:border-gray-700">Địa chỉ giao</th>
               <th className="px-4 py-3 text-left text-xs font-semibold border-b border-gray-300 dark:border-gray-700">Ngày đặt</th>
               <th className="px-4 py-3 text-left text-xs font-semibold border-b border-gray-300 dark:border-gray-700">Trạng thái</th>
@@ -139,6 +140,7 @@ export function OrderLists() {
                 onClick={() => handleOrderClick(order)}
               >
                 <td className="px-4 py-3 border-b border-gray-300 dark:border-gray-700">{order.OrderID}</td>
+                <td className="px-4 py-3 border-b border-gray-300 dark:border-gray-700">{order.ProductName}</td>
                 <td className="px-4 py-3 border-b border-gray-300 dark:border-gray-700 max-w-xs truncate">{order.DeliveryAddress}</td>
                 <td className="px-4 py-3 border-b border-gray-300 dark:border-gray-700">{new Date(order.OrderDate).toLocaleString()}</td>
                 <td className="px-4 py-3 border-b border-gray-300 dark:border-gray-700">
@@ -148,6 +150,7 @@ export function OrderLists() {
                     {order.Stt}
                   </span>
                 </td>
+
               </tr>
             ))}
           </tbody>
@@ -181,34 +184,14 @@ export function OrderLists() {
         </div>
       </div>
 
-      {/* Modal Order Detail */}
-      {showOrderDetail && (
-        <div className={`fixed inset-0 z-50 bg-black/50 flex items-center justify-center`}>
-          <div
-            className={`bg-white dark:bg-gray-900 rounded-xl p-6 w-full max-w-lg shadow-xl relative text-gray-800 dark:text-gray-200 transition-all duration-300 ${isDetailAnimating ? "opacity-100" : "opacity-0"}`}
-          >
-            <button
-              onClick={handleCloseOrderDetail}
-              className="absolute right-3 top-3 p-2 hover:bg-gray-200 dark:hover:bg-gray-700 rounded-lg"
-            >
-              <X className="w-5 h-5 text-gray-700 dark:text-gray-300" />
-            </button>
+    {/* Modal Order Detail */}
+      <OrderDetail 
+        selectedOrder={selectedOrder} 
+        showOrderDetail={showOrderDetail} 
+        isDetailAnimating={isDetailAnimating} 
+        handleCloseOrderDetail={handleCloseOrderDetail} 
+      />
 
-            <h2 className="text-xl font-semibold mb-4">Chi tiết Đơn Hàng</h2>
-
-            {/* Show order detail here */}
-            {selectedOrder && (
-              <div>
-                <p><strong>Mã Đơn:</strong> {selectedOrder.OrderID}</p>
-                <p><strong>Địa chỉ giao:</strong> {selectedOrder.DeliveryAddress}</p>
-                <p><strong>Ngày đặt:</strong> {new Date(selectedOrder.OrderDate).toLocaleString()}</p>
-                <p><strong>Trạng thái:</strong> {selectedOrder.Stt}</p>
-                {/* Add more order details here */}
-              </div>
-            )}
-          </div>
-        </div>
-      )}
     </div>
   )
 }

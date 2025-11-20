@@ -1,6 +1,9 @@
 import { useState, useEffect, useMemo } from "react";
 import { Search, Filter, ChevronLeft, ChevronRight, X } from "lucide-react";
 import { useTranslation } from "react-i18next";
+import GlassmorphismModal from "../../components/Modal/GlassMorphismModal";
+import FloatingInput from "../../components/Form/FloatingInput"; 
+import normalize from "../../utils/normalize";
 
 export function CustomerTickets() {
   const [ticketsData, setTicketsData] = useState([]);
@@ -27,12 +30,12 @@ export function CustomerTickets() {
         throw new Error("Failed to fetch tickets data");
       }
       const data = await response.json();
-      console.log(data);
       setTicketsData(data);
     } catch (error) {
       console.error("Error fetching tickets:", error);
     }
   };
+
   // Fetch dữ liệu API
   useEffect(() => {
     fetchTicketsData();
@@ -40,12 +43,6 @@ export function CustomerTickets() {
 
   // --- Filtering & Searching ---
   const filteredTickets = useMemo(() => {
-    const normalize = (str) =>
-      (str || "")
-        .toLowerCase()
-        .normalize("NFD")
-        .replace(/[\u0300-\u036f]/g, "") // loại bỏ dấu
-        .trim();
 
     const search = normalize(searchTerm);
 
@@ -244,27 +241,54 @@ export function CustomerTickets() {
             <option value={20}>20</option>
           </select>
 
+          {/* Modal */}
           {isOverlayVisible && selectedTicket && (
-            <div className="fixed inset-0 flex justify-center items-center z-50 backdrop-blur-sm">
-              <div className="bg-white dark:bg-gray-800 p-6 rounded-lg max-w-lg w-full">
+            <GlassmorphismModal onClose={() => setIsOverlayVisible(false)}>
+              <div className="space-y-4">
+
                 <div className="flex justify-between items-center mb-4">
-                  <h3 className="text-xl font-semibold text-gray-900 dark:text-white">{selectedTicket.Title}</h3>
-                  <button
-                    onClick={() => setIsOverlayVisible(false)}
-                    className="text-gray-500 dark:text-gray-400"
-                  >
-                    <X className="h-5 w-5" />
+                  <h3 className="text-2xl font-semibold text-white">
+                    {selectedTicket.Title}
+                  </h3>
+                  <button onClick={() => setIsOverlayVisible(false)} className="text-white">
+                    <X className="h-6 w-6" />
                   </button>
                 </div>
-                <div className="text-gray-600 dark:text-white">
-                  <p><strong>{t("formID")}:</strong> {selectedTicket.FormID[0]}</p>
-                  <p><strong>{t("status")}:</strong> {selectedTicket.Stt}</p>
-                  <p><strong>{t("sentDate")}:</strong> {new Date(selectedTicket.SentDate).toLocaleDateString()}</p>
-                  <p><strong>{t("content")}:</strong> {selectedTicket.Content}</p>
+
+                <div className="grid grid-cols-2 gap-4">
+                  {/* Left Column */}
+                  <div>
+                    <FloatingInput label="Form ID" value={selectedTicket.FormID[0]} readOnly />
+                    <FloatingInput label="Status" value={selectedTicket.Stt} readOnly />
+                  </div>
+
+                  {/* Right Column */}
+                  <div>
+                    <FloatingInput
+                      label="Sent Date"
+                      value={new Date(selectedTicket.SentDate).toLocaleDateString()}
+                      readOnly
+                    />
+                    <div className="relative pt-5">
+                      <textarea
+                        value={selectedTicket.Content}
+                        readOnly
+                        rows={6}
+                        className="w-full px-4 py-3 rounded-xl backdrop-blur peer outline-none transition-all bg-white/20 border border-white/40 text-white/40 cursor-not-allowed focus:border-blue-400 focus:ring-2 focus:ring-blue-500/40 resize-none"
+                      />
+                      <label
+                        className="absolute left-4 top-0 text-sm transition-all pointer-events-none text-white/40 peer-placeholder-shown:top-4 peer-placeholder-shown:text-base peer-focus:top-0 peer-focus:text-sm"
+                      >
+                        Content
+                      </label>
+                    </div>
+                  </div>
                 </div>
+
               </div>
-            </div>
+            </GlassmorphismModal>
           )}
+        
         </div>
       </div>
     </div>
