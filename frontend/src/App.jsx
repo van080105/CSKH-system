@@ -17,7 +17,7 @@ import { ManageUsers } from "./pages/Users/ManageUsers";
 import { ManageCustomers } from "./pages/Users/ManageCustomers";
 import { ReportForm } from "./pages/Statistics/ReportForm";
 
-import { ManageTickets } from "./pages/Tickets/ManageTickets";
+import { ManageForms } from "./pages/Tickets/ManageForms";
 import { AgentTickets } from "./pages/Tickets/AgentTickets";
 import { CustomerTickets } from "./pages/Tickets/CustomerTickets";
 
@@ -77,7 +77,7 @@ function App() {
           {/* Các trang của admin */}
           <Route path="dashboard" element={<Dashboard />} />
           <Route path="users" element={<ManageUsers />} />
-          <Route path="tickets" element={<ManageTickets />} />
+          <Route path="tickets" element={<ManageForms />} />
           <Route path="manage-service-feedback" element={<ManageFeedbacks />} />
           <Route path="profile" element={<Profile />} />
           <Route path="faq" element={<FAQ />} />

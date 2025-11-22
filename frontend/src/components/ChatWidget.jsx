@@ -5,6 +5,7 @@ import { X, Send, Smile, ImageIcon, MessageCircle, Paperclip } from "lucide-reac
 import EmojiPicker from "emoji-picker-react"
 import { useTranslation } from "react-i18next"
 import { ChatbotFeedback } from "../pages/Feedbacks/ChatbotFeedback"
+import formatTime from "../utils/formatTime"
 
 export function ChatWidget() {
   const [isOpen, setIsOpen] = useState(false)
@@ -20,19 +21,50 @@ export function ChatWidget() {
   const [showFeedback, setShowFeedback] = useState(false)
 
   const cursorPositionRef = useRef(0)
-
+  const [messages, setMessages] = useState([]);
+  const [isTyping, setIsTyping] = useState(false);
+  const messagesEndRef = useRef(null);
   const handleImageClick = () => fileInputRef.current?.click()
   const handleAttachClick = () => attachInputRef.current?.click()
 
   const handleFileChange = (e) => {
-    const file = e.target.files[0]
-    if (file) console.log("File selected:", file)
-  }
+    const file = e.target.files[0];
+    if (!file) return;
+
+    // Tạo URL tạm thời để hiển thị ảnh
+    const imageUrl = URL.createObjectURL(file);
+
+    const imageMessage = {
+      sender: "user",
+      type: "image",
+      file: file,
+      url: imageUrl,
+      time: new Date(),
+    };
+
+    setMessages(prev => [...prev, imageMessage]);
+
+    // Reset input
+    e.target.value = null;
+  };
 
   const handleAttachChange = (e) => {
-    const files = Array.from(e.target.files)
-    console.log("Files attached:", files)
-  }
+    const files = Array.from(e.target.files);
+    if (files.length === 0) return;
+
+    const fileMessages = files.map(file => ({
+      sender: "user",
+      type: "file",
+      file: file,
+      name: file.name,
+      time: new Date(),
+    }));
+
+    setMessages(prev => [...prev, ...fileMessages]);
+
+    // Reset input
+    e.target.value = null;
+  };
 
   const handleEmojiClick = (emojiData) => {
     const emoji = emojiData.emoji
@@ -45,6 +77,12 @@ export function ChatWidget() {
       inputRef.current.focus()
       inputRef.current.setSelectionRange(cursorPos + emoji.length, cursorPos + emoji.length)
     }, 0)
+  }
+  const handleKeyDown = (e) => {
+    if (e.key === "Enter" && !e.shiftKey) {
+      e.preventDefault()
+      handleSendMessage()
+    }
   }
 
   const handleInputChange = (e) => {
@@ -83,28 +121,83 @@ export function ChatWidget() {
   }, [showFeedback])
 
   const handleSendMessage = async () => {
-    if (!message.trim()) return
+    if (!message.trim()) return;
 
-    const userMessage = message
-    setMessage("") // reset input
-    // Hiển thị tin nhắn người dùng
-    // (thêm vào list message của bạn)
-    
-    try{
-      const res = await fetch("/api/chat", {
+    const userMessage = {
+      sender: "user",
+      text: message,
+      time: new Date(),
+    };
+
+    // thêm tin nhắn user vào danh sách
+    setMessages(prev => [...prev, userMessage]);
+    setMessage("");
+
+    // bật trạng thái "AI đang gõ"
+    setIsTyping(true);
+
+    try {
+      const res = await fetch("http://localhost:8080/api/chat", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ message: userMessage }),
-      })
-      if(!res.ok) throw new Error(res.statusText)
-      const data = await res.json()
-      // Hiển thị phản hồi AI
-      console.log("AI:", data.reply)
+        body: JSON.stringify({ message: userMessage.text }),
+      });
+
+      const data = await res.json();
+
+      const aiMessage = {
+        sender: "ai",
+        text: data.answer,
+        time: new Date(),
+      };
+
+      // thêm tin nhắn AI vào danh sách
+      setMessages(prev => [...prev, aiMessage]);
+
+      if (data.needHuman) {
+        if (data.agent) {
+          setMessages(prev => [
+            ...prev,
+            {
+              sender: "ai",
+              type: "agent",
+              agent: data.agent,
+              time: new Date(),
+            }
+          ]);
+        } else {
+          setMessages(prev => [
+            ...prev,
+            {
+              sender: "ai",
+              type: "no-agent",
+              time: new Date(),
+            }
+          ]);
+        }
+      }
+
+    } catch (err) {
+      console.error(err);
+    } finally {
+      setIsTyping(false);
     }
-    catch(err){
-      console.error(err)
+  };
+
+  useEffect(() => {
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  }, [messages, isTyping]);
+
+  useEffect(() => {
+    if (isOpen && messages.length === 0) {
+      const welcomeMessage = {
+        sender: "ai",
+        text: "Xin chào bạn, chúc bạn một ngày mới vui vẻ và bình an. Tôi có thể giúp được gì cho bạn?",
+        time: new Date(),
+      };
+      setMessages([welcomeMessage]);
     }
-  }
+  }, [isOpen]);
 
   return (
     <>
@@ -177,62 +270,158 @@ export function ChatWidget() {
 
             {/* Chat messages */}
             <div className="p-4 space-y-4 overflow-y-auto bg-gray-50/50 dark:bg-gray-800/50 flex-1">
-              {/* Tin nhắn AI */}
-              <div className="flex gap-3">
-                {/* Avatar */}
-                <img
-                  src="/ai-assistant-concept.png"
-                  alt="AI"
-                  className="h-8 w-8 rounded-full object-cover flex-shrink-0 self-end"
-                />
+            {messages.map((msg, index) => {
+              // Tin nhắn: Agent tìm được
+              if (msg.type === "agent") {
+                return (
+                  <div className="flex gap-3" key={index}>
+                    <img
+                      src="/ai-assistant-concept.png"
+                      className="h-8 w-8 rounded-full object-cover flex-shrink-0"
+                      alt="AI"
+                    />
+                    <div className="flex flex-col max-w-[80%]">
+                      <div className="bg-blue-50 border border-blue-200 text-blue-900
+                                      dark:bg-blue-900/20 dark:border-blue-700 dark:text-blue-300
+                                      rounded-2xl px-4 py-3 shadow-sm text-sm">
+                        <p className="font-semibold">🎉 Tôi đã tìm được nhân viên phù hợp!</p>
 
-                {/* Tin nhắn và timeline */}
-                <div className="flex flex-col max-w-[80%]">
-                  {/* Khung tin nhắn */}
-                  <div
-                    className="bg-white dark:bg-gray-800 rounded-2xl rounded-tl-sm px-4 py-2 shadow-sm 
-                    text-gray-800 dark:text-gray-100 text-sm text-left break-words"
-                    style={{ lineHeight: "1.35rem" }}
-                  >
-                    Xin chào Nguyễn Văn A 👋. Hôm nay tôi có thể giúp gì cho bạn?
-                  </div>
-                  {/* Timeline */}
-                  <span className="text-xs text-gray-500 mt-1 dark:text-gray-400 text-left block">
-                    08:16 AM
-                  </span>
-                </div>
-              </div>
+                        <div className="mt-2 bg-white rounded-lg p-3 shadow-inner
+                                        text-gray-700 dark:bg-gray-800 dark:text-gray-200">
+                          <p className="font-semibold">👩 {msg.agent.name}</p>
+                          <p>Cấp độ: {msg.agent.levelName}</p>
+                          <p>Đang hỗ trợ: {msg.agent.load} khách</p>
+                        </div>
 
-              {/* Tin nhắn người dùng */}
-              <div className="flex justify-end">
-                <div className="flex flex-col items-end max-w-[80%]">
-                  <div className="bg-blue-600 text-white rounded-2xl rounded-br-sm px-4 py-2 shadow-sm text-sm leading-relaxed break-words">
-                    Thông tin chi tiết về trang này
-                  </div>
-                  <span className="text-xs text-gray-500 mt-1 dark:text-gray-400 text-right">08:17 AM</span>
-                </div>
-              </div>
+                        <button className="mt-3 w-full py-2 rounded-lg
+                                          bg-blue-600 text-white hover:bg-blue-700
+                                          dark:bg-blue-700 dark:hover:bg-blue-600">
+                          Kết nối nhân viên
+                        </button>
+                      </div>
 
-              {/* Tin nhắn AI đang gõ */}
-              <div className="flex items-end gap-3">
-                <img
-                  src="/ai-assistant-concept.png"
-                  alt="AI"
-                  className="h-8 w-8 rounded-full flex-shrink-0 object-cover"
-                />
-                <div className="flex flex-col items-start max-w-[80%]">
-                  <div className="bg-white dark:bg-gray-800 rounded-2xl rounded-tl-sm px-4 py-2 shadow-sm">
-                    <div className="flex gap-1 items-center">
-                      <div className="w-2 h-2 rounded-full bg-gray-400 animate-bounce" />
-                      <div className="w-2 h-2 rounded-full bg-gray-400 animate-bounce delay-150" />
-                      <div className="w-2 h-2 rounded-full bg-gray-400 animate-bounce delay-300" />
+                      <span className="text-xs text-gray-500 mt-1 dark:text-gray-400">
+                        {formatTime(msg.time)}
+                      </span>
                     </div>
                   </div>
-                  <span className="text-xs text-gray-500 mt-1 dark:text-gray-400">Đang soạn...</span>
-                </div>
-              </div>
-            </div>
+                );
+              }
 
+              // Tin nhắn: Không có agent
+              if (msg.type === "no-agent") {
+                return (
+                  <div className="flex gap-3" key={index}>
+                    <img
+                      src="/ai-assistant-concept.png"
+                      className="h-8 w-8 rounded-full object-cover flex-shrink-0"
+                      alt="AI"
+                    />
+                    <div className="flex flex-col max-w-[80%]">
+                      <div className="bg-orange-50 border border-orange-200 text-orange-900
+                                      dark:bg-orange-900/20 dark:border-orange-700 dark:text-orange-300
+                                      rounded-2xl px-4 py-3 shadow-sm text-sm">
+                        <p className="font-semibold">⚠ Không tìm thấy nhân viên phù hợp</p>
+                        <p className="mt-1">
+                          Vui lòng thử mô tả rõ hơn yêu cầu hoặc thử lại sau nhé!
+                        </p>
+                      </div>
+
+                      <span className="text-xs text-gray-500 mt-1 dark:text-gray-400">
+                        {formatTime(msg.time)}
+                      </span>
+                    </div>
+                  </div>
+                );
+              }
+
+              // Tin nhắn AI
+              if (msg.sender === "ai") {
+                return (
+                  <div className="flex gap-3" key={index}>
+                    <img src="/ai-assistant-concept.png" className="h-8 w-8 rounded-full" />
+
+                    <div className="flex flex-col max-w-[80%]">
+                      <div className="bg-white dark:bg-gray-800 rounded-2xl rounded-tl-sm px-4 py-2 shadow-sm 
+                                  text-gray-800 dark:text-gray-100 text-sm text-left break-words">
+                        {msg.text}
+                      </div>
+
+                      <span className="text-xs text-gray-500 mt-1">{formatTime(msg.time)}</span>
+                    </div>
+                  </div>
+                );
+              }
+
+              if (msg.type === "image") {
+                return (
+                  <div className="flex justify-end" key={index}>
+                    <div className="flex flex-col max-w-[80%]">
+                      <img
+                        src={msg.url}
+                        alt="User upload"
+                        className="rounded-xl max-w-full max-h-64 shadow-sm"
+                      />
+                      <span className="text-xs text-gray-500 mt-1 dark:text-gray-400">{formatTime(msg.time)}</span>
+                    </div>
+                  </div>
+                );
+              }
+
+              if (msg.type === "file") {
+                return (
+                  <div className="flex justify-end" key={index}>
+                    <div className="flex flex-col max-w-[80%]">
+                      <a
+                        href={URL.createObjectURL(msg.file)}
+                        download={msg.name}
+                        className="flex items-center gap-2 px-3 py-2 bg-gray-100 dark:bg-gray-800 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-700 text-sm text-gray-800 dark:text-gray-100"
+                      >
+                        📎 {msg.name}
+                      </a>
+                      <span className="text-xs text-gray-500 mt-1 dark:text-gray-400">{formatTime(msg.time)}</span>
+                    </div>
+                  </div>
+                );
+              }  
+
+              // Tin nhắn user
+              return (
+                <div className="flex justify-end" key={index}>
+                  <div className="flex flex-col items-end max-w-[80%]">
+                    <div className="bg-blue-600 text-white rounded-2xl rounded-br-sm px-4 py-2 shadow-sm text-sm">
+                      {msg.text}
+                    </div>
+
+                    <span className="text-xs text-gray-500 mt-1">{formatTime(msg.time)}</span>
+                  </div>
+                </div>
+              );
+            })}
+
+
+              {/* AI đang gõ */}
+              {isTyping && (
+                <div className="flex items-end gap-3">
+                  <img
+                    src="/ai-assistant-concept.png"
+                    alt="AI"
+                    className="h-8 w-8 rounded-full flex-shrink-0 object-cover"
+                  />
+                  <div className="flex flex-col items-start max-w-[80%]">
+                    <div className="bg-white dark:bg-gray-800 rounded-2xl rounded-tl-sm px-4 py-2 shadow-sm">
+                      <div className="flex gap-1 items-center">
+                        <div className="w-2 h-2 rounded-full bg-gray-400 animate-bounce" />
+                        <div className="w-2 h-2 rounded-full bg-gray-400 animate-bounce delay-150" />
+                        <div className="w-2 h-2 rounded-full bg-gray-400 animate-bounce delay-300" />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              <div ref={messagesEndRef} />
+            </div>
 
             {/* Input area */}
             <div className="p-4 border-t border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900">
@@ -251,6 +440,7 @@ export function ChatWidget() {
                   ref={inputRef}
                   type="text"
                   value={message}
+                  onKeyDown={handleKeyDown}
                   onChange={handleInputChange}
                   onClick={handleInputClick}
                   placeholder={t("answer")}
@@ -293,10 +483,10 @@ export function ChatWidget() {
                 {showEmojiPicker && (
                   <div
                     ref={emojiPickerRef}
-                    className="absolute bottom-16 left-2 z-50"
+                    className="fixed bottom-24 right-105 z-50"
                   >
                     <EmojiPicker
-                      onEmojiClick={handleEmojiClick}
+                      onEmojiClick={(emoji) => handleEmojiClick(emoji)}
                       autoFocusSearch={false}
                       height={350}
                       width={300}

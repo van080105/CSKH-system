@@ -10,20 +10,43 @@ export function ServiceFeedback({ showCustomerInfo = true}) {
   const [rating, setRating] = useState(3)
   const [feedback, setFeedback] = useState("")
   const [ticketId, setTicketId] = useState("")
-
+  const userInfo = JSON.parse(localStorage.getItem("user"))
+  const userRole = userInfo?.role || "guest"
+  console.log(userRole)
   const handleSubmit = async (formId) => {
-    try{
-      const token = localStorage.getItem("token");
-      const customerID = JSON.parse(localStorage.getItem("user")).id
-      const res = await fetch(`http://localhost:8000/customer/feedbackform/${formId}`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" , "Authorization": `Bearer ${token}` },
-        body: JSON.stringify({ feedback, rating }),
-        query: JSON.stringify({ customerID, formId })
-      })
-    } catch(error){
-      console.error("Error submitting feedback:", error)
+    if(userRole === "Customer"){
+      try{
+        const token = localStorage.getItem("token");
+        const customerID = JSON.parse(localStorage.getItem("user")).id
+        const res = await fetch(`http://localhost:8000/customer/feedbackform/${formId}`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" , "Authorization": `Bearer ${token}` },
+          body: JSON.stringify({ feedback, rating }),
+          query: JSON.stringify({ customerID, formId })
+        })
+
+        if(!res.ok) throw new Error(res.statusText)
+      } catch(error){
+        console.error("Error submitting feedback:", error)
+      }
     }
+
+    else{
+      try{
+        const res = await fetch(`http://localhost:8080/guest/make_FB_form`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json"},
+          body: JSON.stringify({ 
+            rating: rating,
+            content: feedback
+          }),
+        })
+        if(!res.ok) throw new Error(res.statusText)
+      } catch(error){
+        console.error("Error submitting feedback:", error)
+      }
+    }
+
   }
 
   const [provinces, setProvinces] = useState([]);
@@ -204,7 +227,7 @@ export function ServiceFeedback({ showCustomerInfo = true}) {
                   <Hash size={20} />
                 </button>
               </div>
-              <p className="text-sm text-gray-500 dark:text-gray-400">File định kèm không vượt quá 200MB</p>
+              <p className="text-sm text-gray-500 dark:text-gray-400">File đính kèm không vượt quá 200MB</p>
             </div>
 
             {/* Submit Button */}

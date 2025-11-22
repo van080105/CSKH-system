@@ -1,7 +1,7 @@
 import { Building2, Headphones, ShoppingCart, Apple, Star, Gift, Users } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { motion } from "framer-motion";
-import { ChatWidget } from "./ChatWidget";
+import { ChatWidget } from "../components/ChatWidget";
 import { useState } from "react";
 
 const cardVariants = {

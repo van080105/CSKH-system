@@ -249,6 +249,11 @@ i18n.use(LanguageDetector).use(initReactI18next).init({
         responsibleField : "Lĩnh vực phụ trách",
         editProfile : "Chỉnh sửa thông tin cá nhân",
         serviceFeedback : "Phản hồi dịch vụ",
+        customerInfo: "Thông tin khách hàng",
+        ticketInformation: "Thông tin ticket",
+        agentInformation: "Thông tin nhân viên",
+        customerID: "ID Khách hàng",
+        sentDate: "Ngày gửi",
         // Thêm các key khác...
       },
     },
@@ -499,6 +504,11 @@ i18n.use(LanguageDetector).use(initReactI18next).init({
         responsibleField : "Responsible field",
         editProfile : "Edit Profile",
         serviceFeedback : "Service Feedback",
+        customerInfo: "Customer Information",
+        ticketInformation: "Ticket Information",
+        agentInformation: "Agent Information",
+        customerID: "Customer ID",
+        sentDate: "Sent Date",
         // Add more keys...
       },
     },

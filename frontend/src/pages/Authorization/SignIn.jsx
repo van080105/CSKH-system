@@ -4,6 +4,7 @@ import { useState, useEffect } from "react"
 import { useNavigate } from "react-router-dom"
 import { Eye, EyeOff, Check } from "lucide-react"
 import { motion, AnimatePresence } from "framer-motion"
+import validateLogin from "../../utils/validateLogin"
 
 export function SignIn() {
   const navigate = useNavigate()
@@ -11,70 +12,73 @@ export function SignIn() {
   const [formData, setFormData] = useState({ email: "", password: "" })
   const [submitStatus, setSubmitStatus] = useState(null) // null | "success" | "error"
   const [loading, setLoading] = useState(false) // state to handle loading
+  const [errors, setErrors] = useState({ email: "", password: "" });
+  const [lastSubmit, setLastSubmit] = useState(0);
 
   useEffect(() => {
-    const users = JSON.parse(localStorage.getItem("users")) || []
-    if (users.length === 0) {
-      const defaultUsers = [
-        { email: "admin@example.com", password: "admin123", role: "admin" },
-        { email: "agent@example.com", password: "agent123", role: "agent" },
-        { email: "customer@example.com", password: "customer123", role: "customer" },
-      ]
-      localStorage.setItem("users", JSON.stringify(defaultUsers))
+    if (!localStorage.getItem("typing_start")) {
+      localStorage.setItem("typing_start", Date.now());
     }
-  }, [])
-
+  }, []);
+  
   const handleChange = (e) => {
     const { name, value } = e.target
     setFormData((prev) => ({ ...prev, [name]: value }))
     setSubmitStatus(null)
+    setErrors((prev) => ({ ...prev, [name]: "" }));
   }
 
   const handleSubmit = async (e) => {
-    if (e) e.preventDefault()
+    if (e) e.preventDefault();
 
-    const { email, password } = formData
+    const now = Date.now();
+    if (now - lastSubmit < 1200) {
+      return alert("Bạn thao tác quá nhanh, vui lòng thử lại sau.");
+    }
+    setLastSubmit(now);
 
-    // Validate form data before submitting
-    if (!email || !password) {
-      setSubmitStatus("error")
-      return
+    const { valid, errors: validationErrors } = await validateLogin(formData);
+
+    if (!valid) {
+      setErrors(validationErrors);
+      setSubmitStatus("error");
+      return;
     }
 
-    setLoading(true)
-    setSubmitStatus(null)
+    setLoading(true);
+    setSubmitStatus(null);
 
     try {
       const response = await fetch("http://localhost:8080/api/auth/login", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ email, password }),
-      })
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      });
 
-      const data = await response.json()
+      const data = await response.json();
 
       if (response.ok && data.user) {
-        setSubmitStatus("success")
-        localStorage.setItem("user", JSON.stringify(data.user))
-        localStorage.setItem("token", data.token)
+        setSubmitStatus("success");
+        localStorage.setItem("user", JSON.stringify(data.user));
+        localStorage.setItem("token", data.token);
+
         setTimeout(() => {
-          if (data.user.role.toLowerCase() === "admin") navigate("/admin/dashboard")
-          else if (data.user.role.toLowerCase() === "agent") navigate("/agent/inbox")
-          else navigate("/customer/")
-        }, 2100)
+          if (data.user.role.toLowerCase() === "admin") navigate("/admin/dashboard");
+          else if (data.user.role.toLowerCase() === "agent") navigate("/agent/inbox");
+          else navigate("/customer/");
+        }, 2100);
       } else {
-        setSubmitStatus("error")
-        alert(data.message || "Đăng nhập thất bại!")
+        setSubmitStatus("error");
+        alert("Thông tin đăng nhập không chính xác");
       }
     } catch (error) {
-      setSubmitStatus("error")
-      alert("Có lỗi khi kết nối đến máy chủ!")
+      setSubmitStatus("error");
+      alert("Có lỗi khi kết nối đến máy chủ!");
     } finally {
-      setLoading(false)
+      setLoading(false);
     }
-  }
+  };
+
 
   const handleResetData = () => {
     localStorage.removeItem("users")
@@ -158,7 +162,8 @@ export function SignIn() {
                   submitStatus === "error" ? "border-red-500 animate-shake" : "border-gray-300 focus:ring-2 focus:ring-blue-500"
                 }`}
               />
-              <span className="absolute right-3 top-3 text-gray-400">✉️</span>
+              <span className="absolute right-3 top-3 text-gray-400">✉️</span>              
+              {errors.email && <p className="text-red-500 text-sm mt-1">{errors.email}</p>}
             </div>
 
             <div className="relative">
@@ -179,6 +184,8 @@ export function SignIn() {
               >
                 {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
               </button>
+              
+              {errors.password && <p className="text-red-500 text-sm mt-1">{errors.password}</p>}
             </div>
 
             <motion.button
