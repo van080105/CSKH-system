@@ -6,6 +6,7 @@ import EmojiPicker from "emoji-picker-react"
 import { useTranslation } from "react-i18next"
 import { ChatbotFeedback } from "../pages/Feedbacks/ChatbotFeedback"
 import formatTime from "../utils/formatTime"
+import useChatSocket from "../hooks/useChatSocket"
 
 export function ChatWidget() {
   const [isOpen, setIsOpen] = useState(false)
@@ -24,6 +25,8 @@ export function ChatWidget() {
   const [messages, setMessages] = useState([]);
   const [isTyping, setIsTyping] = useState(false);
   const messagesEndRef = useRef(null);
+  const [sessionId, setSessionId] = useState(null);
+
   const handleImageClick = () => fileInputRef.current?.click()
   const handleAttachClick = () => attachInputRef.current?.click()
 
@@ -120,6 +123,32 @@ export function ChatWidget() {
     return () => document.removeEventListener("mousedown", handleOutsideClick)
   }, [showFeedback])
 
+  const { sendMessage } = useChatSocket({
+      sessionId,
+      role: "user",
+      onMessage: (data) => {
+        // data: { from: "user"|"agent", msg, agentId? }
+        setMessages((prev) => [
+          ...prev,
+          {
+            sender: data.from === "agent" ? "agent" : "user",
+            text: data.msg,
+            time: new Date(),
+          },
+        ]);
+      },
+      onSessionClose: () => {
+        setMessages((prev) => [
+          ...prev,
+          {
+            sender: "system",
+            text: "Nhân viên đã đóng phiên hỗ trợ.",
+            time: new Date(),
+          },
+        ]);
+      },
+    });
+
   const handleSendMessage = async () => {
     if (!message.trim()) return;
 
@@ -129,12 +158,16 @@ export function ChatWidget() {
       time: new Date(),
     };
 
-    // thêm tin nhắn user vào danh sách
     setMessages(prev => [...prev, userMessage]);
-    setMessage("");
+    if(sessionId) {
+      sendMessage(message)
+      setMessage("");
+      return;
+    }
 
     // bật trạng thái "AI đang gõ"
     setIsTyping(true);
+    setMessage("");
 
     try {
       const res = await fetch("http://localhost:8080/api/chat", {
@@ -293,9 +326,14 @@ export function ChatWidget() {
                           <p>Đang hỗ trợ: {msg.agent.load} khách</p>
                         </div>
 
-                        <button className="mt-3 w-full py-2 rounded-lg
-                                          bg-blue-600 text-white hover:bg-blue-700
-                                          dark:bg-blue-700 dark:hover:bg-blue-600">
+                        <button 
+                        onClick={() => {
+                          const id = crypto.randomUUID();
+                          setSessionId(id);
+                        }}
+                        className="mt-3 w-full py-2 rounded-lg
+                                  bg-blue-600 text-white hover:bg-blue-700
+                                  dark:bg-blue-700 dark:hover:bg-blue-600">
                           Kết nối nhân viên
                         </button>
                       </div>

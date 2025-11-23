@@ -18,7 +18,7 @@ import { ManageCustomers } from "./pages/Users/ManageCustomers";
 import { ReportForm } from "./pages/Statistics/ReportForm";
 
 import { ManageForms } from "./pages/Tickets/ManageForms";
-import { AgentTickets } from "./pages/Tickets/AgentTickets";
+import  AgentTickets  from "./pages/Tickets/AgentTickets";
 import { CustomerTickets } from "./pages/Tickets/CustomerTickets";
 
 import { Profile } from "./pages/Profile";

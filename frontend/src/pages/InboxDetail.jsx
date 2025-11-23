@@ -1,6 +1,7 @@
 import { useParams, useNavigate } from "react-router-dom"
 import { ArrowLeft, Send, Bot, User, Headphones, Smile } from "lucide-react"
 import { useState, useEffect } from "react"
+import useChatSocket from "../hooks/useChatSocket"
 
 const mockChat = [
   { from: "customer", name: "Nguyễn Văn A", text: "Mình muốn hỏi về iPhone 16 Pro Max có màu Natural Titanium còn không?", time: "10:40 AM" },
@@ -25,12 +26,38 @@ export function InboxDetail() {
   const [messages, setMessages] = useState(mockChat)
   const [reply, setReply] = useState("")
 
+  const user = JSON.parse(localStorage.getItem("user") || "{}");
+  const agentName = user?.fullname || "Agent";
+
+  const { sendMessage } = useChatSocket({
+    sessionId: id,
+    role: "agent",
+    agentId: user?.id || null,
+    onMessage: (data) => {
+      // map server payload -> format hiển thị
+      const from = data.from === "agent" ? "agent" : data.from === "user" ? "customer" : data.from;
+      setMessages((prev) => [
+        ...prev,
+        { from, name: from === "agent" ? (data.agentName || agentName) : "Khách", text: data.msg, time: new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }) }
+      ]);
+    },
+    onSessionClose: () => {
+      setMessages((prev) => [
+        ...prev,
+        { from: "system", name: "", text: "Phiên đã được đóng.", time: new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }) }
+      ]);
+    }
+  });
   const handleSend = () => {
-    if (!reply.trim()) return
+    if (!reply.trim()) return;
+    // gửi qua socket
+    sendMessage(reply);
+
+    // hiển thị lập tức ở UI
     setMessages([
       ...messages,
-      { from: "agent", name: "Minh (CSKH)", text: reply, time: new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }) }
-    ])
+      { from: "agent", name: agentName, text: reply, time: new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }) }
+    ]);
     setReply("")
   }
 

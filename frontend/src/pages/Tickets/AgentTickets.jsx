@@ -1,196 +1,141 @@
-"use client"
-
-import {
-  Search,
-  Filter,
-  ChevronLeft,
-  ChevronRight,
-  X,
-} from "lucide-react"
-import { useState, useMemo } from "react"
-import { useTranslation } from "react-i18next"
-
-const ticketsData = [
-  { 
-    id: 42321, 
-    name: "Nguyễn Văn A", 
-    title: "Không thể đăng nhập vào tài khoản", 
-    status: "Open", 
-    role: "Khách hàng",
-    category: "Hỗ trợ kỹ thuật",
-    content: "Tôi không thể đăng nhập vào tài khoản của mình sau khi reset mật khẩu.",
-    responseContent: "Chúng tôi đã kiểm tra và xác nhận tài khoản của bạn đang bị khóa do thử đăng nhập sai nhiều lần. Vui lòng thử lại sau 30 phút."
-  },
-  { 
-    id: 42322, 
-    name: "Nguyễn Văn B", 
-    title: "Yêu cầu hoàn tiền đơn hàng #1234", 
-    status: "Pending", 
-    role: "Khách hàng",
-    category: "Vấn đề thanh toán",
-    content: "Tôi yêu cầu hoàn tiền cho đơn hàng vì sản phẩm không đúng như mô tả.",
-    responseContent: "Chúng tôi đã nhận được yêu cầu hoàn tiền của bạn và sẽ xử lý trong vòng 7 ngày làm việc."
-  },
-  { 
-    id: 42323, 
-    name: "Nguyễn Văn C", 
-    title: "Lỗi khi thanh toán bằng thẻ VISA", 
-    status: "In progress", 
-    role: "Khách hàng",
-    category: "Vấn đề thanh toán",
-    content: "Tôi không thể thanh toán đơn hàng sử dụng thẻ VISA. Lỗi xảy ra khi nhập thông tin thẻ.",
-    responseContent: "Chúng tôi đã xác nhận lỗi thanh toán và đang tiến hành kiểm tra với ngân hàng phát hành thẻ VISA."
-  },
-  { 
-    id: 42324, 
-    name: "Nguyễn Văn D", 
-    title: "Không nhận được email xác nhận", 
-    status: "Completed", 
-    role: "Khách hàng",
-    category: "Hỗ trợ kỹ thuật",
-    content: "Tôi đã đăng ký tài khoản nhưng không nhận được email xác nhận.",
-    responseContent: "Chúng tôi đã xác nhận email của bạn và đã gửi lại email xác nhận. Vui lòng kiểm tra hộp thư rác nếu không thấy."
-  },
-  { 
-    id: 42325, 
-    name: "Nguyễn Văn E", 
-    title: "Đề xuất tính năng mới", 
-    status: "Closed", 
-    role: "Khách hàng",
-    category: "Góp ý và phản hồi",
-    content: "Tôi đề xuất tính năng hỗ trợ thanh toán qua ví điện tử.",
-    responseContent: "Cảm ơn bạn đã đóng góp ý kiến. Chúng tôi sẽ xem xét và cập nhật trong phiên bản tiếp theo."
-  },
-  { 
-    id: 42326, 
-    name: "Nguyễn Văn A", 
-    title: "Cần hỗ trợ đổi mật khẩu", 
-    status: "Open", 
-    role: "Khách hàng",
-    category: "Hỗ trợ kỹ thuật",
-    content: "Tôi yêu cầu hỗ trợ thay đổi mật khẩu vì quên mật khẩu hiện tại.",
-    responseContent: "Chúng tôi đã gửi yêu cầu đặt lại mật khẩu qua email của bạn. Vui lòng làm theo hướng dẫn trong email."
-  },
-  { 
-    id: 42327, 
-    name: "Nguyễn Văn B", 
-    title: "Giao diện bị lỗi trên mobile", 
-    status: "Pending", 
-    role: "Khách hàng",
-    category: "Hỗ trợ kỹ thuật",
-    content: "Tôi phản ánh rằng giao diện của trang web bị lỗi khi truy cập trên thiết bị di động.",
-    responseContent: "Chúng tôi đã ghi nhận lỗi này và đang tiến hành kiểm tra để cập nhật bản vá lỗi trong thời gian sớm nhất."
-  },
-  { 
-    id: 42328, 
-    name: "Nguyễn Văn F", 
-    title: "Không tải được tài liệu hướng dẫn", 
-    status: "Open", 
-    role: "Khách hàng",
-    category: "Góp ý và phản hồi",
-    content: "Tôi không thể tải được tài liệu hướng dẫn từ website.",
-    responseContent: "Chúng tôi đã kiểm tra và đang tiến hành khắc phục sự cố tải tài liệu. Bạn có thể thử lại sau."
-  },
-  { 
-    id: 42329, 
-    name: "Nguyễn Văn G", 
-    title: "Hỗ trợ kích hoạt tài khoản công ty", 
-    status: "In progress", 
-    role: "Khách hàng",
-    category: "Hỗ trợ kỹ thuật",
-    content: "Tôi muốn hỗ trợ kích hoạt tài khoản cho công ty.",
-    responseContent: "Chúng tôi đã nhận yêu cầu và sẽ tiến hành kích hoạt tài khoản trong vòng 48 giờ làm việc."
-  },
-  { 
-    id: 42330, 
-    name: "Nguyễn Văn H", 
-    title: "Thanh toán thất bại nhiều lần", 
-    status: "Open", 
-    role: "Khách hàng",
-    category: "Vấn đề Thanh toán",
-    content: "Tôi gặp sự cố khi thanh toán, thanh toán liên tục thất bại dù đã thử nhiều lần.",
-    responseContent: "Chúng tôi đang kiểm tra sự cố và sẽ liên hệ với bạn ngay khi có kết quả."
-  }
-];
-
+import { useState, useMemo, useEffect } from "react";
+import { useTranslation } from "react-i18next";
+import { Search, Filter, ChevronLeft, ChevronRight, X } from "lucide-react";
 
 const statusStyles = {
-  Open: "bg-blue-50 text-blue-700 dark:bg-blue-600/20 dark:text-blue-300",
-  Pending: "bg-orange-50 text-orange-700 dark:bg-orange-600/20 dark:text-orange-300",
-  Completed: "bg-emerald-50 text-emerald-700 dark:bg-emerald-600/20 dark:text-emerald-300",
-  Closed: "bg-red-50 text-red-700 dark:bg-red-600/20 dark:text-red-300",
-  "In progress": "bg-blue-50 text-blue-700 dark:bg-blue-600/20 dark:text-blue-300",
-}
+  "Chưa trả lời":
+    "bg-orange-50 text-orange-700 dark:bg-orange-600/20 dark:text-orange-300",
+  "Đã trả lời":
+    "bg-emerald-50 text-emerald-700 dark:bg-emerald-600/20 dark:text-emerald-300",
+  "Đang xử lý":
+    "bg-blue-50 text-blue-700 dark:bg-blue-600/20 dark:text-blue-300",
+};
 
-export function AgentTickets() {
-  const [selectedTickets, setSelectedTickets] = useState([])
+export default function AgentTickets() {
+  const [ticketsData, setTicketsData] = useState([]); // ✔ dữ liệu thật từ API
+  const [selectedTicket, setSelectedTicket] = useState(null);
+  const [selectedTickets, setSelectedTickets] = useState([]);
   const [escalatedTickets, setEscalatedTickets] = useState([]);
-  const [searchTerm, setSearchTerm] = useState("")
-  const [statusFilter, setStatusFilter] = useState("")
-  const [categoryFilter, setCategoryFilter] = useState("")
-  const [nameFilter, setNameFilter] = useState("")
-  const [linesPerPage, setLinesPerPage] = useState(10)
-  const [page, setPage] = useState(1)
-  const [selectedTicket, setSelectedTicket] = useState(null)
-  const { t } = useTranslation()
+  const [searchTerm, setSearchTerm] = useState("");
+  const [statusFilter, setStatusFilter] = useState("");
+  const [categoryFilter, setCategoryFilter] = useState("");
+  const [nameFilter, setNameFilter] = useState("");
+  const [typeFilter, setTypeFilter] = useState("");
+  const [linesPerPage, setLinesPerPage] = useState(10);
+  const [page, setPage] = useState(1);
+  const { t } = useTranslation();
+  // ============================
+  // 🚀 FETCH API
+  // ============================
+  const fetchTickets = async () => {
+    try {
+      const token = localStorage.getItem("token");
 
-  // --- Filtering & Searching ---
+      const response = await fetch("http://localhost:8080/agent/form", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      if (!response.ok) throw new Error("Failed to fetch");
+
+      const data = await response.json();
+      console.log(data)
+      setTicketsData(data);
+    } catch (error) {
+      console.error("Error fetching tickets:", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchTickets();
+  }, []);
+
   const filteredTickets = useMemo(() => {
-    const normalize = (str) =>
-      str
+    const normalize = (value) =>
+      value
+        ?.toString()
         .toLowerCase()
         .normalize("NFD")
-        .replace(/[\u0300-\u036f]/g, "") // loại bỏ dấu
-        .trim()
-
-    const search = normalize(searchTerm)
+        .replace(/[\u0300-\u036f]/g, "");
 
     return ticketsData.filter((ticket) => {
-      const idMatch = ticket.id.toString().includes(search)
-      const nameMatch = normalize(ticket.name).includes(search)
-      const titleMatch = normalize(ticket.title).includes(search)
-      const statusMatch = normalize(ticket.status).includes(search)
+      const id = ticket.FormID?.join("") || "";
+      const name = ticket.AgentID?.toString() || "";
+      const title = ticket.Title || "";
+      const status = ticket.Stt || "";
 
-      const matchesSearch = idMatch || nameMatch || titleMatch || statusMatch
-      const matchesStatus = statusFilter ? ticket.status === statusFilter : true
-      const matchesCategory = categoryFilter ? ticket.category === categoryFilter : true
-      const matchesName = nameFilter ? ticket.name === nameFilter : true
+      const matchesSearch =
+        normalize(id).includes(normalize(searchTerm)) ||
+        normalize(name).includes(normalize(searchTerm)) ||
+        normalize(title).includes(normalize(searchTerm)) ||
+        normalize(status).includes(normalize(searchTerm));
 
-      return matchesSearch && matchesStatus && matchesName && matchesCategory
-    })
-  }, [searchTerm, statusFilter, nameFilter, categoryFilter])
+      const matchesStatus = statusFilter ? ticket.Stt === statusFilter : true;
+      const matchesCategory = categoryFilter ? ticket.Typ === categoryFilter : true;
+      const matchesName = nameFilter ? ticket.AgentID.toString() === nameFilter : true;
 
+      const isEscalated = escalatedTickets.includes(ticket.FormID); // ID của ticket bị escalate
+      const matchesType =
+        typeFilter === "escalated" ? isEscalated :
+        typeFilter === "normal" ? !isEscalated :
+        true;
 
+      return matchesSearch && matchesStatus && matchesCategory && matchesName && matchesType;
+    }).sort((a,b) => {
+			const priority = {
+				"Chưa trả lời": 1,
+				"Đang xử lý": 2,
+				"Đã trả lời": 3,
+			};
+			return priority[a.Stt] - priority[b.Stt];			
+		});
+  }, [searchTerm, statusFilter, categoryFilter, nameFilter,typeFilter, ticketsData]);
+
+    const toggleSelectAll = () => {
+    if (selectedTickets.length === paginatedTickets.length) {
+      setSelectedTickets([]);
+    } else {
+      setSelectedTickets(paginatedTickets.map((_, i) => i));
+    }
+  };
+
+  const toggleSelect = (index) => {
+    if (selectedTickets.includes(index)) {
+      setSelectedTickets(selectedTickets.filter((i) => i !== index));
+    } else {
+      setSelectedTickets([...selectedTickets, index]);
+    }
+  };
   // --- Pagination ---
-  const totalPages = Math.ceil(filteredTickets.length / linesPerPage)
-  const startIdx = (page - 1) * linesPerPage
-  const endIdx = Math.min(startIdx + linesPerPage, filteredTickets.length)
-  const paginatedTickets = filteredTickets.slice(startIdx, endIdx)
+  const totalPages = Math.ceil(filteredTickets.length / linesPerPage);
+  const startIdx = (page - 1) * linesPerPage;
+  const endIdx = Math.min(startIdx + linesPerPage, filteredTickets.length);
+  const paginatedTickets = filteredTickets.slice(startIdx, endIdx);
 
-  const uniqueNames = [...new Set(ticketsData.map((t) => t.name))]
-  const uniqueStatuses = [...new Set(ticketsData.map((t) => t.status))]
-  const uniqueCategories = [...new Set(ticketsData.map((t) => t.category))]
+  const uniqueNames = [...new Set(ticketsData.map((t) => t.AgentID?.toString()))];
+  const uniqueStatuses = [...new Set(ticketsData.map((t) => t.Stt))];
+  const uniqueCategories = [...new Set(ticketsData.map((t) => t.Typ))];
+
+  // ============================
+  // 📌 ESCALATE HANDLER
+  // ============================
+  const handleEscalate = (ticket) => {
+    setEscalatedTickets([...escalatedTickets, ticket]);
+  };
 
   return (
     <div className="p-6 relative">
-      {/* Header Controls */}
+      {/* HEADER FILTERS */}
       <div className="bg-white dark:bg-gray-900 rounded-xl border border-gray-200 dark:border-gray-700">
         <div className="p-4 flex flex-wrap items-center gap-3">
+
           <button className="p-2 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg">
             <Filter className="h-5 w-5 text-gray-600 dark:text-gray-300" />
           </button>
 
-          {/* Name Filter */}
-          <select
-            value={nameFilter}
-            onChange={(e) => setNameFilter(e.target.value)}
-            className="px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-lg text-sm bg-white dark:bg-gray-800 text-gray-800 dark:text-gray-200"
-          >
-            <option value="">{t("allNames")}</option>
-            {uniqueNames.map((n) => (
-              <option key={n} value={n}>{n}</option>
-            ))}
-          </select>
 
           {/* Status Filter */}
           <select
@@ -204,6 +149,17 @@ export function AgentTickets() {
             ))}
           </select>
 
+          {/* Type Filter (Escalated / Normal) */}
+          <select
+            value={typeFilter}
+            onChange={(e) => setTypeFilter(e.target.value)}
+            className="px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-lg text-sm bg-white dark:bg-gray-800 text-gray-800 dark:text-gray-200"
+          >
+            <option value="">{t("allTicketsType")}</option>
+            <option value="escalated">{t("escalatedFromAgent")}</option>
+            <option value="normal">{t("normalTickets")}</option>
+          </select>
+
           {/* Category Filter */}
           <select
             value={categoryFilter}
@@ -211,8 +167,8 @@ export function AgentTickets() {
             className="px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-lg text-sm bg-white dark:bg-gray-800 text-gray-800 dark:text-gray-200"
           >
             <option value="">{t("allCategories")}</option>
-            {uniqueCategories.map((s) => (
-              <option key={s} value={s}>{s}</option>
+            {uniqueCategories.map((c) => (
+              <option key={c} value={c}>{c}</option>
             ))}
           </select>
 
@@ -224,34 +180,35 @@ export function AgentTickets() {
               placeholder={t("searchForTicket")}
               value={searchTerm}
               onChange={(e) => {
-                setSearchTerm(e.target.value)
-                setPage(1)
+                setSearchTerm(e.target.value);
+                setPage(1);
               }}
               className="w-full pl-9 pr-4 py-2 border border-gray-300 dark:border-gray-700 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-indigo-500"
             />
           </div>
-
         </div>
 
-        {/* Table */}
+        {/* TABLE */}
         <div className="overflow-x-auto">
           <table className="w-full table-fixed">
             <thead className="bg-gray-50 dark:bg-gray-800 border-y border-gray-200 dark:border-gray-700">
               <tr>
-                <th className="px-4 py-3 text-left text-xs font-semibold text-gray-600 dark:text-gray-300 uppercase">
-                  ID
+                <th className="w-[40px] px-4 py-3 text-left">
+                  <input
+                    type="checkbox"
+                    checked={selectedTickets.length === paginatedTickets.length}
+                    onChange={toggleSelectAll}
+                    className="rounded border-gray-300 dark:border-gray-600"
+                  />
                 </th>
                 <th className="px-4 py-3 text-left text-xs font-semibold text-gray-600 dark:text-gray-300 uppercase">
-                  {t("fullName")}
+                  ID
                 </th>
                 <th className="px-4 py-3 text-left text-xs font-semibold text-gray-600 dark:text-gray-300 uppercase">
                   {t("title")}
                 </th>
                 <th className="px-4 py-3 text-left text-xs font-semibold text-gray-600 dark:text-gray-300 uppercase">
                   {t("status")}
-                </th>
-                <th className="px-4 py-3 text-left text-xs font-semibold text-gray-600 dark:text-gray-300 uppercase">
-                  {t("role")}
                 </th>
                 <th className="px-4 py-3 text-left text-xs font-semibold text-gray-600 dark:text-gray-300 uppercase">
                   {t("category")}
@@ -262,56 +219,52 @@ export function AgentTickets() {
               </tr>
             </thead>
 
-            <tbody className="divide-y divide-gray-200 dark:divide-gray-700">
-              {paginatedTickets.map((ticket, index) => {
-                const isEscalated = escalatedTickets.some((t) => t.id === ticket.id);
-                return (
-                  <tr
-                    key={index}
-                    className={`
-                      ${isEscalated
-                        ? "bg-orange-50 dark:bg-orange-900/30" // màu cho ticket đã chuyển
-                        : index % 2 === 1
-                        ? "bg-gray-50 dark:bg-gray-800"
-                        : "bg-white dark:bg-gray-900"
-                      }
-                      hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors
-                    `}
-                  >
-                    <td className="px-4 py-3 text-sm text-gray-900 dark:text-gray-100">{ticket.id}</td>
-                    <td className="px-4 py-3 text-sm font-medium text-gray-900 dark:text-white">{ticket.name}</td>
-                    <td className="px-4 py-3 text-sm text-gray-600 dark:text-gray-300 max-w-xs truncate">{ticket.title}</td>
-                    <td className="px-4 py-3">
-                      <div className="flex flex-col">
-                        <span className={`inline-flex px-2 py-1 text-xs font-medium rounded ${statusStyles[ticket.status]}`}>
-                          {ticket.status}
-                        </span>
-                        {isEscalated && (
-                          <span className="mt-1 inline-flex px-2 py-0.5 text-[10px] font-semibold rounded bg-orange-200 text-orange-800 dark:bg-orange-700/40 dark:text-orange-300">
-                            {t("hasEscalatedToAdmin")}
-                          </span>
-                        )}
-                      </div>
-                    </td>
-                    <td className="px-4 py-3 text-sm text-gray-600 dark:text-gray-300">{ticket.role}</td>
-                    <td className="px-4 py-3 text-sm text-gray-600 dark:text-gray-300">{ticket.category}</td>
-                    <td className="px-4 py-3">
-                      <button
-                        onClick={() => setSelectedTicket(ticket)}
-                        className="text-sm text-indigo-600 dark:text-indigo-400 hover:underline"
-                      >
-                        {t("viewMore")}
-                      </button>
-                    </td>
-                  </tr>
-                );
-              })}
+            <tbody className="divide-y">
+              {paginatedTickets.map((ticket,index) => (
+                <tr 
+                  key={ticket.FormID?.[0]}
+                  className={`${
+                    index % 2 === 1 ? "bg-gray-50 dark:bg-gray-800" : "bg-white dark:bg-gray-900"
+                  } hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors`}                  
+                >
+                  <td className="w-[40px] px-4 py-3">
+                    <input
+                      type="checkbox"
+                      checked={selectedTickets.includes(index)}
+                      onChange={() => toggleSelect(index)}
+                      className="rounded border-gray-300 dark:border-gray-600"
+                    />
+                  </td>                  
+                  <td className="px-4 py-3 text-sm text-gray-900 dark:text-gray-100">{ticket.FormID?.[0]}</td>
+
+                  <td className="px-4 py-3 text-sm text-gray-600 dark:text-gray-300 max-w-xs truncate">
+                    {ticket.Title}
+                  </td>
+
+                  <td className="px-4 py-3">
+                    <span className={`inline-flex px-2 py-1 text-xs font-medium rounded ${statusStyles[ticket.Stt]}`}>
+                      {ticket.Stt}
+                    </span>
+                  </td>
+
+                  <td className="px-4 py-3 text-sm text-gray-600 dark:text-gray-300">{ticket.Typ}</td>
+
+                  <td className="px-4 py-3">
+                    <button
+                      onClick={() => setSelectedTicket(ticket)}
+                      className="text-sm text-indigo-600 dark:text-indigo-400 hover:underline"
+                    >
+                      {t("viewMore")}
+                    </button>
+                  </td>
+
+                </tr>
+              ))}
             </tbody>
           </table>
         </div>
 
-
-        {/* Pagination */}
+        {/* PAGINATION */}
         <div className="px-4 py-3 border-t border-gray-200 dark:border-gray-700 flex items-center justify-between">
           <p className="text-sm text-gray-600 dark:text-gray-400">
             {`${startIdx + 1}-${endIdx} ${t("of") || "of"} ${filteredTickets.length}`}
@@ -348,19 +301,6 @@ export function AgentTickets() {
         </div>
       </div>
 
-      {/* Tickets được chuyển lên Admin */}
-      {escalatedTickets.length > 0 && (
-        <div className="mt-4 p-4 border border-orange-300 bg-orange-50 rounded-lg text-sm text-orange-700 dark:bg-orange-900/30 dark:border-orange-700 dark:text-orange-300">
-          <p className="font-semibold mb-2">Ticket đã chuyển lên Admin:</p>
-          <ul className="list-disc ml-5 space-y-1">
-            {escalatedTickets.map((t) => (
-              <li key={t.id}>#{t.id} - {t.title}</li>
-            ))}
-          </ul>
-        </div>
-      )}
-
-      {/* Overlay Modal */}
       {selectedTicket && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 dark:bg-black/60 backdrop-blur-sm transition-all">
           <div
@@ -370,7 +310,7 @@ export function AgentTickets() {
             {/* Header */}
             <div className="flex items-center justify-between px-6 py-4 border-b border-gray-200 dark:border-gray-700">
               <h2 className="text-lg font-semibold text-gray-900 dark:text-gray-100">
-                🧾 {t("ticketDetails")}
+                🧾 Chi tiết Ticket #{selectedTicket.FormID?.[0]}
               </h2>
               <button
                 onClick={() => setSelectedTicket(null)}
@@ -382,6 +322,8 @@ export function AgentTickets() {
 
             {/* Body */}
             <div className="px-6 py-5 space-y-4 max-h-[70vh] overflow-y-auto">
+
+              {/* ID + Status */}
               <div className="grid grid-cols-2 gap-4">
                 <div>
                   <label className="block text-sm font-medium text-gray-600 dark:text-gray-400 mb-1">
@@ -389,157 +331,148 @@ export function AgentTickets() {
                   </label>
                   <input
                     type="text"
-                    value={selectedTicket.id}
+                    value={selectedTicket.FormID?.[0]}
                     readOnly
-                    className="w-full rounded-lg border border-gray-300 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-gray-100 px-3 py-2 text-sm focus:outline-none"
+                    className="w-full rounded-lg border border-gray-300 dark:border-gray-700 bg-gray-50 
+                    dark:bg-gray-800 text-gray-900 dark:text-gray-100 px-3 py-2 text-sm"
                   />
                 </div>
+
                 <div>
                   <label className="block text-sm font-medium text-gray-600 dark:text-gray-400 mb-1">
-                    {t("status")}
+                    Trạng thái
                   </label>
-                  <select
-                    disabled
-                    defaultValue={selectedTicket.status}
-                    className="w-full rounded-lg border border-gray-300 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-gray-100 px-3 py-2 text-sm focus:ring-2 focus:ring-indigo-500 focus:outline-none"
-                  >
-                    <option>Open</option>
-                    <option>Pending</option>
-                    <option>In progress</option>
-                    <option>Completed</option>
-                    <option>Closed</option>
-                  </select>
+                  <input
+                    readOnly
+                    value={selectedTicket.Stt}
+                    className="w-full rounded-lg border border-gray-300 dark:border-gray-700 bg-gray-50 
+                    dark:bg-gray-800 text-gray-900 dark:text-gray-100 px-3 py-2 text-sm"
+                  />
                 </div>
               </div>
 
+              {/* Agent */}
               <div>
                 <label className="block text-sm font-medium text-gray-600 dark:text-gray-400 mb-1">
-                  {t("fullName")}
+                  Agent ID
                 </label>
                 <input
                   readOnly
-                  type="text"
-                  defaultValue={selectedTicket.name}
-                  className="w-full rounded-lg border border-gray-300 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-gray-100 px-3 py-2 text-sm focus:ring-2 focus:ring-indigo-500 focus:outline-none"
+                  value={selectedTicket.AgentID}
+                  className="w-full rounded-lg border border-gray-300 dark:border-gray-700 bg-gray-50 
+                  dark:bg-gray-800 text-gray-900 dark:text-gray-100 px-3 py-2 text-sm"
                 />
               </div>
 
+              {/* Title */}
               <div>
                 <label className="block text-sm font-medium text-gray-600 dark:text-gray-400 mb-1">
-                  {t("title")}
+                  Tiêu đề
                 </label>
                 <textarea
                   readOnly
-                  defaultValue={selectedTicket.title}
                   rows={3}
-                  className="w-full rounded-lg border border-gray-300 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-gray-100 px-3 py-2 text-sm resize-none focus:ring-2 focus:ring-indigo-500 focus:outline-none"
+                  value={selectedTicket.Title}
+                  className="w-full rounded-lg border border-gray-300 dark:border-gray-700 bg-gray-50 
+                  dark:bg-gray-800 text-gray-900 dark:text-gray-100 px-3 py-2 text-sm resize-none"
                 ></textarea>
               </div>
 
+              {/* Category */}
               <div>
                 <label className="block text-sm font-medium text-gray-600 dark:text-gray-400 mb-1">
-                  {t("role")}
+                  Loại
                 </label>
                 <input
                   readOnly
-                  type="text"
-                  defaultValue={selectedTicket.role}
-                  className="w-full rounded-lg border border-gray-300 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-gray-100 px-3 py-2 text-sm focus:ring-2 focus:ring-indigo-500 focus:outline-none"
+                  value={selectedTicket.Typ}
+                  className="w-full rounded-lg border border-gray-300 dark:border-gray-700 bg-gray-50 
+                  dark:bg-gray-800 text-gray-900 dark:text-gray-100 px-3 py-2 text-sm"
                 />
               </div>
 
+              {/* Content */}
               <div>
                 <label className="block text-sm font-medium text-gray-600 dark:text-gray-400 mb-1">
-                  {t("category")}
-                </label>
-                <input
-                  readOnly
-                  type="text"
-                  defaultValue={selectedTicket.category}
-                  className="w-full rounded-lg border border-gray-300 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-gray-100 px-3 py-2 text-sm focus:ring-2 focus:ring-indigo-500 focus:outline-none"
-                />
-              </div>
-
-              <div>
-                <label className="block text-sm font-medium text-gray-600 dark:text-gray-400 mb-1">
-                  {t("content")}
+                  Nội dung khách gửi
                 </label>
                 <textarea
                   readOnly
-                  defaultValue={selectedTicket.content}
                   rows={3}
-                  className="w-full rounded-lg border border-gray-300 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-gray-100 px-3 py-2 text-sm resize-none focus:ring-2 focus:ring-indigo-500 focus:outline-none"
+                  value={selectedTicket.Content}
+                  className="w-full rounded-lg border border-gray-300 dark:border-gray-700 bg-gray-50 
+                  dark:bg-gray-800 text-gray-900 dark:text-gray-100 px-3 py-2 text-sm resize-none"
                 ></textarea>
               </div>
 
+              {/* Response */}
               <div>
                 <label className="block text-sm font-medium text-gray-600 dark:text-gray-400 mb-1">
-                  {t("responseContent")}
+                  Nội dung phản hồi
                 </label>
                 <textarea
-                  readOnly={escalatedTickets.some((t) => t.id === selectedTicket.id)}
-                  // disabled={escalatedTickets.some((t) => t.id === selectedTicket.id)}
-                  defaultValue={selectedTicket.responseContent}
                   rows={3}
-                  className="w-full rounded-lg border border-gray-300 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-gray-100 px-3 py-2 text-sm resize-none focus:ring-2 focus:ring-indigo-500 focus:outline-none"
+                  defaultValue={selectedTicket.resContent}
+                  readOnly={escalatedTickets.some(
+                    (t) => t.FormID?.[0] === selectedTicket.FormID?.[0]
+                  )}
+                  className="w-full rounded-lg border border-gray-300 dark:border-gray-700 bg-gray-50 
+                  dark:bg-gray-800 text-gray-900 dark:text-gray-100 px-3 py-2 text-sm resize-none"
                 ></textarea>
               </div>
-
             </div>
 
             {/* Footer */}
             <div className="flex justify-end gap-3 px-6 py-4 border-t border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800/60">
+
+              {/* Cancel */}
               <button
                 onClick={() => setSelectedTicket(null)}
-                className="px-4 py-2 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
+                className="px-4 py-2 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-300 
+                hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
               >
-                {t("cancel")}
+                Đóng
               </button>
 
-              {/* Nút Chuyển lên Admin */}
+              {/* Escalate */}
               <button
-                onClick={() => {
-                  const alreadyEscalated = escalatedTickets.some(
-                    (t) => t.id === selectedTicket.id
-                  );
-                  if (!alreadyEscalated) {
-                    setEscalatedTickets((prev) => [...prev, selectedTicket]);
-                    alert(`Ticket #${selectedTicket.id} đã được chuyển lên Admin để xử lý.`);
-                  } else {
-                    alert(`Ticket #${selectedTicket.id} đã được chuyển trước đó.`);
-                  }
-                  setSelectedTicket(null);
-                }}
-                disabled={escalatedTickets.some((t) => t.id === selectedTicket.id)} // nếu đã chuyển thì disable
+                onClick={() => handleEscalate(selectedTicket)}
+                disabled={escalatedTickets.some(
+                  (t) => t.FormID?.[0] === selectedTicket.FormID?.[0]
+                )}
                 className={`px-4 py-2 rounded-lg text-sm font-medium text-white transition-colors
                   ${
-                    escalatedTickets.some((t) => t.id === selectedTicket.id)
+                    escalatedTickets.some(
+                      (t) => t.FormID?.[0] === selectedTicket.FormID?.[0]
+                    )
                       ? "bg-gray-400 cursor-not-allowed"
                       : "bg-orange-500 hover:bg-orange-600"
                   }`}
               >
-                {t("escalateToAdmin")}
+                Chuyển lên Admin
               </button>
 
-              {/* Nút Lưu thay đổi */}
+              {/* Save */}
               <button
-                disabled={escalatedTickets.some((t) => t.id === selectedTicket.id)} // disable nếu đã escalated
+                disabled={escalatedTickets.some(
+                  (t) => t.FormID?.[0] === selectedTicket.FormID?.[0]
+                )}
                 onClick={() => setSelectedTicket(null)}
                 className={`px-4 py-2 rounded-lg text-sm font-medium text-white transition-colors
                   ${
-                    escalatedTickets.some((t) => t.id === selectedTicket.id)
+                    escalatedTickets.some(
+                      (t) => t.FormID?.[0] === selectedTicket.FormID?.[0]
+                    )
                       ? "bg-gray-400 cursor-not-allowed"
                       : "bg-indigo-600 hover:bg-indigo-700"
                   }`}
               >
-                {t("saveChanges")}
+                Lưu thay đổi
               </button>
             </div>
-
           </div>
         </div>
       )}
-
     </div>
-  )
+  );
 }

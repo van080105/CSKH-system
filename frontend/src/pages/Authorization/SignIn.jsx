@@ -79,14 +79,6 @@ export function SignIn() {
     }
   };
 
-
-  const handleResetData = () => {
-    localStorage.removeItem("users")
-    localStorage.removeItem("user")
-    alert("🧹 Đã xoá dữ liệu test khỏi localStorage!")
-    window.location.reload()
-  }
-
   // Variants for gradient animation
   const gradientVariants = {
     animate: {

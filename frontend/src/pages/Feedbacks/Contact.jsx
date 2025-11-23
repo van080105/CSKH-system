@@ -4,8 +4,8 @@ import { useState, useEffect } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import { Loader2, CheckCircle, Mail, Sparkles} from "lucide-react"
 
-import Particles from "react-tsparticles";
-import { loadFull } from "tsparticles";
+import Particles, { initParticlesEngine } from "@tsparticles/react"
+import { loadSlim } from "@tsparticles/slim"  
 
 import { useTranslation } from "react-i18next"
 import CategoryDropdown from "../../components/CategoryDropdown"
@@ -15,6 +15,7 @@ import playSound from "../../utils/playSound"
 export default function Contact() {
   const { t } = useTranslation()
   const user = JSON.parse(localStorage.getItem("user"))
+  console.log(user)
   const userRole = user?.role || "guest"
   const [formData, setFormData] = useState({
     fullName: userRole === "Customer" ? user.fullname : "", 
@@ -30,6 +31,7 @@ export default function Contact() {
     message: "",
     category: "",
   });
+  const [init, setInit] = useState(false)
 
   const validateForm = () => {
     const newErrors = {};
@@ -138,9 +140,11 @@ export default function Contact() {
     else setHint("")
   }, [formData.message, t])
 
-  const particlesInit = async (main) => {
-    await loadFull(main)
-  }
+  useEffect(() => {
+    initParticlesEngine(async (engine) => {
+      await loadSlim(engine) 
+    }).then(() => setInit(true))
+  }, [])
 
   const handleChange = (e) => {
     const { name, value } = e.target
@@ -179,7 +183,6 @@ export default function Contact() {
     <div className="relative min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 via-white to-cyan-50 dark:from-gray-900 dark:via-gray-950 dark:to-black overflow-hidden px-6 py-16">
       <Particles
         id="tsparticles"
-        init={particlesInit}
         options={{
           background: { color: { value: "transparent" } },
           fpsLimit: 60,
