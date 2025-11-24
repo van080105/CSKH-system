@@ -1,4 +1,4 @@
-import { getPool } from '../../config/database.js';
+import { getPool } from '../../config/db.js';
 import fs from 'fs';
 import sql from 'mssql';
 const get_order = async(req,res) =>

@@ -13,7 +13,7 @@ import faqRoutes from "./routes/faqRoutes.js";
 import chatbotRoutes from "./routes/chatbotRoutes.js";
 import agentRoutes from "./routes/agentRoutes.js";
 import assignFormRoutes from "./routes/assignFormRoutes.js";
-
+import classifyTableRoutes from './routes/class_Tb_routes.js'
 import chatRoutes from "./routes/chatRoutes.js";
 import agentSuggestionRoutes from "./routes/agentSuggestionRoutes.js";
 import realtimeRoutes from "./routes/realtimeRoutes.js"; 
@@ -25,54 +25,59 @@ import { loadVectorStore } from "./rag/ragCore.js";
 import customerRoutes from './routes/customer/index.js';
 import adminRoute from './routes/admin/index.js';
 import guestRoutes from './routes/guest/index.js';
-import agentRoutes from './routes/agent/index.js';
-import cors  from ('cors');
-app.use(cors({
-  origin: 'http://localhost:6660' 
-}));
-dotenv.config();
-const app = express();
-app.use(express.json());
-app.use('/classifyTable',classifyTableRoutes)
-app.use('/customer', customerRoutes);
-app.use('/admin', adminRoute);
-app.use('/guest', guestRoutes);
-app.use('/agent', agentRoutes);
-app.use("/api/auth", authRoutes);
-app.use("/api", protectedRoutes); 
-app.use("/api/accounts", accountRoutes);
-app.use('/api/notifications', notificationRoutes);
-app.use('/api/faq', faqRoutes);
-app.use("/api/chatbots", chatbotRoutes);
-app.use("/api", agentRoutes);
-app.use("/api/forms", assignFormRoutes);
+const start_server = async () => {
+  const app = express();
   app.use(cors({
-    origin: 'http://localhost:6660',
+    origin: 'http://localhost:6660' 
   }));
-  app.use("/api/realtime", realtimeRoutes);
-  app.use("/api/chat", chatRoutes);
-  app.use("/api", agentSuggestionRoutes);
+  dotenv.config();
 
-  app.use(errorHandler);
+  app.use(express.json());
+  app.use('/classifyTable',classifyTableRoutes)
+  app.use('/customer', customerRoutes);
+  app.use('/admin', adminRoute);
+  app.use('/guest', guestRoutes);
+  app.use('/agent', agentRoutes);
+  app.use("/api/auth", authRoutes);
+  app.use("/api", protectedRoutes); 
+  app.use("/api/accounts", accountRoutes);
+  app.use('/api/notifications', notificationRoutes);
+  app.use('/api/faq', faqRoutes);
+  app.use("/api/chatbots", chatbotRoutes);
+  app.use("/api", agentRoutes);
+  app.use("/api/forms", assignFormRoutes);
+   
+    app.use("/api/realtime", realtimeRoutes);
+    app.use("/api/chat", chatRoutes);
+    app.use("/api", agentSuggestionRoutes);
 
-  const server = http.createServer(app);
-  const io = new Server(server, {
-    cors: {
-      origin: "http://localhost:6660"
-      //origin: "*"
+    app.use(errorHandler);
+
+    const server = http.createServer(app);
+    const io = new Server(server, {
+      cors: {
+        origin: "http://localhost:6660"
+        //origin: "*"
+      }
+    });
+
+    chatSocket(io);
+    console.log("Loading vector store...");
+    await loadVectorStore();
+    console.log("Vector store loaded successfully.");
+    const port = process.env.PORT || 8080;
+    server.listen(port, () => {
+      console.log(`Server is running with socket.io on port ${port}`);
+    });
+
+
+
+}
+(async () => {
+    try {
+        start_server()
     }
-  });
-
-  chatSocket(io);
-  console.log("Loading vector store...");
-  await loadVectorStore();
-  console.log("Vector store loaded successfully.");
-  const port = process.env.PORT || 8080;
-  server.listen(port, () => {
-    console.log(`Server is running with socket.io on port ${port}`);
-  });
-
-
-startServer().catch((err) => {
-  console.error("Fatal error starting server:", err);
-});
+    catch (error) {
+        console.error('Failed to start the server:', error)
+    }
+})()

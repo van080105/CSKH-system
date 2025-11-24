@@ -1,7 +1,7 @@
 
 import fs from 'fs';
 import sql from 'mssql';
-import { getPool } from '../config/database.js';
+import { getPool } from '../config/db.js';
 const getClassTb = async (req,res) => {
   const pool = await getPool();
   if(!pool)

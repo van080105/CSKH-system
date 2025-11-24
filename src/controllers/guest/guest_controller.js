@@ -1,5 +1,5 @@
 
-import { getPool } from '../../config/database.js';
+import { getPool } from '../../config/db.js';
 import fs from 'fs';
 import sql from 'mssql';
 const post_FB_form = async (req,res) =>{

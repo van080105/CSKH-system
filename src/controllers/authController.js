@@ -40,10 +40,9 @@ export const changePassword = async (req, res) => {
     res.status(400).json({ error: error.message });
   }
 };
-<<<<<<< HEAD
 
-=======
->>>>>>> 72f3f522718a99850218f338bf6aab0d715df8d9
+
+
 export const logout = async (req, res) => {
   try {
     const token = req.header("Authorization")?.replace("Bearer ", "");
@@ -53,8 +52,5 @@ export const logout = async (req, res) => {
     res.status(400).json({ error: error.message });
   }
 };
-<<<<<<< HEAD
 
-=======
->>>>>>> 72f3f522718a99850218f338bf6aab0d715df8d9
 

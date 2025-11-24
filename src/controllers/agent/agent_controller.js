@@ -1,5 +1,5 @@
 const sql = require('mssql')
-const { getPool } = require('../../config/database.js')
+const { getPool } = require('../../config/db.js')
 const fs = require('fs')
 const get_form = async (req, res) =>
 {
