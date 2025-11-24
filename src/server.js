@@ -25,6 +25,7 @@ import { loadVectorStore } from "./rag/ragCore.js";
 import customerRoutes from './routes/customer/index.js';
 import adminRoute from './routes/admin/index.js';
 import guestRoutes from './routes/guest/index.js';
+import agent_Route from './routes/agent/index.js'
 const start_server = async () => {
   const app = express();
   app.use(cors({
@@ -37,6 +38,7 @@ const start_server = async () => {
   app.use('/customer', customerRoutes);
   app.use('/admin', adminRoute);
   app.use('/guest', guestRoutes);
+  app.use('/agent',agent_Route);
   app.use('/agent', agentRoutes);
   app.use("/api/auth", authRoutes);
   app.use("/api", protectedRoutes); 

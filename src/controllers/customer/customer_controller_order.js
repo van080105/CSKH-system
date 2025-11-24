@@ -17,7 +17,7 @@ group by o.OrderID, o.OrderDate, o.Stt, o.DeliveryAddress, oi.OrderItemID, oi.qu
   {
     return res.status(404).json({message:'Customer not found'});
   }
-  res.json(result.recordset[0]);}
+  res.json(result.recordset);}
 catch (err)
 { console.error('Error in get_form controller:', err.message);
   res.status(500).json({ message:'Internal Server Error' })}
