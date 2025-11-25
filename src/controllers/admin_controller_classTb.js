@@ -14,7 +14,8 @@ const getClassTb = async (req,res) => {
     {
       return res.status(404).json({message:'ClassifyTable Not Found'})
     }
-    return res.status(200).json(result.recordset)
+    console.log(result.recordset)
+    return res.status(200).json({data:result.recordset})
   }
   catch(err)
   {
