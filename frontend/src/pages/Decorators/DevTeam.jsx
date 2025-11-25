@@ -2,8 +2,6 @@
 import { useTranslation } from "react-i18next"
 import { motion } from "framer-motion"
 import Tilt from "react-parallax-tilt"
-import Particles from "react-tsparticles"
-import { loadFull } from "tsparticles"
 import { Mail } from "lucide-react"
 
 export function DevTeamPage() {
@@ -15,27 +13,6 @@ export function DevTeamPage() {
     { id: 3, name: "Huỳnh Kim Quý", role: "Admin", email: "kimquyhuynh@gmail.com", image: "/man-with-glasses-dark.jpg" },
     { id: 4, name: "Nguyễn Thị Cẩm Vân", role: "Admin", email: "vannguyen@gmail.com", image: "/woman-red.jpg" },
   ]
-
-  // Particle config (đổi sang tone xanh dương)
-  const particlesInit = async (engine) => {
-    await loadFull(engine)
-  }
-
-  const particlesOptions = {
-    background: { color: { value: "transparent" } },
-    fpsLimit: 60,
-    interactivity: { events: { onHover: { enable: true, mode: "repulse" } } },
-    particles: {
-      color: { value: ["#818cf8", "#3b82f6", "#1e40af"] }, // indigo → blue
-      links: { enable: false },
-      move: { enable: true, speed: 0.8 },
-      number: { value: 80, density: { enable: true, area: 800 } },
-      opacity: { value: 0.6 },
-      shape: { type: "circle" },
-      size: { value: { min: 1, max: 3 } },
-    },
-    detectRetina: true,
-  }
 
   const playHoverSound = () => {
     const context = new (window.AudioContext || window.webkitAudioContext)()
@@ -69,10 +46,6 @@ export function DevTeamPage() {
     <div className="relative min-h-screen bg-gradient-to-br from-blue-50 via-white to-indigo-50 
                     dark:from-gray-950 dark:via-gray-900 dark:to-gray-950 
                     transition-colors duration-500 p-6 overflow-hidden">
-
-      {/* Particles */}
-      <Particles id="tsparticles" init={particlesInit} options={particlesOptions} className="absolute inset-0 z-0" />
-
       {/* Header */}
       <motion.div
         initial={{ opacity: 0, y: -30 }}
