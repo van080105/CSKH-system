@@ -11,6 +11,7 @@
     "cleanProd": "rmdir /s /q dist"
   },
   "dependencies": {
+    "@google/generative-ai": "^0.24.1",
     "@headlessui/react": "^2.2.9",
     "@react-pdf/renderer": "^4.3.1",
     "@tailwindcss/vite": "^4.1.14",
