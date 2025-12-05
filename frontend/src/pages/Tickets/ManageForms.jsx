@@ -15,23 +15,71 @@ export function ManageForms() {
   const [selectedTicket, setSelectedTicket] = useState(null);
   const { t } = useTranslation();
 
-  // Fetch tickets from API
   const fetchTickets = async () => {
-    const token = localStorage.getItem("token");
-    const res = await fetch("http://localhost:8080/admin/forms", {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-    });
-    const data = await res.json();
-    setTicketsData(data); // Lưu kết quả vào state
+    try{
+      const token = localStorage.getItem("token");
+      const res = await fetch("http://localhost:8080/admin/forms", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      const data = await res.json();
+      setTicketsData(data);
+    }
+
+    catch(err){
+      console.log("Error when fetch tickets:", err)
+    }
   };
 
+  const autoAssign = async () => {
+    try{
+      const token = localStorage.getItem("token");
+      const res = await fetch("http://localhost:8080/api/forms/assign-all", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      });
+    }
+
+    catch(err){
+      console.log("Error when auto assign:", err)
+    }
+  }
+
+  const reAssign = async (selectedTicket) => {
+    try{
+      const token = localStorage.getItem("token");
+      const res = await fetch("http://localhost:8080/api/forms/reassign", {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({
+          formId: selectedTicket.FormID,
+          agentId: selectedTicket.Agent_ID,
+        }),
+      });
+      const data = await res.json();
+      console.log(data);
+      setSelectedTicket(null)
+    }
+
+    catch(err){
+      console.log("Error when re assign:", err)
+    }
+  }
+  
   useEffect(() => {
-    fetchTickets(); // Gọi API khi component mount
+    fetchTickets();
+    autoAssign();
   }, []);
+
   const escalatedTickets = []
 	const statusStyles = {
 		"Chưa trả lời": "bg-orange-50 text-orange-700 dark:bg-orange-600/20 dark:text-orange-300",
@@ -239,7 +287,7 @@ export function ManageForms() {
                     </span>
                   </td>
                   <td className="px-4 py-3 text-sm text-gray-600 dark:text-gray-300">{ticket.Typ}</td>
-                  <td className="px-4 py-3 text-sm text-gray-600 dark:text-gray-300">{ticket.Agent_name}</td>
+                  <td className="px-4 py-3 text-sm text-gray-600 dark:text-gray-300">{ticket.Agent_ID}</td>
                   <td className="px-4 py-3">
                     <button
                       onClick={() => setSelectedTicket(ticket)}
@@ -324,6 +372,7 @@ export function ManageForms() {
                 <div>
                   <label className="block text-sm font-medium text-gray-600 dark:text-gray-400 mb-1">{t("status")}</label>
                   <select
+                    disabled
                     defaultValue={selectedTicket.Stt}
                     className="w-full rounded-lg border border-gray-300 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-gray-100 px-3 py-2 text-sm focus:ring-2 focus:ring-indigo-500 focus:outline-none"
                   >
@@ -355,6 +404,7 @@ export function ManageForms() {
 										{t("fullName")}
 									</label>
 									<input
+                    readOnly
 										type="text"
 										defaultValue={selectedTicket.Cus_name}
 										className="w-full rounded-lg border border-gray-300 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-gray-100 px-3 py-2 text-sm"
@@ -364,6 +414,7 @@ export function ManageForms() {
 										{t("email")}
 									</label>
 									<input
+                    readOnly
 										type="text"
 										defaultValue={selectedTicket.Cus_email}
 										className="w-full rounded-lg border border-gray-300 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-gray-100 px-3 py-2 text-sm mt-2"
@@ -374,6 +425,7 @@ export function ManageForms() {
 										{t("address")}
 									</label>
 									<input
+                    readOnly
 										type="text"
 										defaultValue={selectedTicket.Cus_addr}
 										className="w-full rounded-lg border border-gray-300 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-gray-100 px-3 py-2 text-sm mt-2"
@@ -389,8 +441,8 @@ export function ManageForms() {
 										Form ID
 									</label>
 									<input
+                    readOnly
 										type="text"
-										readOnly
 										defaultValue={selectedTicket.FormID}
 										className="w-full rounded-lg border border-gray-300 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-gray-100 px-3 py-2 text-sm"
 									/>
@@ -420,6 +472,7 @@ export function ManageForms() {
 											{t("title")}
 										</label>
 										<textarea
+                      readOnly
 											defaultValue={selectedTicket.Title}
 											rows={2}
 											className="w-full rounded-lg border border-gray-300 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-gray-100 px-3 py-2 text-sm resize-none"
@@ -431,6 +484,7 @@ export function ManageForms() {
 											{t("category")}
 										</label>
 										<input
+                      readOnly
 											type="text"
 											defaultValue={selectedTicket.Typ}
 											className="w-full rounded-lg border border-gray-300 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-gray-100 px-3 py-2 text-sm"
@@ -454,6 +508,7 @@ export function ManageForms() {
 											{t("responseContent")}
 										</label>
 										<textarea
+                      readOnly
 											defaultValue={selectedTicket.responseContent}
 											rows={3}
 											className="w-full rounded-lg border border-gray-300 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-gray-100 px-3 py-2 text-sm resize-none"
@@ -463,37 +518,19 @@ export function ManageForms() {
 
 								<div>
 									<h2 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-3">
-										{t("agentInformation")}
+										Gán cho nhân viên
 									</h2>
 
 									<label className="block text-sm font-medium text-gray-600 dark:text-gray-400 mt-3 mb-1">
-										{t("assignToAgent")}
+										ID nhân viên
 									</label>
 									<input
 										type="text"
-										defaultValue={selectedTicket.Agent_name}
+										defaultValue={selectedTicket.Agent_ID}
+                    onChange={(e) => setSelectedTicket({ ...selectedTicket, Agent_ID: e.target.value })}
 										className="w-full rounded-lg border border-gray-300 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-gray-100 px-3 py-2 text-sm"
 									/>
-
-									<label className="block text-sm font-medium text-gray-600 dark:text-gray-400 mt-3 mb-1">
-										{t("email")}
-									</label>
-									<input
-										type="text"
-										defaultValue={selectedTicket.Agent_email}
-										className="w-full rounded-lg border border-gray-300 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-gray-100 px-3 py-2 text-sm mt-2"
-									/>
-
-									<div className="mt-3">
-										<label className="block text-sm font-medium text-gray-600 dark:text-gray-400 mb-1">
-											{t("address")}
-										</label>
-										<input
-											type="text"
-											defaultValue={selectedTicket.Agent_addr}
-											className="w-full rounded-lg border border-gray-300 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-gray-100 px-3 py-2 text-sm"
-										/>
-									</div>
+                  
 								</div>
               <div>
 						</div>	                    
@@ -507,7 +544,7 @@ export function ManageForms() {
                 {t("cancel")}
               </button>
               <button
-                onClick={() => setSelectedTicket(null)} // Cập nhật logic lưu thay đổi
+                onClick={() => reAssign(selectedTicket)} // Cập nhật logic lưu thay đổi
                 className="px-4 py-2 rounded-lg text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 transition-colors"
               >
                 {t("saveChanges")}

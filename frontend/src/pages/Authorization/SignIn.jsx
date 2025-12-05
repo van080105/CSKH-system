@@ -63,7 +63,7 @@ export function SignIn() {
         localStorage.setItem("token", data.token);
 
         setTimeout(() => {
-          if (data.user.role.toLowerCase() === "admin") navigate("/admin/dashboard");
+          if (data.user.role.toLowerCase() === "admin") navigate("/admin/users");
           else if (data.user.role.toLowerCase() === "agent") navigate("/agent/inbox");
           else navigate("/customer/");
         }, 2100);

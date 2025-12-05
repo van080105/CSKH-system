@@ -1,8 +1,9 @@
 import { Building2, Headphones, ShoppingCart, Apple, Star, Gift, Users } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { motion } from "framer-motion";
-import { ChatWidget } from "../components/ChatWidget";
+import { ChatWidget } from "./Chat/ChatWidget";
 import { useState } from "react";
+import ChatWithAgent from "./Chat/ChatWithAgent2";
 
 const cardVariants = {
   offscreen: { y: 50, opacity: 0 },
@@ -83,12 +84,20 @@ export function MainContent() {
         ))}
 
         {/* Chat Widget */}
+        {/* <motion.div
+          variants={cardVariants}
+          initial="offscreen"
+          whileInView="onscreen"
+          viewport={{ once: true, amount: 0.3 }}
+        >
+          <ChatWithAgent />
+        </motion.div> */}
+
         <motion.div
           variants={cardVariants}
           initial="offscreen"
           whileInView="onscreen"
           viewport={{ once: true, amount: 0.3 }}
-          className="col-span-full md:col-span-3 mt-8"
         >
           <ChatWidget />
         </motion.div>

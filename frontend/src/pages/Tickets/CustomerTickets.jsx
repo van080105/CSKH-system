@@ -4,6 +4,7 @@ import { useTranslation } from "react-i18next";
 import GlassmorphismModal from "../../components/Modal/GlassMorphismModal";
 import FloatingInput from "../../components/Form/FloatingInput"; 
 import normalize from "../../utils/normalize";
+import ServiceFeedback  from "../../pages/Feedbacks/ServiceFeedback";
 
 export function CustomerTickets() {
   const [ticketsData, setTicketsData] = useState([]);
@@ -15,6 +16,7 @@ export function CustomerTickets() {
   const [selectedTicket, setSelectedTicket] = useState(null);
   const [isOverlayVisible, setIsOverlayVisible] = useState(false);
   const { t } = useTranslation();
+  const [showFeedback, setShowFeedback] = useState(false);
 
   const fetchTicketsData = async () => {
     try {
@@ -30,6 +32,7 @@ export function CustomerTickets() {
         throw new Error("Failed to fetch tickets data");
       }
       const data = await response.json();
+      console.log(data)
       setTicketsData(data);
     } catch (error) {
       console.error("Error fetching tickets:", error);
@@ -243,52 +246,78 @@ export function CustomerTickets() {
 
           {/* Modal */}
           {isOverlayVisible && selectedTicket && (
-            <GlassmorphismModal onClose={() => setIsOverlayVisible(false)}>
-              <div className="space-y-4">
+            <GlassmorphismModal onClose={() => { 
+                setIsOverlayVisible(false);
+                setShowFeedback(false);
+            }}>
+              
+              {/* Nếu đang bật Feedback thì hiển thị Feedback Form */}
+              {showFeedback ? (
+                  <ServiceFeedback 
+                    showCustomerInfo={true}
+                    formId={selectedTicket.FormID[0]}
+                  />
+              ) : (
+                <div className="space-y-4">
 
-                <div className="flex justify-between items-center mb-4">
-                  <h3 className="text-2xl font-semibold text-white">
-                    {selectedTicket.Title}
-                  </h3>
-                  <button onClick={() => setIsOverlayVisible(false)} className="text-white">
-                    <X className="h-6 w-6" />
-                  </button>
-                </div>
-
-                <div className="grid grid-cols-2 gap-4">
-                  {/* Left Column */}
-                  <div>
-                    <FloatingInput label="Form ID" value={selectedTicket.FormID[0]} readOnly />
-                    <FloatingInput label="Status" value={selectedTicket.Stt} readOnly />
+                  <div className="flex justify-between items-center mb-4">
+                    <h3 className="text-2xl font-semibold text-white">
+                      {selectedTicket.Title}
+                    </h3>
+                    <button
+                      onClick={() => {
+                        setIsOverlayVisible(false);
+                        setShowFeedback(false);
+                      }}
+                      className="text-white"
+                    >
+                      <X className="h-6 w-6" />
+                    </button>
                   </div>
 
-                  {/* Right Column */}
-                  <div>
-                    <FloatingInput
-                      label="Sent Date"
-                      value={new Date(selectedTicket.SentDate).toLocaleDateString()}
-                      readOnly
-                    />
-                    <div className="relative pt-5">
-                      <textarea
-                        value={selectedTicket.Content}
+                  <div className="grid grid-cols-2 gap-4">
+                    {/* Left Column */}
+                    <div>
+                      <FloatingInput label="Form ID" value={selectedTicket.FormID[0]} readOnly />
+                      <FloatingInput label="Status" value={selectedTicket.Stt} readOnly />
+                    </div>
+
+                    {/* Right Column */}
+                    <div>
+                      <FloatingInput
+                        label="Sent Date"
+                        value={new Date(selectedTicket.SentDate).toLocaleDateString()}
                         readOnly
-                        rows={6}
-                        className="w-full px-4 py-3 rounded-xl backdrop-blur peer outline-none transition-all bg-white/20 border border-white/40 text-white/40 cursor-not-allowed focus:border-blue-400 focus:ring-2 focus:ring-blue-500/40 resize-none"
                       />
-                      <label
-                        className="absolute left-4 top-0 text-sm transition-all pointer-events-none text-white/40 peer-placeholder-shown:top-4 peer-placeholder-shown:text-base peer-focus:top-0 peer-focus:text-sm"
-                      >
-                        Content
-                      </label>
+
+                      <div className="relative pt-5">
+                        <textarea
+                          value={selectedTicket.Content}
+                          readOnly
+                          rows={6}
+                          className="w-full px-4 py-3 rounded-xl backdrop-blur peer outline-none transition-all bg-white/20 border border-white/40 text-white/40 cursor-not-allowed focus:border-blue-400 focus:ring-2 focus:ring-blue-500/40 resize-none"
+                        />
+                        <label className="absolute left-4 top-0 text-sm text-white/40">
+                          Content
+                        </label>
+                      </div>
                     </div>
                   </div>
-                </div>
 
-              </div>
-            </GlassmorphismModal>
-          )}
-        
+                  {/* Nút mở Feedback */}
+                  <div className="pt-4">
+                    <button
+                      onClick={() => setShowFeedback(true)}
+                      className="w-full bg-blue-600 hover:bg-blue-700 text-white py-3 rounded-lg font-semibold"
+                    >
+                      Gửi phản hồi
+                    </button>
+                  </div>
+
+                </div>
+              )}
+              </GlassmorphismModal>
+            )}
         </div>
       </div>
     </div>

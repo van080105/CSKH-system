@@ -6,7 +6,6 @@ import {
   Settings,
   LogOut,
   ShoppingBag,
-  Code,
   User2Icon,
 } from "lucide-react"
 import { NavLink, useLocation } from "react-router-dom"
@@ -110,18 +109,6 @@ export function AgentSidebar() {
         >
           <ShoppingBag className="h-4 w-4" />
           {t("productIntro")}
-        </NavLink>
-
-        <NavLink
-          to="/agent/dev-team"
-          className={({ isActive }) =>
-            `${linkClass} ${
-              isActive ? activeClass : "text-gray-600 dark:text-gray-300"
-            }`
-          }
-        >
-          <Code className="h-4 w-4" />
-          {t("devTeam")}
         </NavLink>
 
       </nav>

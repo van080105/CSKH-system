@@ -4,9 +4,10 @@ import { useState, useRef, useEffect } from "react"
 import { X, Send, Smile, ImageIcon, MessageCircle, Paperclip } from "lucide-react"
 import EmojiPicker from "emoji-picker-react"
 import { useTranslation } from "react-i18next"
-import { ChatbotFeedback } from "../pages/Feedbacks/ChatbotFeedback"
-import formatTime from "../utils/formatTime"
-import useChatSocket from "../hooks/useChatSocket"
+import { ChatbotFeedback } from "../../pages/Feedbacks/ChatbotFeedback"
+import formatTime from "../../utils/formatTime"
+import useChatSocket from "../../hooks/useChatSocket"
+import ChatWithAgent2 from "./ChatWithAgent2"
 
 export function ChatWidget() {
   const [isOpen, setIsOpen] = useState(false)
@@ -26,6 +27,7 @@ export function ChatWidget() {
   const [isTyping, setIsTyping] = useState(false);
   const messagesEndRef = useRef(null);
   const [sessionId, setSessionId] = useState(null);
+  const [showAgentChat, setShowAgentChat] = useState(false);
 
   const handleImageClick = () => fileInputRef.current?.click()
   const handleAttachClick = () => attachInputRef.current?.click()
@@ -123,7 +125,7 @@ export function ChatWidget() {
     return () => document.removeEventListener("mousedown", handleOutsideClick)
   }, [showFeedback])
 
-  const { sendMessage } = useChatSocket({
+  const { sendMessage, socket } = useChatSocket({
       sessionId,
       role: "user",
       onMessage: (data) => {
@@ -232,6 +234,14 @@ export function ChatWidget() {
     }
   }, [isOpen]);
 
+  if (showAgentChat) {
+    return (
+      <ChatWithAgent2
+
+      />
+    );
+  }
+
   return (
     <>
       {/* Overlay Feedback */}
@@ -322,6 +332,7 @@ export function ChatWidget() {
                         <div className="mt-2 bg-white rounded-lg p-3 shadow-inner
                                         text-gray-700 dark:bg-gray-800 dark:text-gray-200">
                           <p className="font-semibold">👩 {msg.agent.name}</p>
+                          <p>ID: {msg.agent.id}</p>
                           <p>Cấp độ: {msg.agent.levelName}</p>
                           <p>Đang hỗ trợ: {msg.agent.load} khách</p>
                         </div>
@@ -330,6 +341,11 @@ export function ChatWidget() {
                         onClick={() => {
                           const id = crypto.randomUUID();
                           setSessionId(id);
+                          socket.emit("invite_agent", {
+                            agentId: msg.agent.id,
+                            sessionId: id
+                          });
+                          setShowAgentChat(true);
                         }}
                         className="mt-3 w-full py-2 rounded-lg
                                   bg-blue-600 text-white hover:bg-blue-700

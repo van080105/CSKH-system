@@ -12,11 +12,12 @@ const statusStyles = {
 };
 
 export default function AgentTickets() {
-  const [ticketsData, setTicketsData] = useState([]); // ✔ dữ liệu thật từ API
+  const [ticketsData, setTicketsData] = useState([]);
   const [selectedTicket, setSelectedTicket] = useState(null);
   const [selectedTickets, setSelectedTickets] = useState([]);
   const [escalatedTickets, setEscalatedTickets] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
+  const [resContent, setResContent] = useState("");
   const [statusFilter, setStatusFilter] = useState("");
   const [categoryFilter, setCategoryFilter] = useState("");
   const [nameFilter, setNameFilter] = useState("");
@@ -42,12 +43,36 @@ export default function AgentTickets() {
       if (!response.ok) throw new Error("Failed to fetch");
 
       const data = await response.json();
-      console.log(data)
       setTicketsData(data);
+      setSelectedTicket(null);
     } catch (error) {
       console.error("Error fetching tickets:", error);
     }
   };
+
+  const replyForm = async (selectedTicket) => {
+    try {
+      const token = localStorage.getItem("token");
+      const response = await fetch("http://localhost:8080/api/reply", {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({
+          formId : selectedTicket.FormID[0], 
+          resContent : selectedTicket.resContent,
+        }),
+      });
+
+      if (!response.ok) throw new Error("Failed to reply form");
+      const data = await response.json();
+      console.log(data);
+
+    } catch (error) {
+      console.error("Error replying tickets:", error);
+    } 
+  }
 
   useEffect(() => {
     fetchTickets();
@@ -413,6 +438,7 @@ export default function AgentTickets() {
                 <textarea
                   rows={3}
                   defaultValue={selectedTicket.resContent}
+                  onChange={(e) => setSelectedTicket({ ...selectedTicket, resContent: e.target.value })}
                   readOnly={escalatedTickets.some(
                     (t) => t.FormID?.[0] === selectedTicket.FormID?.[0]
                   )}
@@ -457,7 +483,9 @@ export default function AgentTickets() {
                 disabled={escalatedTickets.some(
                   (t) => t.FormID?.[0] === selectedTicket.FormID?.[0]
                 )}
-                onClick={() => setSelectedTicket(null)}
+                onClick={() => {
+                  replyForm(selectedTicket);
+                }}
                 className={`px-4 py-2 rounded-lg text-sm font-medium text-white transition-colors
                   ${
                     escalatedTickets.some(

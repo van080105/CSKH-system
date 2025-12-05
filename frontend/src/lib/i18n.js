@@ -177,7 +177,7 @@ i18n.use(LanguageDetector).use(initReactI18next).init({
         selectTimeRange : "Khoảng thời gian",
         selectDepartment : "Phòng ban",
         selectEmployee : "Nhân viên",
-        assignedTo : "Nhân viên được gán",
+        assignedTo : "ID nhân viên được gán",
         membershipLevel : "Hạng thành viên",
         featuredModels: "Các Mẫu iPhone Nổi Bật",
         iphone17Description: "iPhone 17 với thiết kế tiên tiến, hiệu suất cực nhanh và hệ thống camera cách mạng, nâng tầm trải nghiệm chụp ảnh của bạn lên một mức độ mới.",

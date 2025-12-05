@@ -33,7 +33,7 @@ export function OrderLists() {
         const token = localStorage.getItem("token")
         const user = JSON.parse(localStorage.getItem("user"))
         if (!user?.id) return
-        const res = await fetch(`http://localhost:8080/customer/order/${user.id}`, {
+        const res = await fetch(`http://localhost:8080/customer/order`, {
           headers: {
             "Content-Type": "application/json",
             "Authorization": `Bearer ${token}`,

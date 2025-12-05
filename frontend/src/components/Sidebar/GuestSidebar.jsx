@@ -64,29 +64,6 @@ export function GuestSidebar() {
           {t("productIntro")}
         </NavLink>
 
-        <NavLink
-          to="/dev-team"
-          className={({ isActive }) =>
-            `${linkClass} ${
-              isActive ? activeClass : "text-gray-600 dark:text-gray-300"
-            }`
-          }
-        >
-          <Code className="h-4 w-4" />
-          {t("devTeam")}
-        </NavLink>
-
-        <NavLink
-          to="/service-feedback"
-          className={({ isActive }) =>
-            `${linkClass} ${
-              isActive ? activeClass : "text-gray-600 dark:text-gray-300"
-            }`
-          }
-        >
-          <MessageCircleMore className="h-4 w-4" />
-          {t("serviceFeedback")}
-        </NavLink>
       </nav>
 
       <div className="p-3 space-y-1 border-t border-gray-200 dark:border-gray-700">

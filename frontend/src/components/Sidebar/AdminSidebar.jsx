@@ -1,5 +1,4 @@
 import {
-  LayoutDashboard,
   Users,
   Ticket,
   HelpCircle,
@@ -56,16 +55,6 @@ export function AdminSidebar() {
 
       {/* Navigation */}
       <nav className="flex-1 px-3 space-y-1">
-        <NavLink
-          to="/admin/dashboard"
-          className={({ isActive }) =>
-            `${linkClass} ${isActive ? activeClass : inactiveClass}`
-          }
-        >
-          <LayoutDashboard className="h-4 w-4" />
-          Dashboard
-        </NavLink>
-
         <NavLink
           to="/admin/users"
           className={({ isActive }) =>

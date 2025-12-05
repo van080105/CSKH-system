@@ -104,7 +104,7 @@ export function ChatbotFeedback() {
 
             {/* Address */}
             <div>
-              <label className="block text-sm font-semibold mb-2">Tỉnh / Thành phố</label>
+              <label className="block text-sm font-semibold mb-2 text-gray-900 dark:text-gray-100">Tỉnh / Thành phố</label>
               <select
                 className="w-full border border-gray-300 dark:border-gray-700 px-4 py-3 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:border-blue-500 focus:outline-none"
               >
