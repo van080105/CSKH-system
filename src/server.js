@@ -1,4 +1,3 @@
-
 import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
@@ -26,19 +25,26 @@ import customerRoutes from './routes/customer/index.js';
 import adminRoute from './routes/admin/index.js';
 import guestRoutes from './routes/guest/index.js';
 import agent_Route from './routes/agent/index.js'
+
 const start_server = async () => {
-  const app = express();
-  app.use(cors({
-    origin: 'http://localhost:6660' 
-  }));
   dotenv.config();
+  
+  const app = express();
+  
+  // CORS cho Express
+  app.use(cors({
+    origin: 'http://localhost:6660',
+    credentials: true
+  }));
 
   app.use(express.json());
-  app.use('/classifyTable',classifyTableRoutes)
+  
+  // Routes
+  app.use('/classifyTable', classifyTableRoutes);
   app.use('/customer', customerRoutes);
   app.use('/admin', adminRoute);
   app.use('/guest', guestRoutes);
-  app.use('/agent',agent_Route);
+  app.use('/agent', agent_Route);
   app.use('/agent', agentRoutes);
   app.use("/api/auth", authRoutes);
   app.use("/api", protectedRoutes); 
@@ -48,38 +54,45 @@ const start_server = async () => {
   app.use("/api/chatbots", chatbotRoutes);
   app.use("/api", agentRoutes);
   app.use("/api/forms", assignFormRoutes);
-   
-    app.use("/api/realtime", realtimeRoutes);
-    app.use("/api/chat", chatRoutes);
-    app.use("/api", agentSuggestionRoutes);
+  app.use("/api/realtime", realtimeRoutes);
+  app.use("/api/chat", chatRoutes);
+  app.use("/api", agentSuggestionRoutes);
 
-    app.use(errorHandler);
+  app.use(errorHandler);
 
-    const server = http.createServer(app);
-    const io = new Server(server, {
-      cors: {
-        origin: "http://localhost:6660"
-        //origin: "*"
-      }
-    });
+  // Tạo HTTP server
+  const server = http.createServer(app);
+  
+  // Cấu hình Socket.IO với CORS đúng
+  const io = new Server(server, {
+    cors: {
+      origin: "http://localhost:6660",
+      methods: ["GET", "POST"],
+      credentials: true
+    },
+    // Thêm các options này để tránh lỗi
+    transports: ['websocket', 'polling'],
+    allowEIO3: true
+  });
 
-    chatSocket(io);
-    console.log("Loading vector store...");
-    await loadVectorStore();
-    console.log("Vector store loaded successfully.");
-    const port = process.env.PORT || 8080;
-    server.listen(port, () => {
-      console.log(`Server is running with socket.io on port ${port}`);
-    });
+  // Khởi tạo Socket handlers
+  chatSocket(io);
+  
+  console.log("Loading vector store...");
+  await loadVectorStore();
+  console.log("Vector store loaded successfully.");
+  
+  const port = process.env.PORT || 8080;
+  server.listen(port, () => {
+    console.log(`✅ Server is running on http://localhost:${port}`);
+    console.log(`✅ Socket.IO is ready on ws://localhost:${port}`);
+  });
+};
 
-
-
-}
 (async () => {
-    try {
-        start_server()
-    }
-    catch (error) {
-        console.error('Failed to start the server:', error)
-    }
-})()
+  try {
+    await start_server();
+  } catch (error) {
+    console.error('❌ Failed to start the server:', error);
+  }
+})();
