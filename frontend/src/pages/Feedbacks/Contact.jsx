@@ -15,7 +15,6 @@ import playSound from "../../utils/playSound"
 export default function Contact() {
   const { t } = useTranslation()
   const user = JSON.parse(localStorage.getItem("user"))
-  console.log(user)
   const userRole = user?.role || "guest"
   const [formData, setFormData] = useState({
     fullName: userRole === "Customer" ? user.fullname : "", 
@@ -98,10 +97,11 @@ export default function Contact() {
 
   const fetchClassifyTables = async () => {
     try {
-      const res = await fetch("http://localhost:8080/class_Tb");
+      const res = await fetch("http://localhost:8080/classifyTable");
       const data = await res.json();
-      const tree = buildTree(data); // <--- tạo cây đa cấp
-      
+      console.log(data)
+      const tree = buildTree(data.data); 
+
       setCategoriesAPI(tree);
     } catch (err) {
       console.error("Error:", err);
