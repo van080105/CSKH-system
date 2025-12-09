@@ -82,6 +82,7 @@ async function pickByMembership(pool, agents, membership) {
 // LOGIC PHÂN CÔNG THEO NGUỒN FORM
 // =====================================================
 async function assignCustomerForm(pool, formId, ignoreMembership = false) {
+  console.log('huhuhuhu')
   const cus = (await pool.request()
     .input("formId", formId)
     .query(`
@@ -348,7 +349,11 @@ export const reassignFormService = async (formId, agentId, force = false) => {
     .input("AgentID", agentId)
     .input("FormID", formId)
     .query(`INSERT INTO ReceiveForm(AgentID, FormID) VALUES(@AgentID, @FormID)`);
-
+  await pool.request()
+    .input("FormID",formId)
+    .query(`update Form
+      set Stt = N'Chưa trả lời'
+      where FormID = @FormID`)
   return {
     performed: true,
     warnings,
