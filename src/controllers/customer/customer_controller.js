@@ -33,10 +33,12 @@ const post_form = async (req,res) =>
 {
   // Implementation for posting a form
   try{
-    const id = req.params.customer
+    console.log(req.body)
+    const id = req.query.customerID
     const { title, content, type } = req.body
+    
     if (!title || !content|| !type || !id)
-    {
+    { 
       return res.status(400).json({message:'Some fields are missing'})
     }
     const pool = await getPool()
@@ -44,7 +46,7 @@ const post_form = async (req,res) =>
     {
       return res.status(503).json({message:'Service Unavailable'})
     }
-    const no_of_rows = await pool.request().query('SELECT COUNT(*) AS count FROM Form');    
+    const no_of_rows = await pool.request().query('SELECT max(FormID) AS count FROM Form');    
     const formID = no_of_rows.recordset[0].count + 1;
     const result = await pool.request()
       .input('title',sql.NVarChar,title)
