@@ -58,10 +58,13 @@ export default function Contact() {
 
   const guestCreateForm = async () => {
     try{
+      console.log(formData)
       const res = await fetch("http://localhost:8080/guest/make_form", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
+          name : formData.fullName,
+          email : formData.email,
           title : formData.title,
           content : formData.message,
           type : formData.category
@@ -78,10 +81,12 @@ export default function Contact() {
 
   const customerCreateForm = async () => {
     try{
+      console.log(user.id)
       const token = localStorage.getItem("token")
-      const res = await fetch(`http://localhost:8080/customer/make_form/${user.id}`, {
+      console.log('title!!!',formData.title)
+      const res = await fetch(`http://localhost:8080/customer/form?customerID=${user.id}`, {
         method: "POST",
-        headers: { "Content-Type": "application/json,", "Authorization": `Bearer ${token}` },
+        headers: { "Content-Type": "application/json", "Authorization": `Bearer ${token}` },
         body: JSON.stringify({
           title : formData.title,
           content : formData.message,
@@ -161,7 +166,7 @@ export default function Contact() {
     }
 
     try {
-      if(userRole === "customer"){
+      if(userRole === "Customer"){
         await customerCreateForm()
       }
       else{
