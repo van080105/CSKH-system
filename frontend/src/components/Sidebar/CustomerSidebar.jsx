@@ -79,7 +79,7 @@ export function CustomerSidebar() {
           }
         >
           <LayoutDashboard className="h-4 w-4" />
-          Order
+          Đơn hàng
         </NavLink>
 
         <NavLink
@@ -89,7 +89,7 @@ export function CustomerSidebar() {
           }
         >
           <Ticket className="h-4 w-4" />
-          Tickets
+          Forms
         </NavLink>
 
         <NavLink
