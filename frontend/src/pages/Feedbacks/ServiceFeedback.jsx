@@ -104,7 +104,7 @@ export default function ServiceFeedback({ showCustomerInfo = true, formId}) {
         {/* Ticket ID được truyền tự động */}
         {showCustomerInfo && (
           <div>
-            <label className="block text-sm font-semibold mb-1">Ticket ID</label>
+            <label className="block text-sm font-semibold mb-1">Form ID</label>
             <input
               type="text"
               value={formId}
