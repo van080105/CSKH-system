@@ -118,7 +118,7 @@ export function CustomerTickets() {
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400 dark:text-gray-500" />
             <input
               type="text"
-              placeholder={t("searchForTicket")}
+              placeholder={t("Tìm kiếm form")}
               value={searchTerm}
               onChange={(e) => {
                 setSearchTerm(e.target.value);
