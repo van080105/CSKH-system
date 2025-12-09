@@ -2,7 +2,8 @@ import { getPool } from '../../config/db.js';
 import fs from 'fs';
 import sql from 'mssql';
 const MakeFBform = async (req, res) => {
-  const { customerId, formId } = req.query;      // 🟢 Lấy từ query: /feedback?customerId=1&formId=5
+  const customerId = req.user.id
+  const { formId } = req.params;      // 🟢 Lấy từ query: /feedback?customerId=1&formId=5
   const { content, rate } = req.body;            // 🟢 Lấy từ body JSON
 
   if (!rate) {
@@ -32,7 +33,7 @@ const MakeFBform = async (req, res) => {
   }
 };
 const MakeChatbotFB = async (req, res) => {
-  const { customerID } = req.query;   // ✅ Lấy đúng tham số từ query: /feedback/chatbot?customerID=5
+  const customerID = req.user.id  // ✅ Lấy đúng tham số từ query: /feedback/chatbot?customerID=5
   const { rating } = req.body;
 
   if (!rating) {
