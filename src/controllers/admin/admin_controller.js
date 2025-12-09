@@ -9,12 +9,35 @@ const get_all_forms = async (req, res) => {
       return res.status(503).json({ message: 'Database service unavailable.' });
     }
 
-    const result = await pool.request().query(`select a.ID as Agent_ID,a.Email as Agent_email, a.Fullname as Agent_name, a.AddressAcc as Agent_addr,
-f.FormID,Title,Content,Stt,Typ,SentDate,
-b.ID as Cus_ID,b.Email as Cus_email, b.Fullname as Cus_name,b.AddressAcc as Cus_addr
-from Account a join ReceiveForm r on a.ID = r.AgentID 
-join Form f on f.FormID = r.FormID join CustomerCreate cc on cc.FormID = r.FormID
-join Account b on cc.CustomerID = b.ID`);
+    const result = await pool.request().query(`SELECT 
+    a.ID AS Agent_ID,
+    a.Email AS Agent_email,
+    a.Fullname AS Agent_name,
+    a.AddressAcc AS Agent_addr,
+
+    f.FormID,
+    f.Title,
+    f.Content,
+    f.Stt,
+    f.Typ,
+    f.SentDate,
+
+    -- Gộp Customer + Guest thành 1 cột
+    COALESCE(b.Fullname, g.Fullname) AS Cus_name,
+    COALESCE(b.Email, g.Email) AS Cus_email,
+
+   
+    b.ID AS Cus_ID,
+    b.AddressAcc AS Cus_addr
+ 
+
+FROM Account a 
+JOIN ReceiveForm r ON a.ID = r.AgentID 
+JOIN Form f ON f.FormID = r.FormID 
+LEFT JOIN CustomerCreate cc ON cc.FormID = f.FormID
+LEFT JOIN Account b ON cc.CustomerID = b.ID
+LEFT JOIN GuestCreate gc ON gc.FormID = f.FormID
+LEFT JOIN Guest g ON g.ID0 = gc.ID0`);
 
     return res.status(200).json(result.recordset);
   } catch (error) {
