@@ -147,8 +147,22 @@ export default function AgentTickets() {
   // ============================
   // 📌 ESCALATE HANDLER
   // ============================
-  const handleEscalate = (ticket) => {
+  const handleEscalate = async (ticket) => {
+    
+    const token = localStorage.getItem("token")
+    const res = await fetch("http://localhost:8080/agent/update_form", {
+        method: "PUT",
+        headers: { "Content-Type": "application/json","Authorization": `Bearer ${token}` },
+        body: JSON.stringify({
+          FormID: ticket.FormID[0]
+        }
+        ),
+      })
+      if (!res.ok) {
+        console.log("Cannot create form", res.statusText)
+      }
     setEscalatedTickets([...escalatedTickets, ticket]);
+    setSelectedTicket(null)
   };
 
   return (
@@ -175,7 +189,7 @@ export default function AgentTickets() {
           </select>
 
           {/* Type Filter (Escalated / Normal) */}
-          <select
+          {/* <select
             value={typeFilter}
             onChange={(e) => setTypeFilter(e.target.value)}
             className="px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-lg text-sm bg-white dark:bg-gray-800 text-gray-800 dark:text-gray-200"
@@ -183,7 +197,7 @@ export default function AgentTickets() {
             <option value="">{t("allTicketsType")}</option>
             <option value="escalated">{t("escalatedFromAgent")}</option>
             <option value="normal">{t("normalTickets")}</option>
-          </select>
+          </select> */}
 
           {/* Category Filter */}
           <select
@@ -202,7 +216,7 @@ export default function AgentTickets() {
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400 dark:text-gray-500" />
             <input
               type="text"
-              placeholder={t("searchForTicket")}
+              placeholder={t("Tìm kiếm Form")}
               value={searchTerm}
               onChange={(e) => {
                 setSearchTerm(e.target.value);
@@ -335,7 +349,7 @@ export default function AgentTickets() {
             {/* Header */}
             <div className="flex items-center justify-between px-6 py-4 border-b border-gray-200 dark:border-gray-700">
               <h2 className="text-lg font-semibold text-gray-900 dark:text-gray-100">
-                🧾 Chi tiết Ticket #{selectedTicket.FormID?.[0]}
+                🧾 Chi tiết Form #{selectedTicket.FormID?.[0]}
               </h2>
               <button
                 onClick={() => setSelectedTicket(null)}
