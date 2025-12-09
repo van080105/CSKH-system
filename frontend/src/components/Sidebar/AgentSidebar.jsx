@@ -66,7 +66,7 @@ export function AgentSidebar() {
           }
         >
           <User2Icon className="h-4 w-4" />
-          Customers
+          Khách hàng
         </NavLink>
 
         <NavLink
@@ -76,7 +76,7 @@ export function AgentSidebar() {
           }
         >
           <Ticket className="h-4 w-4" />
-          Tickets
+          Forms
         </NavLink>
 
         <NavLink
