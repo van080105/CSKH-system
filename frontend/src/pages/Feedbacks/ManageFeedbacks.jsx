@@ -35,29 +35,29 @@ export default function ManageFeedbacks() {
   const serviceColumns = [
     { key: "FormID", label: "FormID" },
     { key: "Cus_Id", label: "CustomerID" },
-    { key: "Cus_Name", label: "CustomerName" },
-    { key: "Cus_addr", label: "CustomerAddress" },
-    { key: "Cus_email", label: "CustomerEmail" },
+    { key: "Cus_Name", label: "Khách hàng" },
+    { key: "Cus_addr", label: "Địa chỉ" },
+    { key: "Cus_email", label: "Email" },
     { 
       key: "Rating", 
-      label: "Rating",
+      label: "Đánh giá",
       custom: (value) => <span className="text-yellow-500 font-semibold">{value} ⭐</span>
     },
-    { key: "Content", label: "Content" },
-    { key: "SentDate", label: "Sent Date" }
+    { key: "Content", label: "Nội dung" },
+   // { key: "SentDate", label: "Ngày gửi" }
   ]
 
   const chatbotColumns = [
     { key: "Cus_Id", label: "Customer ID" },
-    { key: "Cus_Name", label: "Customer Name" },
-    { key: "Cus_addr", label: "Customer Address" },
-    { key: "Cus_email", label: "Customer Email" },
+    { key: "Cus_Name", label: "Khách hàng" },
+    { key: "Cus_addr", label: "Địa chỉ" },
+    { key: "Cus_email", label: "Email" },
     { 
       key: "Rating", 
-      label: "Rating",
+      label: "Đánh giá",
       custom: (value) => <span className="text-yellow-500 font-semibold">{value} ⭐</span>
     },
-    { key: "Vers", label: "Version" }
+    { key: "Vers", label: "Phiên bản" }
   ]
 
   return (
