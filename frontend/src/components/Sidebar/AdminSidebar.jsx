@@ -72,7 +72,7 @@ export function AdminSidebar() {
           }
         >
           <Ticket className="h-4 w-4" />
-          Tickets
+          Forms
         </NavLink>
 
         <NavLink
